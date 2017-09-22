@@ -5,11 +5,12 @@
     <div class="forlogin"><p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in </p><div class="logindiv"><p>E-mail</p><input type="textbox" placeholder="Batman@comicshop.nl"><p>Password</p><input type="password" placeholder="****************"><input type="submit" value="Login"></div></div>
     
 <div class="header">
-    
     <div class="logintexts commoncolor"><div class="logowrap commoncolor">
     <div class="logo">
-    
-    <img id="lgimg" src="logo.png">
+    {% load static %}
+    <a href="/">
+        <img src="{% static 'images/logo.png' %}">
+    </a>
 
     </div>
     </div>

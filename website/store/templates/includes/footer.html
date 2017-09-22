@@ -1,6 +1,7 @@
 <div class="footer commoncolor">
-	<img src="groot.png" style="position: absolute;height: 100%;right: 0;top: 64;">
-			<p id="footcopy">© Keyboard Warriors 2017</p>
+	{% load static %}
+    <img src="{% static 'images/groot.png' %}" style="position: absolute;height: 100%;right: 0;top: 64;">
+		<p id="footcopy">© Keyboard Warriors 2017</p>
 			<div class="ftcols">
 				<ul class="footnav">
 					<li class="footnavitem">
@@ -8,8 +9,8 @@
 						<h1>Customer Service</h1></a></h2>
 						<ul class="footer-subnav [ sb-list sb-dot ]">
 							<li>
-								<a href="#">
-								<p>Payment</p></a>
+								<a href="contact">
+								<p>Contact</p></a>
 							</li>
 							<li>
 								<a href="#">
@@ -57,7 +58,7 @@
 							</li>
 							<li>
 								<a href="#">
-								<p>Contact</p></a>
+								<p>Payment</p></a>
 							</li>
 							<li>
 								<a href="#">
