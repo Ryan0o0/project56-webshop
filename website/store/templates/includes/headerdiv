@@ -1,3 +1,9 @@
+<div class="register"><p class="lgntext commoncolor"> <i class="fa fa-user-plus" aria-hidden="true"></i>Register </p> <div class="registerdiv"><p>Name</p><input type="textbox" placeholder="Clark"><p>Surname</p><input type="textbox" placeholder="Kent"><p>E-mail</p><input type="textbox" placeholder="Superman@comicshop.nl"><p>Password</p><input type="password" placeholder="****************">
+<p>Repeat Password</p>
+<input type="password" placeholder="****************"><input type="submit" value="Register"></div></div>
+    
+    <div class="forlogin"><p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in </p><div class="logindiv"><p>E-mail</p><input type="textbox" placeholder="Batman@comicshop.nl"><p>Password</p><input type="password" placeholder="****************"><input type="submit" value="Login"></div></div>
+    
 <div class="header">
     
     <div class="logintexts commoncolor"><div class="logowrap commoncolor">
@@ -11,6 +17,12 @@
     <input type="text" id="searchbar" name="searchtext" placeholder="Deadpool vs The Punisher" class="">
     <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" id="srchbutton">
     <div class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" id="cartid"></i></div>
- 
+         
+        
     </div>
+    
+     
+    
+    
+     
 </div>
