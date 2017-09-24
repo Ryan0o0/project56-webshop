@@ -1,6 +1,6 @@
 # Project 5-6: Webshop bouwen
 
-## Gemaakt door:
+## Gemaakt door
 Aaron Beetstra
 Selim Aydi
 Ralph Verburg
