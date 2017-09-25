@@ -106,7 +106,7 @@ body {
 	border-radius: 5px;
 	padding: 6;
 	z-index: 5000;
-	right: 20%;
+	right: 21.8%;
 	text-shadow: 0.6px 0.6px black;
 	/* box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19); */
 }
@@ -462,6 +462,7 @@ input[type=submit]{
 	background-color: rgb(255, 233, 233);
 	width: 74%;
 	/* height: 50%; */
+	text-align: center;
 	/* min-height: 50%; */
 	display: inline-table;
 	margin-top: 10%;
@@ -564,11 +565,14 @@ input[type=submit]{
 	/* box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19); */
 	margin-top: 4%;
 	/* margin: 0 auto; */
+	z-index: 400;
 }
 .sorton h1{
 	text-align: center;
 	font-size: 20px;
 	text-shadow: 0.5px 0.3px black;
+	position: relative;
+	z-index: 400;
 }
 
 .sorton ul{
@@ -772,7 +776,7 @@ input[type=submit]{
 	float: left;
 	border-right: solid 1px rgb(204, 204, 204);
 	position: relative;
-	height: 2000px;
+	/* height: 2700px; */
 }
 
 .contactmid {
@@ -836,7 +840,7 @@ input[type=submit]{
 
 
 .contactwrap {
-	background-color: rgba(168, 167, 167, 0.17);
+	background-color: rgba(213, 209, 209, 0.39);
 	position: relative;
 	height: 70%;
 	/* width: 100%; */
@@ -844,6 +848,9 @@ input[type=submit]{
 	display: block;
 	border: solid 1px rgba(0, 0, 0, 0.15);
 	border-radius: 5px;
+	margin-top: -5px;
+	z-index: 0;
+	position: relative;
 	padding: 5px 50px 50px 50px;
 }
 
@@ -871,10 +878,11 @@ input[type=submit]{
 .list {
 	list-style-type: none;
 	list-style-position: inside;
-	padding: 37 0px;
+	padding: 25 0px;
 	width: 100%;
-	height: 250px;
-	bottom: 0px;
+	height: 380px;
+	margin-bottom": 0px;;
+;;;;;;;;;;;;margin-bottom: 10%;;;;;;;;;;;;;
 }
 
 .list li{
@@ -889,7 +897,7 @@ input[type=submit]{
 }
 
 .list li:first-child{
-	margin-right: 17%;
+	margin-right: 16%;
 }
 
 .list li:nth-child(2){
@@ -1070,7 +1078,8 @@ input[type=submit]{
 	padding-bottom: 20px;
 	padding-left: 5px;
 	padding-right: 5px;
-	padding-top: 10px;
+	position: relative;
+	padding-top: 20px;
 	width: 100%;
 	border-radius: 5px;
 	border: solid 1px rgba(0, 0, 0, 0.12);
@@ -1121,6 +1130,69 @@ input[type=submit]{
 .price {
 	margin: 5 0 0 0;
 }
+
+.addtocart {
+	position: absolute;
+	background-color: #e4e483;
+	bottom: -1px;
+	right: -1px;
+	margin: 0px;
+	border: solid 1px rgba(0, 0, 0, 0.09);
+	width: 50px;
+	height: 26px;
+	text-align: center;
+	font-size: 24px;
+	padding: 3px;
+	opacity: 0.9;
+	transition: 0.5s;
+	border-top-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.addtocart:hover {
+	width:65px;
+	font-size: 25px;
+	opacity: 1;
+	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
+	transition: 0.5s;
+}
+
+.stock {
+	color: #209720;
+	position: relative;
+	text-align: center;
+	margin-bottom: 0px;
+	font-size: 14px;
+}
+
+.wishlist {
+	position: absolute;
+	background-color: #635c5c;
+	bottom: -1px;
+	left: -1px;
+	color: #e48383;
+	margin: 0px;
+	border: solid 1px rgba(0, 0, 0, 0.12);
+	width: 50px;
+	height: 26px;
+	text-align: center;
+	font-size: 24px;
+	text-shadow: 0.1px 1px #3c3838;
+	padding: 3px;
+	opacity: 0.9;
+	border-top-right-radius: 5px;
+	transition: 0.5s;
+	border-bottom-left-radius: 5px;
+}
+
+.wishlist:hover {
+	width:65px;
+	opacity: 1;
+	font-size: 25px;
+	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
+	transition: 0.5s;
+}
+
 
 .center {
 	margin: 0 auto;
@@ -1261,7 +1333,7 @@ input[type=submit]{
 	/* height: 30%; */
 	background-color: rgb(255, 255, 255);
 	width: 74%;
-	margin: 15% auto;
+	margin: 10% auto;
 	display: block;
 	clear: both;
 	position: relative;
@@ -1272,7 +1344,7 @@ input[type=submit]{
 .contactbox, textarea {
 	display: block;
 	min-width: 100%;
-	background-color: #f5f0f0;
+	background-color: #ffffff;
 	max-width: 100%;
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
 }
@@ -1292,7 +1364,7 @@ textarea:focus{
 
 .contactbox {
 	height: 35px;
-	background-color: #f5f0f0;
+	background-color: #ffffff;
 	color: white;
 	transition: 0.1s;
 }
@@ -1389,6 +1461,7 @@ textarea:focus{
 	/* margin-top: 30px; */
 	position: relative;
 	border-radius: 5px;
+	height: 50px;
 	width: 100%;
 	border: solid 0.8px rgba(0, 0, 0, 0.09);
 	display: block;
@@ -1519,43 +1592,4 @@ p{
 	text-align: center;
 	color: #fffaf2;
 	text-shadow: 1px 1px black;
-}
-
-.mySlides {display:none}
-
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
-}
-
-.dot {
-  height: 13px;
-  width: 13px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.active {
-  background-color: #717171;
-}
-
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@-webkit-keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
 }
