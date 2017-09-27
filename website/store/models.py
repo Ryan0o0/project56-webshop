@@ -19,7 +19,7 @@ class Products(models.Model):
     author = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
     publisher = models.CharField(max_length=50)
-    imageLink = models.CharField()
+    imageLink = models.CharField(max_length=100)
     language = models.CharField(max_length=30)
     total = models.IntegerField(4)
 
