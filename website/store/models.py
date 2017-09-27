@@ -6,12 +6,26 @@ from django.contrib.auth.models import User
 #Deze tabellen zijn nog niet migrated. Nog checken.
 
 class Customer(models.Model):
-    id = models.Forgeinkey(User)
+    id = models.ForeignKey(User, primary_key=True)
     email = models.CharField(max_length=100)
 
+class Products(models.Model):
+    productNum = models.IntegerField(primary_key=True)
+    productName = models.CharField(max_length=100)
+    productPrice = models.FloatField()
+    productRating = models.IntegerField(max_length=1)
+    stock = models.IntegerField()
+    productDescription = models.TextField()
+    author = models.CharField(max_length=50)
+    genre = models.CharField(max_length=50)
+    publisher = models.CharField(max_length=50)
+    imageLink = models.CharField()
+    language = models.CharField(max_length=30)
+    total = models.IntegerField(4)
+
 class WhishList(models.Model):
-    id = models.ForeignKey(Customer)
-    productNum = models.ForeignKey(Products)
+    id = models.ForeignKey(Customer, primary_key=True)
+    productNum = models.ForeignKey(Products, primary_key=True)
 
 class Order(models.Model):
     orderNum = models.IntegerField(primary_key=True)
@@ -29,16 +43,4 @@ class OrderDetails(models.Model):
     productNum = models.ForeignKey(Products, primary_key=True)
     amount = models.IntegerField()
 
-class Products(models.Model):
-    productNum = models.IntegerField(primary_key=True)
-    productName = models.CharField(max_length=100)
-    productPrice = models.FloatField()
-    productRating = models.IntegerField(max_length=1)
-    stock = models.IntegerField()
-    productDescription = models.TextField()
-    author = models.CharField(max_length=50)
-    genre = models.CharField(max_length=50)
-    publisher = models.CharField(max_length=50)
-    imageLink = models.CharField()
-    language = models.CharField(max_length=30)
-    total = models.IntegerField(4)
+
