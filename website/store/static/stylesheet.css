@@ -573,6 +573,7 @@ input[type=submit]{
 	text-shadow: 0.5px 0.3px black;
 	position: relative;
 	z-index: 400;
+	color: white;
 }
 
 .sorton ul{
@@ -1484,7 +1485,7 @@ h1{
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
 	font-size: 20px;
 	/* line-height: 100px; */
-	color: #ffffff;
+	/*! color: #ffffff; */
 	text-decoration: none;
 }
 
@@ -1553,6 +1554,7 @@ p{
 .footer h1{
 	margin-left: 36px;
 	font-size: 30px;
+	color: white;
 }
 
 #footcopy {
@@ -1597,3 +1599,87 @@ p{
 	color: #fffaf2;
 	text-shadow: 1px 1px black;
 }
+
+
+.products {
+	width: 60%;
+	float: left;
+	border-right: solid 1px rgb(204, 204, 204);
+	position: relative;
+}
+
+
+.titlesection {
+	color: #826c6c;
+	margin-left: 4.5%;
+	font-size: 20px;
+}
+
+.productpagewrap {
+	background-color: rgba(255, 255, 255, 0.39);
+	position: relative;
+	color: #826c6c;
+	height: 70%;
+	margin-bottom: 10%;
+	display: block;
+	border: solid 1px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+	margin-top: 5%;
+	height: 600px;
+	z-index: 0;
+	position: relative;
+	/* padding: 5px 50px 50px 50px; */
+}
+
+.productpage h1{
+	color: #796363;
+	margin-left: 200px;
+	margin-top: 0px;
+	display: inline-block;
+}
+
+.productpagewrap .productimg {
+	left: 15%;
+	display: inline-block;
+	margin-top: 5%;
+	width: 170px;
+	position: relative;
+}
+
+.imgsection {
+	width: 30%;
+	position: relative;
+	float: left;
+	margin: 0;
+	display: inline-block;
+}
+
+.descsection {
+	width: 60%;
+	margin: 0;	
+	height: 80%;	
+	margin-left: 5%;	
+	float: left;
+	display: inline-block;
+	position: relative;
+	border-radius: 3px;
+	border: solid 1px rgba(128, 128, 128, 0.38);
+}
+
+.faqwrap {
+	margin: 0 auto;
+	background-color: rgba(168, 167, 167, 0.17);
+	display: block;
+	position: relative;
+	width": 80%;;
+	max-width: 80%;
+	margin-top: 4%;
+	width: 85%;
+	border: solid 1px rgba(0, 0, 0, 0.24);
+	height: 650px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-radius: 5px;
+}
+
+

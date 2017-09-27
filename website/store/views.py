@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from forms import ContactForm
+from .collections.forms import ContactForm
 
 
 # Create your views here.
@@ -14,3 +14,6 @@ def contact(request):
 
 def faq(request):
     return render(request, 'faq.html')
+
+def product(request):
+    return render(request, 'product.html')
