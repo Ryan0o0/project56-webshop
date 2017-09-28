@@ -1162,6 +1162,50 @@ input[type=submit]{
 	transition: 0.5s;
 }
 
+.productaddtocart {
+	position: relative;
+	transition: 0.5s;
+	/* width:100px; */
+	background-color: #e4e483;
+	/* bottom: -1px; */
+	/* right: -1px; */
+	color: #4a3c3c;
+	margin: 30px;
+	border: solid 1px rgba(0, 0, 0, 0.09);
+	height: 26px;
+	text-align: center;
+	font-size: 14px;
+	padding: 3px;
+	/* opacity: 0.9; */
+	transition: 0.5s;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.productaddtocart i{
+	margin-right: 2px;
+	color: #6f6969
+}
+
+.productwishlist i{
+	margin-right: 10px;
+}
+
+.productaddtocart p{
+	color: #7a7575;
+	/* text-shadow: 1px 1px black; */
+	display: inline;
+	margin-left: 5px;
+	margin-top: -10px;
+}
+
+.productaddtocart:hover {
+	font-size: 16px;
+	opacity: 1;
+	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
+	transition: 0.5s;
+}
+
 .stock {
 	color: #209720;
 	position: relative;
@@ -1195,6 +1239,43 @@ input[type=submit]{
 	opacity: 1;
 	font-size: 25px;
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
+	transition: 0.5s;
+}
+
+.productwishlist {
+	position: relative;
+	background-color: #635c5c;
+	bottom: -1px;
+	margin-left: 10px;
+	color: #ffffff;
+	margin: 30px;
+	border: solid 1px rgba(0, 0, 0, 0.12);
+	height: 26px;
+	text-align: center;
+	font-size: 14px;
+	text-shadow: 0.1px 1px #3c3838;
+	padding: 3px;
+	opacity: 0.9;
+	border-radius: 5px;
+	transition: 0.5s;
+	cursor: pointer;
+}
+
+.productwishlist p{
+	color: white;
+	padding: 10px;
+	display: inline;
+	margin-left: 5px;
+}
+
+.productwishlist i{
+	color: rgb(228, 131, 131);
+}
+
+.productwishlist:hover {
+	opacity: 1;
+	font-size: 16px;
+	box-shadow: 0 0 1px 1px rgba(161, 161, 161, 0.5);
 	transition: 0.5s;
 }
 
@@ -1616,13 +1697,13 @@ p{
 }
 
 .productpagewrap {
-	background-color: rgba(255, 255, 255, 0.39);
+	/* background-color: rgba(255, 255, 255, 0.39); */
 	position: relative;
 	color: #826c6c;
 	height: 70%;
 	margin-bottom: 10%;
 	display: block;
-	border: solid 1px rgba(0, 0, 0, 0.15);
+	/* border: solid 1px rgba(0, 0, 0, 0.15); */
 	border-radius: 5px;
 	margin-top: 5%;
 	height: 600px;
@@ -1649,21 +1730,69 @@ p{
 .imgsection {
 	width: 30%;
 	position: relative;
+	/* padding-top: 40px; */
 	float: left;
 	margin: 0;
+	text-align: center;
+	border-right: solid 1px rgba(0, 0, 0, 0.2);
+	/* height: 30%; */
 	display: inline-block;
 }
 
+.imgsection p{
+	/* color: #746c6c; */
+}
+
+.imgsection .stock{
+	color: #0cad0c;
+	margin-top: 1;
+}
+
+.imgsection .wishlist{
+	margin: 0;
+
+}
+
+.imgsection h1{
+	color: #5f5959;
+}
+
+.imgsection img{
+	margin: 20;
+	text-align:  center;
+	/* width: 80%; */
+	border: solid 1px white;
+	position: relative;
+	display: inline-block;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
 .descsection {
-	width: 60%;
-	margin: 0;	
-	height: 80%;	
-	margin-left: 5%;	
-	float: left;
+	width: 66%;
+	margin: 0 auto;
+	height: 320px;
+	margin-top: 20px;
+	/* text-align: center; */
+	margin-left: 2%;
+	/* float: left; */
+	background-color: wheat;
 	display: inline-block;
 	position: relative;
 	border-radius: 3px;
 	border: solid 1px rgba(128, 128, 128, 0.38);
+}
+
+.descsection h1{
+	text-align: center;
+	color: #6a6a6a;
+	padding-bottom: 10px;
+	border-bottom: solid 1px rgba(128, 128, 128, 0.29);
+}
+
+.descsection p {
+	padding-left: 5px;
+	font-size: 15px;
+	color: rgba(47, 47, 47, 0.99);
 }
 
 .faqwrap {
@@ -1671,12 +1800,29 @@ p{
 	background-color: rgba(168, 167, 167, 0.17);
 	display: block;
 	position: relative;
-	width": 80%;;
+	width": 80%;
 	max-width: 80%;
-	margin-top: 4%;
+    margin-top: 4%;
 	width: 85%;
 	border: solid 1px rgba(0, 0, 0, 0.24);
 	height: 650px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-radius: 5px;
+}
+
+
+.productinfowrap {
+	margin: 0 auto;
+	background-color: rgba(168, 167, 167, 0.17);
+	display: block;
+	position: relative;
+	width": 80%;;
+	max-width: 80%;
+    margin-top: 4%;
+	overflow: hidden;
+	width: 85%;
+	border: solid 1px rgba(0, 0, 0, 0.24);
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-radius: 5px;
