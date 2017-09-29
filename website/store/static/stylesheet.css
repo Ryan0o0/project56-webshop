@@ -842,7 +842,6 @@ input[type=submit]{
 	position: relative;
 	/* max-width: 80%; */
 	margin-top: 3%;
-	overflow: hidden;
 	/* width: 75%; */
 }
 
@@ -874,8 +873,8 @@ input[type=submit]{
 .questions {
 	background-color: rgba(106, 108, 109, 0.9);
 	border-radius: 3px;
-	margin: 0px auto;
-	margin-bottom: 0px;
+	margin: 0 auto;
+	margin-bottom: 20px;
 	width: 70%;
 	color: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.17);
@@ -886,24 +885,24 @@ input[type=submit]{
 }
 
 .questions1 {
-		background-color: rgba(106, 108, 109, 0.9);
-		border-radius: 3px;
-		margin: 40px auto;
-		margin-bottom: 0px;
-		width: 70%;
-		color: #ffffff;
-		border: 1px solid rgba(0, 0, 0, 0.17);
-		font-size: 17px;
-		text-align: center;
-		padding: 15px;
-		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
+	background-color: rgba(106, 108, 109, 0.9);
+	border-radius: 3px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	width: 70%;
+	color: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.17);
+	font-size: 17px;
+	text-align: center;
+	padding: 15px;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
 }
 
 .questions2 {
 	background-color: rgba(106, 108, 109, 0.9);
 	border-radius: 3px;
-	margin: 40px auto;
-	margin-bottom: 0px;
+	margin: 0 auto;
+	margin-bottom: 20px;
 	width: 70%;
 	color: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.17);
@@ -916,8 +915,8 @@ input[type=submit]{
 .questions3 {
 	background-color: rgba(106, 108, 109, 0.9);
 	border-radius: 3px;
-	margin: 40px auto;
-	margin-bottom: 0px;
+	margin: 0 auto;
+	margin-bottom: 20px;
 	width: 70%;
 	color: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.17);
@@ -930,8 +929,8 @@ input[type=submit]{
 .questions4 {
 	background-color: rgba(106, 108, 109, 0.9);
 	border-radius: 3px;
-	margin: 40px auto;
-	margin-bottom: 0px;
+	margin: 0 auto;
+	margin-bottom: 20px;
 	width: 70%;
 	color: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.17);
@@ -944,8 +943,8 @@ input[type=submit]{
 .questions5 {
 	background-color: rgba(106, 108, 109, 0.9);
 	border-radius: 3px;
-	margin: 40px auto;
-	margin-bottom: 0px;
+	margin: 0 auto;
+	margin-bottom: 20px;
 	width: 70%;
 	color: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.17);
@@ -2058,7 +2057,7 @@ p{
 	width": 80%;
 	max-width: 80%;
     margin-top: 4%;
-	;;;min-height: 100%;;;;width: 85%;
+	width: 85%;
 	border: solid 1px rgba(0, 0, 0, 0.24);
 	height: 650px;
 	border-bottom-left-radius: 5px;
@@ -2162,7 +2161,6 @@ p{
     background-color: white;
     width: 60%;
     margin: 0 auto;
-    position: relative;
     text-align: center;
 }
 .panel1 {
