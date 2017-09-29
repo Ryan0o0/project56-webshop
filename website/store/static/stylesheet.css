@@ -1779,7 +1779,7 @@ p{
 	/* text-align: center; */
 	margin-left: 2%;
 	/* float: left; */
-	background-color: wheat;
+	background-color: #f6f6f6;
 	display: inline-block;
 	position: relative;
 	border-radius: 3px;
@@ -1866,16 +1866,16 @@ p{
 }
 
 .suggesteditems .ulsugg p{
-	font-size: 9px;
+	font-size: 11px;
 	/* width: 80px; */
-	color: white;
+	color: #706a6a;
 	margin: 1;
 	height: 15px;
 }
 
 .suggesteditems .ulsugg li {
 	/* text-align: center; */
-	background-color: rgba(93, 93, 93, 0.85);
+	background-color: rgb(246, 246, 246);
 }
 
 .ulsugg {
@@ -1901,7 +1901,7 @@ p{
 .suggesteditems img {
 	width: 100px;
 	margin: 0;
-	border: solid 1px white;
+	border: solid 1px rgba(0, 0, 0, 0.25);
 }
 
 .suggesteditemsbar {
