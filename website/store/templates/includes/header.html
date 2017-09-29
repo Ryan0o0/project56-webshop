@@ -9,11 +9,8 @@
 	<script> 
 	$(document).ready(function(){
 		$(".questions").click(function(){
-			$(".panel").slideDown("slow");
-				$(".questions").click(function(){
-					$(".panel").slideUp("slow");
+			$(".panel").slideToggle("slow");
 		});
-	    });
 	});
 	</script>
 	<link rel="stylesheet" type="text/css" href="{% static 'stylesheet.css' %}" />
