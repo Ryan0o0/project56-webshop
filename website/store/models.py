@@ -44,7 +44,7 @@ class OrderDetails(models.Model):
 
 #Gecontroleerd ERD met mvr. Uberts
 
-class Customer(models.Model):
+class Customers(models.Model):
     customerID = models.IntegerField(primary_key=True)
     email = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
@@ -56,7 +56,7 @@ class Address(models.Model):
     class Meta:
         unique_together = ('customerID', 'address')
 
-    customerID = models.ForeignKey(Customer)
+    customerID = models.ForeignKey(Customers)
     address = models.CharField(max_length=100)
     number = models.CharField(max_length=10)
     city = models.CharField(max_length=25)
@@ -80,14 +80,14 @@ class ProductDetails(models.Model):
     desc = models.TextField()
     imageLink = models.CharField(max_length=100)
 
-class WhishList(models.Model):
+class WishList(models.Model):
     class Meta:
         unique_together = ('custId', 'productNum')
 
-    custId = models.ForeignKey(Customer)
+    custId = models.ForeignKey(Customers)
     productNum = models.ForeignKey(Products)
 
-class Order(models.Model):
+class Orders(models.Model):
     orderNum = models.IntegerField(primary_key=True)
     orderDate = models.DateField()
     orderStatus = models.CharField(max_length=15)
@@ -96,7 +96,7 @@ class OrderDetails(models.Model):
     class Meta:
         unique_together = ('orderNum', 'productNum')
 
-    orderNum = models.ForeignKey(Order)
+    orderNum = models.ForeignKey(Orders)
     productNum = models.ForeignKey(Products)
     amount = models.IntegerField()
 
