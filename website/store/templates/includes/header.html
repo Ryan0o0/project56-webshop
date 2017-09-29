@@ -5,6 +5,14 @@
 	<meta content="Keyboard Warriors Inc." name="author">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	{% load static %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script> 
+	$(document).ready(function(){
+		$("#flip").click(function(){
+			$("#panel").slideDown("slow");
+		});
+	});
+	</script> 
 	<link rel="stylesheet" type="text/css" href="{% static 'stylesheet.css' %}" />
 	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
