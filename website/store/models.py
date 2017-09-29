@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-<<<<<<< HEAD
 #Deze tabellen zijn nog niet migrated. Nog checken.
 
 class Customer(models.Model):
@@ -42,7 +41,7 @@ class Order(models.Model):
 class OrderDetails(models.Model):
     orderNum = models.ForeignKey(Order, primary_key=True)
     productNum = models.ForeignKey(Products, primary_key=True)
-=======
+
 #Gecontroleerd ERD met mvr. Uberts
 
 class Customer(models.Model):
@@ -99,7 +98,6 @@ class OrderDetails(models.Model):
 
     orderNum = models.ForeignKey(Order)
     productNum = models.ForeignKey(Products)
->>>>>>> be8d49bbb011dc0ec4c51c480e5621c9b4b23500
     amount = models.IntegerField()
 
 
