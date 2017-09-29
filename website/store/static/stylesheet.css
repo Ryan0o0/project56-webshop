@@ -11,6 +11,10 @@ body {
 	height: 10%;
 }
 
+#contactsubmit{
+	margin-right: 0px;
+}
+
 .sloganbubble {
 	position: absolute;
 	width: 38%;
