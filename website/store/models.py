@@ -3,26 +3,43 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-#Deze tabellen zijn nog niet migrated. Nog checken.
+#Gecontroleerd ERD met mvr. Uberts
 
 class Customer(models.Model):
-    custId = models.ForeignKey(User, primary_key=True)
+    customerID = models.IntegerField(primary_key=True)
     email = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=50)
+    telephone = models.CharField(max_length=12)
+    isRegistered = models.BooleanField()
+
+class Address(models.Model):
+    class Meta:
+        unique_together = ('customerID', 'address')
+
+    customerID = models.ForeignKey(Customer)
+    address = models.CharField(max_length=100)
+    number = models.CharField(max_length=10)
+    city = models.CharField(max_length=25)
+    postalcode = models.CharField(max_length=10)
 
 class Products(models.Model):
-    productNum = models.IntegerField(primary_key=True)
-    productName = models.CharField(max_length=100)
-    productPrice = models.FloatField()
-    productRating = models.IntegerField(max_length=1)
-    stock = models.IntegerField()
-    productDescription = models.TextField()
-    author = models.CharField(max_length=50)
+    prodNum = models.IntegerField(primary_key=True)
+    prodName = models.CharField(max_length=50)
+    prodPrice = models.FloatField()
+    prodStock = models.IntegerField()
+
+class ProductDetails(models.Model):
+    prodNum = models.ForeignKey(Products)
     genre = models.CharField(max_length=50)
+    type = models.CharField(max_length=50)
     publisher = models.CharField(max_length=50)
+    totalPages = models.IntegerField()
+    language = models.CharField(max_length=25)
+    rating = models.IntegerField()
+    author = models.CharField(max_length=50)
+    desc = models.TextField()
     imageLink = models.CharField(max_length=100)
-    language = models.CharField(max_length=30)
-    total = models.IntegerField(4)
-    type = models.CharField(max_length=20)
 
 class WhishList(models.Model):
     class Meta:
@@ -33,14 +50,8 @@ class WhishList(models.Model):
 
 class Order(models.Model):
     orderNum = models.IntegerField(primary_key=True)
-    custId = models.ForeignKey(User, null=True)
-    customerName = models.CharField(max_length=50)
-    customerSurname = models.CharField(max_length=50)
-    email = models.CharField(max_length=100, null=False)
-    address = models.CharField(max_length=75)
-    postalCode = models.CharField(max_length=10)
-    city = models.CharField(max_length=30)
-    totalPrice = models.FloatField()
+    orderDate = models.DateField()
+    orderStatus = models.CharField(max_length=15)
 
 class OrderDetails(models.Model):
     class Meta:

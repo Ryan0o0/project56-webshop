@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 DATABASES = {
     'default': {
-     #   'ENGINE': 'django.db.backends.postgresql',
-      #  'NAME': 'webshopdatabase',
-       # 'USER': 'postgres',
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': 'webshopdatabase',
+        #'USER': 'postgres',
         #'PASSWORD': 'kaas123',
         #'HOST': 'localhost',
         #'PORT': '5432',
