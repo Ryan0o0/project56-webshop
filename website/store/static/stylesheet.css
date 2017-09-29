@@ -721,7 +721,7 @@ input[type=submit]{
 
 #faq {
 	position: relative;
-	left: 0px;
+	/* left: -40px; */
 }
 
 .navlinks{
@@ -752,7 +752,7 @@ input[type=submit]{
 	font-family: 'Cabin', Helvetica, Arial, sans-serif;
 	vertical-align: middle;
 	text-align: center;
-	left: -30px;
+	left: 0px;
 	/* cursor: pointer; */
 	position: relative;
 	font-size: 14px;
