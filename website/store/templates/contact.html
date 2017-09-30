@@ -24,20 +24,8 @@
                     <div class="contact">
 
                         <form role="form" action="" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="b3tPAUv0QHBt5tYMpFbcohjdVEy4A9ZNS4WQozsEYX23oZJiFgfccB6XDplKqfkr">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="b3tPAUv0QHBt5tYMpFbcohjdVEy4A9ZNS4WQozsEYX23oZJiFgfccB6XDplKqfkr">
-                            <p>
-                                <label for="id_contact_name">Firstname and Surname:</label>
-                                <input type="textbox" name="contact_name" required="" id="id_contact_name" class="contactbox" placeholder="Peter Parker">
-                            </p>
-                            <p>
-                                <label for="id_contact_email">E-mail address</label>
-                                <input type="textbox" name="contact_email" required="" id="id_contact_email" class="contactbox" placeholder="Spiderman@comicshop.com">
-                            </p>
-                            <p>
-                                <label for="id_content">Message</label>
-                                <textarea name="content" cols="40" rows="10" required="" id="id_content" style="margin: 0px; width: 627px; height: 167px; font-family: " placeholder="Insert message here" open=""></textarea>
-                            </p>
+                            {% csrf_token %}
+                            {{ form.as_p }}
                             <input type="submit" id="contactsubmit">
                         </form>
                     </div>
