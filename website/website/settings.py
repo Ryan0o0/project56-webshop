@@ -25,7 +25,7 @@ SECRET_KEY = 'j^+tj99w@m46g^n2$q$+vdah2y&-)_--_mxkcfqbgpl*sq@58)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['37.97.175.87', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['37.97.175.87', 'localhost', '127.0.0.1', 'comicfire.com']
 
 
 # Application definition
