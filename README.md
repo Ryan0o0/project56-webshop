@@ -2,7 +2,7 @@
 
 ## Gemaakt door
 Aaron Beetstra <br/>
-Selim Aydi
-Ralph Verburg
-Jasper Wijnhoven
-Ryan Wilson
+Selim Aydi<br/>
+Ralph Verburg<br/>
+Jasper Wijnhoven<br/>
+Ryan Wilson<br/>
