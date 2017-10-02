@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^product$', views.product, name='product'),
     url(r'^.well-known/$', views.index, name='.well-known'),
     url(r'^product/(?P<item>\d+)$', views.product2, name='product2'), #url = /product/{item}, \d+ betekent 1 nummer of meer
+    url(r'^testing$', views.testing, name='testing'),
 ]

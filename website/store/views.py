@@ -51,3 +51,7 @@ def product(request):
 def product2(request, item):
     print(item)
     return render(request, 'product.html')
+  
+def testing(request):
+    return render(request, 'testing.html')
+
