@@ -25,7 +25,7 @@ SECRET_KEY = 'j^+tj99w@m46g^n2$q$+vdah2y&-)_--_mxkcfqbgpl*sq@58)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['37.97.175.87', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['37.97.175.87', 'localhost', '127.0.0.1', 'comicfire.com', 'www.comicfire.com']
 
 
 # Application definition
@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'webshopdatabase',
         'USER': 'postgres',
         'PASSWORD': 'kaas123',
-        'HOST': 'localhost',
+        'HOST': '37.97.175.87',
         'PORT': '5432',
     }
 }
@@ -123,3 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'keyboardwarriorsinfo@gmail.com'
+EMAIL_HOST_PASSWORD = 'Kappa123HRO'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -9,10 +9,25 @@
 	<script> 
 	$(document).ready(function(){
 		$(".questions").click(function(){
-			$(".panel").slideDown("slow");
+			$(".panel").slideToggle("slow");
+		});
+		$(".questions1").click(function(){
+			$(".panel1").slideToggle("slow");
+		});
+		$(".questions2").click(function(){
+			$(".panel2").slideToggle("slow");
+		});
+		$(".questions3").click(function(){
+			$(".panel3").slideToggle("slow");
+		});
+		$(".questions4").click(function(){
+			$(".panel4").slideToggle("slow");
+		});
+		$(".questions5").click(function(){
+			$(".panel5").slideToggle("slow");
 		});
 	});
-	</script> 
+	</script>
 	<link rel="stylesheet" type="text/css" href="{% static 'stylesheet.css' %}" />
 	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
