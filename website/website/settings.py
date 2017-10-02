@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'webshopdatabase',
         'USER': 'postgres',
         'PASSWORD': 'kaas123',
-        'HOST': 'localhost',
+        'HOST': '37.97.175.87',
         'PORT': '5432',
     }
 }
