@@ -5,6 +5,50 @@
 	<meta content="Keyboard Warriors Inc." name="author">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	{% load static %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+	var slideIndex = 0;
+	showSlides();
+
+	function showSlides() {
+		var i;
+		var slides = document.getElementsByClassName("comicslides");
+		var dots = document.getElementsByClassName("dot");
+		for (i = 0; i < slides.length; i++) {
+		   slides[i].style.display = "none";  
+		}
+		slideIndex++;
+		if (slideIndex > slides.length) {slideIndex = 1}    
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");
+		}
+		slides[slideIndex-1].style.display = "block";  
+		dots[slideIndex-1].className += " active";
+		setTimeout(showSlides, 4000); // Change image every 2 seconds
+	}
+	</script>	
+	<script> 
+	$(document).ready(function(){
+		$(".questions").click(function(){
+			$(".panel").slideToggle("slow");
+		});
+		$(".questions1").click(function(){
+			$(".panel1").slideToggle("slow");
+		});
+		$(".questions2").click(function(){
+			$(".panel2").slideToggle("slow");
+		});
+		$(".questions3").click(function(){
+			$(".panel3").slideToggle("slow");
+		});
+		$(".questions4").click(function(){
+			$(".panel4").slideToggle("slow");
+		});
+		$(".questions5").click(function(){
+			$(".panel5").slideToggle("slow");
+		});
+	});
+	</script>
 	<link rel="stylesheet" type="text/css" href="{% static 'stylesheet.css' %}" />
 	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
