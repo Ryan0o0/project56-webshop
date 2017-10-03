@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from .collections.forms import ContactForm
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
+from django.shortcuts import render
 from django.template.loader import get_template
+
+from .database.DatabaseOps import insert
+from .collections.forms import ContactForm
 
 
 # Create your views here.
@@ -43,6 +45,7 @@ def contact(request):
     return render(request, 'contact.html', {'form':formClass, })
 
 def faq(request):
+    insert()
     return render(request, 'faq.html')
 
 def product(request):

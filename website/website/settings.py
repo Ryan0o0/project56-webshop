@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'webshopdatabase',
         'USER': 'postgres',
         'PASSWORD': 'kaas123',
-        'HOST': '37.97.175.87',
+        'HOST': 'comicfire.com',
         'PORT': '5432',
     }
 }
