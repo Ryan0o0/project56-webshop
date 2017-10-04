@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template.loader import get_template
 
-from .database.DatabaseOps import insert
+from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
 from .collections.forms import ContactForm
 
 
@@ -45,15 +45,40 @@ def contact(request):
     return render(request, 'contact.html', {'form':formClass, })
 
 def faq(request):
-    insert()
     return render(request, 'faq.html')
 
 def product(request):
     return render(request, 'product.html')
 
 def product2(request, item):
-    print(item)
-    return render(request, 'product.html')
+    productNumber = (int(item))
+    prodName = getProdName(productNumber)
+    prodPrice = getProdPrice(productNumber)
+    prodStock = getProdStock(productNumber)
+    prodGenre = getProdGenre(productNumber)
+    prodType = getProdType(productNumber)
+    prodPublisher = getProdPublish(productNumber)
+    prodPages = getProdTotalPages(productNumber)
+    prodLanguage = getProdLanguage(productNumber)
+    prodRating = getProdRating(productNumber)
+    prodAuthor = getProdAuthor(productNumber)
+    prodDesc = getProdDesc(productNumber)
+    prodImage = getProdImage(productNumber)
+    return render(request, 'product2.html', {
+        'prodNum' : productNumber,
+        'prodName' : prodName,
+        'prodPrice' : prodPrice,
+        'prodStock' : prodStock,
+        'prodGenre' : prodGenre,
+        'prodType' : prodType,
+        'prodPublisher' : prodPublisher,
+        'prodPages' : prodPages,
+        'prodLanguage' : prodLanguage,
+        'prodRating' : prodRating,
+        'prodAuthor' : prodAuthor,
+        'prodDesc' : prodDesc,
+        'prodImage' : prodImage,
+    })
   
 def testing(request):
     return render(request, 'testing.html')
