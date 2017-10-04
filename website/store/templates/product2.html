@@ -22,7 +22,11 @@
          <div class="imgsection">
             <img src="{{prodImage}}" id="zoom_05" data-zoom-image="https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg">
             <p>{{prodPublisher}}</p>
-            <p style="color: #746c6c"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></p>
+            <p style="color: #746c6c">
+				{% for x in prodRating %}
+					<i class="fa fa-star" aria-hidden="true"></i>
+				{% endfor %}
+			</p>
             <p class="stock">In stock</p>
             <p></p>
             <p></p>
