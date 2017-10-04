@@ -74,7 +74,7 @@ def product2(request, item):
         'prodPublisher' : prodPublisher,
         'prodPages' : prodPages,
         'prodLanguage' : prodLanguage,
-        'prodRating' : prodRating,
+        'prodRating' : range(prodRating),
         'prodAuthor' : prodAuthor,
         'prodDesc' : prodDesc,
         'prodImage' : prodImage,
