@@ -1,29 +1,44 @@
-<div class="register"><p class="lgntext commoncolor"> <i class="fa fa-user-plus" aria-hidden="true"></i>Registreren </p> <div class="registerdiv"><p>Naam</p><input type="textbox" placeholder="Clark"><p>Achternaam</p><input type="textbox" placeholder="Kent"><p>E-mail</p><input type="textbox" placeholder="Superman@comicshop.nl"><p>Wachtwoord</p><input type="password" placeholder="****************">
-<p>Herhaal wachtwoord</p>
-<input type="password" placeholder="****************"><input type="submit" value="Register"></div></div>
+<div class="register">
+   <p class="lgntext commoncolor"> <i class="fa fa-user-plus" aria-hidden="true"></i>Registreren </p>
+   <div class="registerdiv">
+      <p>Naam</p>
+      <input type="textbox" placeholder="Clark">
+      <p>Achternaam</p>
+      <input type="textbox" placeholder="Kent">
+      <p>E-mail</p>
+      <input type="textbox" placeholder="Superman@comicshop.nl">
+      <p>Wachtwoord</p>
+      <input type="password" placeholder="****************">
+      <p>Herhaal wachtwoord</p>
+      <input type="password" placeholder="****************"><input type="submit" value="Register">
+   </div>
+</div>
+<div class="forlogin">
 
-    <div class="forlogin"><p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen </p><div class="logindiv"><p>E-mail</p><input type="textbox" placeholder="Batman@comicshop.nl"><p>Wachtwoord</p><input type="password" placeholder="****************"><input type="submit" value="Login"></div></div>
+   <p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen </p>
+   <div class="logindiv">
+  <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit">Login</button>
+      <a href="/register/">Register</a>
+  </form>
 
+
+   </div>
+</div>
 <div class="header">
-    <div class="logintexts commoncolor"><div class="logowrap commoncolor">
-    <div class="logo">
-    {% load static %}
-    <a href="/">
-        <img src="{% static 'images/logo.png' %}">
-    </a>
-
-    </div>
-    </div>
-
-    <input type="text" id="searchbar" name="searchtext" placeholder="An absolutely legit comic input" class="">
-    <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" id="srchbutton">
-    <div class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" id="cartid"></i></div>
-         
-        
-    </div>
-    
-     
-    
-    
-     
+   <div class="logintexts commoncolor">
+      <div class="logowrap commoncolor">
+         <div class="logo">
+            {% load static %}
+            <a href="/">
+            <img src="{% static 'images/logo.png' %}">
+            </a>
+         </div>
+      </div>
+      <input type="text" id="searchbar" name="searchtext" placeholder="An absolutely legit comic input" class="">
+      <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" id="srchbutton">
+      <div class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" id="cartid"></i></div>
+   </div>
 </div>
