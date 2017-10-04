@@ -2,9 +2,11 @@ from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template.loader import get_template
-
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
 from .collections.forms import ContactForm
+from store.collections.forms import RegistrationForm
 
 
 # Create your views here.
@@ -43,6 +45,16 @@ def contact(request):
             return redirect('contact')
 
     return render(request, 'contact.html', {'form':formClass, })
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/contact')
+    else:
+        form = RegistrationForm()
+        return render(request, 'register.html', {'form': form})
 
 def faq(request):
     return render(request, 'faq.html')
