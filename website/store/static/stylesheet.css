@@ -270,7 +270,7 @@ body {
 	width: 343px;
 	display: inline-block;
 	padding-top: 20px;
-	height: 230px;
+	height: 240px;
 	border-radius: 5px;
 	z-index: 200000;
 	background-color: rgb(78, 85, 81);
@@ -300,6 +300,8 @@ body {
 		margin-left: 10%;
 		padding: 0px 0px 0px 0;
 		position: relative;
+		padding-bottom: 10px;
+		line-height: 25px;
 }
 
 input[type=submit], .logindiv button{
