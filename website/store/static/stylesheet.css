@@ -997,6 +997,35 @@ input[type=submit], .logindiv button{
 }
 
 
+.contactsection {
+	margin: 0 auto;
+	position: relative;
+	/* max-width: 80%; */
+	padding-top: 30px;
+	padding-bottom: 50px;
+	/* margin-top: 3%; */
+	background-color: rgba(168, 167, 167, 0.17);
+	/* width: 75%; */
+	border: solid 1px rgba(0, 0, 0, 0.24);
+}
+
+.contactsection label {
+	display: block;
+	color: rgb(0, 0, 0);
+}
+
+.ctsection {
+	margin: 0 auto;
+	position: relative;
+	padding-top: 30px;
+	padding-bottom: 50px;
+}
+
+.ctsection label {
+	display: block;
+	color: rgb(0, 0, 0);
+}
+
 .contactwrap {
 	background-color: rgba(213, 209, 209, 0.39);
 	position: relative;
