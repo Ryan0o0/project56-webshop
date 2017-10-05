@@ -37,8 +37,8 @@ def contact(request):
             email = EmailMessage(
                 "Nieuwe contact aanvraag",
                 content,
-                "Comic Fire" + '',
-                ['keyboardwarriorsinfo@gmail.com'],
+                "admin@comicfire.com",
+                ['admin@comicfire.com'],
                 headers={'Reply-to' : contact_email}
             )
             email.send()
