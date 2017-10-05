@@ -1041,7 +1041,7 @@ input[type=submit], .logindiv button{
 }
 
 .reg {
-	width: 47%;
+	width: 57%;
 	margin: 0 auto;
 	padding-bottom: 50px;
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
@@ -1068,7 +1068,7 @@ input[type=submit], .logindiv button{
 }
 
 #id_password1, #id_password2, #id_first_name, #id_last_name, #id_email{
-	width: 470px;
+	width: 100%;
 	height: 30px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
