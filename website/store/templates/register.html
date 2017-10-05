@@ -20,9 +20,10 @@
 				</div>
 				<div class="regsection commontextbox">
 					<div class="reg">
-					<form method="post">
-						{% csrf_token %} {{ form.as_p }} <button type="submit">Submit</button>
-					</form>
+						<form method="post">
+							{% csrf_token %} {{ form.as_p }} <button type="submit">Submit</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -35,7 +36,6 @@
 					<p style="text-decoration: line-through;color: grey;font-size: 11px;text-align: center;position: relative;margin: 0;">€ 19.99</p>
 					<p class="promoprice">€ 14.99</p>
 				</div>
-			</div>
 			</div>
 		</div>
 	</div>
