@@ -97,6 +97,9 @@ def product2(request, item):
 def testing(request):
     return render(request, 'testing.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 def logoutview(request):
     if request.user.is_authenticated:
         logout(request)
