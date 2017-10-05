@@ -182,6 +182,11 @@ body {
 	z-index: 50000;
 }
 
+.logout{
+	text-decoration: none;
+	color: white;
+}
+
 .lgntext {
 	position: relative;
 	text-align: center;
