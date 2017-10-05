@@ -1060,69 +1060,19 @@ input[type=submit], .logindiv button{
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
 }
 
-.questions1 {
+.generalquestions {
 	background-color: rgba(106, 108, 109, 0.9);
 	border-radius: 3px;
-	margin: 30 auto;
+	margin: 40 auto;
 	width: 70%;
+	margin-bottom: 0;
 	color: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.17);
 	font-size: 17px;
 	text-align: center;
 	padding: 15px;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
-}
 
-.questions2 {
-	background-color: rgba(106, 108, 109, 0.9);
-	border-radius: 3px;
-	margin: 30 auto;
-	width: 70%;
-	color: #ffffff;
-	border: 1px solid rgba(0, 0, 0, 0.17);
-	font-size: 17px;
-	text-align: center;
-	padding: 15px;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
-}
-
-.questions3 {
-	background-color: rgba(106, 108, 109, 0.9);
-	border-radius: 3px;
-	margin: 30 auto;
-	width: 70%;
-	color: #ffffff;
-	border: 1px solid rgba(0, 0, 0, 0.17);
-	font-size: 17px;
-	text-align: center;
-	padding: 15px;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
-}
-
-.questions4 {
-	background-color: rgba(106, 108, 109, 0.9);
-	border-radius: 3px;
-	margin: 30 auto;
-	width: 70%;
-	color: #ffffff;
-	border: 1px solid rgba(0, 0, 0, 0.17);
-	font-size: 17px;
-	text-align: center;
-	padding: 15px;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
-}
-
-.questions5 {
-	background-color: rgba(106, 108, 109, 0.9);
-	border-radius: 3px;
-	margin: 30 auto;
-	width: 70%;
-	color: #ffffff;
-	border: 1px solid rgba(0, 0, 0, 0.17);
-	font-size: 17px;
-	text-align: center;
-	padding: 15px;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
 }
 
 .contact {
@@ -2332,54 +2282,15 @@ p{
 	border-radius: 5px;
 }
 
-.panel {
-    padding: 50px;
-    display: none;
-    background-color: white;
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
-}
-.panel1 {
-    padding: 50px;
-    display: none;
-	  display: none;
-    background-color: white;
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
-}
-.panel2 {
-    padding: 50px;
-    display: none;
-    background-color: white;
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
-}
-.panel3 {
-    padding: 50px;
-    display: none;
-    background-color: white;
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
-}
-.panel4 {
-    padding: 50px;
-    display: none;
-    background-color: white;
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
-}
-.panel5 {
-    padding: 50px;
-    display: none;
-    background-color: white;
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
+.generalpanel {
+	padding: 50px;
+	display: none;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background-color: #ffffff;
+	width: 63.5%;
+	margin: auto;
+	text-align: center;
 }
 
 .comicslides {display:none}
