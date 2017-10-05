@@ -18,7 +18,8 @@
 				<div class="sorton commoncolor" style="margin-top: 0;">
 					<h1>Vaak gevraagde vragen</h1>
 				</div>
-				<div class="contactsection commontextbox">
+				<div class="regsection commontextbox">
+					<div class="reg">
 					<form method="post">
 						{% csrf_token %} {{ form.as_p }} <button type="submit">Submit</button>
 					</form>
@@ -34,6 +35,7 @@
 					<p style="text-decoration: line-through;color: grey;font-size: 11px;text-align: center;position: relative;margin: 0;">€ 19.99</p>
 					<p class="promoprice">€ 14.99</p>
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>
