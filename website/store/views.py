@@ -2,7 +2,7 @@ from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template.loader import get_template
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
 from .collections.forms import ContactForm
@@ -44,15 +44,17 @@ def contact(request):
             email.send()
             return redirect('contact')
 
-    return render(request, 'contact.html', {'form':formClass, })
+    return render(request, 'contact.html', {'contact_form':formClass, })
 
 def register(request):
     if request.method == 'POST':
+        print("POST")
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/contact')
     else:
+        print("Else!!!")
         form = RegistrationForm()
         return render(request, 'register.html', {'form': form})
 
@@ -94,4 +96,11 @@ def product2(request, item):
   
 def testing(request):
     return render(request, 'testing.html')
+
+def logoutview(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('/')
+    else:
+        return redirect('/')
 
