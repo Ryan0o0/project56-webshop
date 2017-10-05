@@ -1026,6 +1026,81 @@ input[type=submit], .logindiv button{
 	color: rgb(0, 0, 0);
 }
 
+.regsection {
+	margin: 0 auto;
+	position: relative;
+	/* max-width: 80%; */
+	padding-top: 30px;
+	padding-bottom: 50px;
+	/* margin-top: 3%; */
+	background-color: rgba(168, 167, 167, 0.17);
+	/* width: 75%; */
+	border: solid 1px rgba(0, 0, 0, 0.24);
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.reg {
+	width: 47%;
+	margin: 0 auto;
+	padding-bottom: 50px;
+	font-family: "Open Sans",Arial,Helvetica,sans-serif;
+}
+
+.reg ul {
+	margin: 0;
+	padding-left: 20;
+	font-size: 12px;
+}
+
+.reg button {
+	float: right;
+	margin-top: 16px;
+	margin-right: 40px;
+	background-color: rgb(243, 217, 149);
+	color: #4f4a4a;
+	border-radius: 3px;
+	border: solid 1px rgba(0, 0, 0, 0.41);
+	/* text-shadow: 0.3px 0.3px rgba(0, 0, 0, 0.7); */
+	margin-top: 30px;
+	padding: 6 45 6 40;
+	text-align: center;
+}
+
+#id_password1, #id_password2, #id_first_name, #id_last_name, #id_email{
+	width: 470px;
+	height: 30px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 0 #FFF, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+	-moz-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	box-shadow: 0 1px 0 #7d8f97, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	/* background: #ffffff; */
+	border: 1px solid rgb(209, 226, 233);
+	color: #777;
+	padding-left: 1%;
+}
+
+.regsection label {
+	display: block;
+	font-size: 15px;
+	color: rgb(0, 0, 0);
+	font-family: "Open Sans",Arial,Helvetica,sans-serif;
+}
+.helptext {
+	display: block;
+	font-size: 12px;
+	padding-top: 10px;
+}
+
 .contactwrap {
 	background-color: rgba(213, 209, 209, 0.39);
 	position: relative;
