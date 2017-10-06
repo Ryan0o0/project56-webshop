@@ -24,9 +24,13 @@ class ContactForm(forms.Form):
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
+
+
+
     class Meta:
         model = User
         fields = {
+            'username',
             'first_name',
             'last_name',
             'email',
