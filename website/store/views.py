@@ -57,6 +57,8 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('/contact')
+        else:
+            return redirect('/register')
     else:
         print("Else!!!")
         form = RegistrationForm()
