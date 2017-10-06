@@ -121,8 +121,8 @@ def loginview(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/contact')
+            return redirect('/')
         else:
-            return redirect('/register')
-
-    return render(request, 'login.html', {'form': AuthenticationForm()})
+            return redirect('/login')
+    else:
+        return render(request, 'login.html', {'form': AuthenticationForm()})
