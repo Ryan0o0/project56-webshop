@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^product/(?P<item>\d+)$', views.product2, name='product2'), #url = /product/{item}, \d+ betekent 1 nummer of meer
     url(r'^testing$', views.testing, name='testing'),
     url(r'^logout/$', views.logoutview, name='logout'),
+    url(r'^registrationcomplete/$', views.registrationcomplete, name='regdone'),
 ]
