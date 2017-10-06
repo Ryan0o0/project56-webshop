@@ -1084,7 +1084,7 @@ button {
 .reg button {
 	float: right;
 	margin-top: 16px;
-	margin-right: 40px;
+	/* margin-right: 40px; */
 	background-color: rgb(243, 217, 149);
 	color: #4f4a4a;
 	border-radius: 3px;
