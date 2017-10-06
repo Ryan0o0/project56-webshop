@@ -56,7 +56,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/contact')
+            return redirect('/registrationcomplete')
         else:
             return redirect('/register')
     else:
@@ -99,7 +99,7 @@ def product2(request, item):
         'prodDesc' : prodDesc,
         'prodImage' : prodImage,
     })
-  
+
 def testing(request):
     return render(request, 'testing.html')
 
@@ -126,3 +126,6 @@ def loginview(request):
             return redirect('/login')
     else:
         return render(request, 'login.html', {'form': AuthenticationForm()})
+
+def registrationcomplete(request):
+    return render(request, 'completeregistration.html')

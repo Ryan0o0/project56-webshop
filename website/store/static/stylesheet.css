@@ -322,6 +322,22 @@ input[type=submit], .logindiv button{
 	text-align: center;
 }
 
+button {
+		float: right;
+		/* margin: 0 auto; */
+		position: relative;
+		/* margin-right: 40px; */
+		background-color: rgb(243, 217, 149);
+		color: #4f4a4a;
+		border-radius: 3px;
+		border: solid 1px rgba(0, 0, 0, 0.41);
+		/* text-shadow: 0.3px 0.3px rgba(0, 0, 0, 0.7); */
+		margin-top: 15px;
+		padding: 10 55 6 50;
+		width: 100%;
+		text-align: center;
+}
+
 #down {
 	margin-top: 20px;
 	margin-right: 35px;
@@ -356,10 +372,10 @@ input[type=submit], .logindiv button{
 		 */
 	font: 18px Helvetica, Arial, sans-serif;
 	display: block;
-	width: 80%;
+	width: 100%;
 	margin-top: 0px;
 	height: 35px;
-	margin: auto;
+	/* margin: auto; */
 	/* margin-left: 0px; */
 	font-size: 18px;
 	/* margin-left: 10%; */
@@ -385,7 +401,7 @@ input[type=submit], .logindiv button{
 		 */
 	font: 18px Helvetica, Arial, sans-serif;
 	display: block;
-	width: 80%;
+	width: 100%;
 	margin-top: 0px;
 	display: block;
 	height: 35px;
@@ -778,7 +794,7 @@ input[type=submit], .logindiv button{
 	height: 80px;
 }
 
- 
+
 .srch {
 	background-color: rgba(45, 49, 52, 0.79);
 	border-color: rgba(96, 126, 96, 0.29);
@@ -979,6 +995,15 @@ input[type=submit], .logindiv button{
 	/* width: 75%; */
 }
 
+.loginsec {
+	margin: 0 auto;
+	position: relative;
+	/* max-width: 80%; */
+	margin-top: 3%;
+	height: 230px;
+	width: 45%;
+}
+
 .contactsection {
 	margin: 0 auto;
 	position: relative;
@@ -1070,7 +1095,7 @@ input[type=submit], .logindiv button{
 	text-align: center;
 }
 
-#id_password1, #id_password2, #id_first_name, #id_last_name, #id_email{
+#id_password1, #id_password2, #id_firstname, #id_lastname, #id_email{
 	width: 100%;
 	height: 30px;
 	-webkit-border-radius: 3px;
@@ -1134,6 +1159,21 @@ input[type=submit], .logindiv button{
 	padding: 5px 50px 50px 50px;
 }
 
+.loginwrap {
+	background-color: rgba(213, 209, 209, 0.39);
+	position: relative;
+	height: 80%;
+	/* width: 100%; */
+	/* margin-top: 5%; */
+	display: block;
+	border: solid 1px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+	margin-top: -5px;
+	z-index: 0;
+	position: relative;
+	padding: 5px 50px 50px 50px;
+}
+
 .contactsection p{
 	display: block;
 }
@@ -1179,6 +1219,12 @@ input[type=submit], .logindiv button{
 	margin: 0 auto;
 	width: 80%;
 }
+
+.loginsection {
+	margin: 0 auto;
+	width: 76%;
+}
+
 
 .list {
 	list-style-type: none;
