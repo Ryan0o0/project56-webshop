@@ -41,9 +41,9 @@ def contact(request):
             email = EmailMessage(
                 "Nieuwe contact aanvraag",
                 content,
-                "admin@comicfire.com",
-                ['admin@comicfire.com'],
-                headers={'Reply-to' : contact_email}
+                "Comic Fire" + '',
+                ['keyboardwarriorsinfo@gmail.com'],
+                headers = {'Reply-to': contact_email}
             )
             email.send()
             return redirect('contact')
