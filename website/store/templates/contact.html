@@ -24,10 +24,7 @@
                     <div class="contact">
                         <form role="form" action="" method="post">
                             {% csrf_token %}
-                            <p><label for="id_contact_name">Voor- en achternaam:</label> <input type="text" name="contact_name" required="" id="id_contact_name"></p>
-                            <p><label for="id_contact_email">E-mailadres:</label> <input type="email" name="contact_email" required="" id="id_contact_email"></p>
-                            <p><label for="id_content">Toelichting:</label> <textarea name="content" rows="10" id="id_content" cols="40" required=""></textarea></p>
-                            <input type="submit" id="contactsubmit">
+                            {{contact_form}}
                         </form>
                     </div>
                 </div>
