@@ -1,0 +1,15 @@
+{% extends 'frames/base.html' %}
+
+{% block content %}
+   <h1>Welcome</h1>
+   <p>
+      You can log in here!
+   </p>
+   <h2>Login</h2>
+   <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+      <button type="submit">Login</button>
+   </form>
+
+{% endblock %}
