@@ -3,10 +3,14 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template.loader import get_template
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
 from .collections.forms import ContactForm
 from store.collections.forms import RegistrationForm
+
+from django.contrib.auth import authenticate
+
+
 
 
 # Create your views here.
@@ -109,3 +113,16 @@ def logoutview(request):
     else:
         return redirect('/')
 
+
+def loginview(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/contact')
+        else:
+            return redirect('/register')
+
+    return render(request, 'login.html', {'form': AuthenticationForm()})

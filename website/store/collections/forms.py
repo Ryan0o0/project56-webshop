@@ -49,18 +49,3 @@ class RegistrationForm(UserCreationForm):
         self.fields['password2'].label = "Herhaling wachtwoord:"
         self.fields['password1'].help_text = "Je wachtwoord moet 8 karakters of langer zijn. Gebruik niet alleen cijfers."
         self.fields['password2'].help_text = "Herhaal het wachtwoord"
-
-# class UserCreationForm(UserCreationForm):
-#     email = EmailField(label=_("Email address"), required=True,
-#         help_text=_("Required."))
-#
-#     class Meta:
-#         model = User
-#         fields = ("username", "email", "password1", "password2")
-#
-#     def save(self, commit=True):
-#         user = super(UserCreationForm, self).save(commit=False)
-#         user.email = self.cleaned_data["email"]
-#         if commit:
-#             user.save()
-#         return user
