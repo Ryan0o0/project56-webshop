@@ -16,7 +16,7 @@
     <div class="contactmid">
         <div class="qrs">
 
-            <div class="contactsection commontextbox">
+            <div class="ctsection commontextbox">
                 <div class="sorton commoncolor">
                     <h1> Contact </h1></div>
                 <div class="contactwrap">
@@ -24,8 +24,10 @@
                     <div class="contact">
 
                         <form role="form" action="" method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
+                            <input type="hidden" name="csrfmiddlewaretoken" value="fAXdwZgu9uuIQhUFIzLeLeVRQHCswqaifbEaI6wgbSoQoVYCkH3cf5lrb7du5TLM">
+                            <p><label for="id_contact_name">Voor- en achternaam:</label> <input type="text" name="contact_name" required="" id="id_contact_name"></p>
+<p><label for="id_contact_email">E-mailadres:</label> <input type="email" name="contact_email" required="" id="id_contact_email"></p>
+<p><label for="id_content">Toelichting:</label> <textarea name="content" rows="10" id="id_content" cols="40" required=""></textarea></p>
                             <input type="submit" id="contactsubmit">
                         </form>
                     </div>
@@ -45,6 +47,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock%}
