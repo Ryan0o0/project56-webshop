@@ -6,7 +6,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
 from .collections.forms import ContactForm
-from store.collections.forms import RegistrationForm
+from .collections.forms import RegistrationForm
+from django.http import *
 
 from django.contrib.auth import authenticate
 
@@ -51,18 +52,17 @@ def contact(request):
     return render(request, 'contact.html', {'contact_form':formClass, })
 
 def register(request):
+    args = {}
     if request.method == 'POST':
         print("POST")
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/registrationcomplete')
-        else:
-            return redirect('/register')
+            return HttpResponseRedirect('/registrationcomplete')
     else:
-        print("Else!!!")
         form = RegistrationForm()
-        return render(request, 'register.html', {'form': form})
+    args['form'] = form
+    return render(request, 'register.html', args)
 
 def faq(request):
     return render(request, 'faq.html')
