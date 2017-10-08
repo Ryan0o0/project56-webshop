@@ -1218,6 +1218,11 @@ button {
 .about {
 	margin: 0 auto;
 	width: 80%;
+	background-color: rgb(255, 255, 255);
+	border: solid 1px rgba(0, 0, 0, 0.22);
+	margin-top: 30px;
+	padding: 30px;
+	border-radius: 3px;
 }
 
 .loginsection {
