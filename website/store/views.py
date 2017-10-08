@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
 from .collections.forms import ContactForm
-from .collections.forms import RegistrationForm
+from .collections.forms import RegistrationForm, LogginginForm
 from django.http import *
 
 from django.contrib.auth import authenticate
@@ -125,7 +125,7 @@ def loginview(request):
         else:
             return redirect('/login')
     else:
-        return render(request, 'login.html', {'form': AuthenticationForm()})
+        return render(request, 'login.html', {'form': LogginginForm})
 
 def registrationcomplete(request):
     return render(request, 'completeregistration.html')

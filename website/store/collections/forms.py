@@ -1,7 +1,7 @@
 # make sure this is at the top if it isn't already
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 # our new form
@@ -19,6 +19,14 @@ class ContactForm(forms.Form):
         self.fields['contact_email'].label = "E-mailadres:"
         self.fields['content'].label = "Toelichting"
 
+
+class LogginginForm(AuthenticationForm):
+    username = forms.CharField(required=True, label="E-mail")
+    # password = forms.CharField(required=True, label="Wachtwoord")
+
+    def __init__(self, *args, **kwargs):
+        super(LogginginForm, self).__init__(*args, **kwargs)
+        self.fields['password'].label = "Wachtwoord:"
 
 class RegistrationForm(UserCreationForm):
     firstname = forms.CharField(required=True, label="Voornaam:")
