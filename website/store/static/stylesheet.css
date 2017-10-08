@@ -58,7 +58,7 @@ body {
 	border-radius: 4px;
 }
 
-#righttext {display: block;padding: 5%;width: 70%;margin-left: 10.5%;vertical-align: middle;text-shadow: 0.33px 0.3px #342222;color: white;font-size: 15;position: relative;margin-top: 30px;word-wrap: break-word;border: solid 0.8px rgba(0, 0, 0, 0.09);border-radius: 4px;}
+#righttext {display: block;padding: 5%;width: 70%;margin-left: 10.5%;vertical-align: middle;text-shadow: 0.33px 0.3px #342222;color: white;font-size: 1.5vh;position: relative;margin-top: 30px;word-wrap: break-word;border: solid 0.8px rgba(0, 0, 0, 0.09);border-radius: 4px;}
 
 
 
@@ -107,20 +107,23 @@ body {
 
 .cart{
 	color: #f3d995;
-	font-size: 35px;
+	font-size: 5vh;
 	/* background-color: #aab8cd; */
+	text-align: center;
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	height: 40px;
+	float: right;
 	/* width: 2%; */
 	display: block;
 	margin: auto;
 	border-radius: 5px;
+	margin-top: 1.8%;
 	padding: 6;
 	z-index: 5000;
 	right: 0;
-	text-shadow: 0.6px 0.6px black;
+	text-shadow: 2.5px 0.4px rgba(0, 0, 0, 0.26);
 	/* box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19); */
 }
 
@@ -128,7 +131,7 @@ body {
 	/* width: 60%; */
 	/* height: 100%; */
 	/* position: absolute; */
-	/* display: block; */
+	display: inline-block;
 	cursor: pointer;
 	transition: 0.3s;
 	/* top: 0; */
@@ -137,7 +140,7 @@ body {
 }
 
 #cartid:hover {
-	font-size: 40px;
+	font-size: 5.5vh;
 	transition: 0.3s;
 	transition-timing-function: ease-in-out;
 }
@@ -168,7 +171,7 @@ body {
 	/* width: 2.3%; */
 	height: 50%;
 	position: absolute;
-	right: 8%;
+	right: 10.5%;
 	vertical-align: middle;
 	border-left: solid 1px rgba(168, 151, 151, 0.49);
 }
@@ -201,7 +204,7 @@ body {
 	cursor: pointer;
 	width: 100%;
 	margin-top: 0;
-	font-size: 15px;
+	font-size: 2vh;
 	float: right;
 	vertical-align: middle;
 	display: inline-block;
@@ -661,7 +664,7 @@ button {
 	margin: 0 auto;
 	margin-bottom: 15px;
 	position: relative;
-	font-size: 16px;
+	font-size: 1.5vh;
 	color: rgb(199, 68, 68);
 }
 
@@ -763,7 +766,7 @@ button {
 	background-repeat: no-repeat;
 	border: 1px solid #AAA;
 	color: #555;
-	font-size: 15px;
+	font-size: 1.5vh;
 	overflow: hidden;
 	padding: 5px 10px;
 	text-overflow: ellipsis;
@@ -842,15 +845,15 @@ button {
 	-ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
 	-o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
 	box-shadow: 0 1px 0 #7d8f97, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
-	-webkit-transition: all 10.5s ease;
+	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-ms-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
-	transition: all 0.7s ease;
+	transition: all 0.5s ease;
 	background: #ede9e9;
 	border: 1px solid rgb(209, 226, 233);
 	color: #777;
-	font: 20px Helvetica, Arial, sans-serif;
+	font: 3vh Helvetica, Arial, sans-serif;
 	/* left: 26.1%; */
 	top: 17%;
 	width: 85%;
@@ -913,7 +916,7 @@ button {
 	left: 0px;
 	/* cursor: pointer; */
 	position: relative;
-	font-size: 14px;
+	font-size: 1.5vh;
 	text-shadow: 1px 1px rgba(0, 0, 0, 0.17);
 	color: rgb(255, 255, 255);
 	transition: 0.1s;
@@ -1495,10 +1498,10 @@ button {
 	right: -1px;
 	margin: 0px;
 	border: solid 1px rgba(0, 0, 0, 0.09);
-	width: 50px;
+	width: 6vh;
 	height: 26px;
 	text-align: center;
-	font-size: 24px;
+	font-size: 22px;
 	padding: 3px;
 	opacity: 0.9;
 	transition: 0.5s;
@@ -1507,7 +1510,7 @@ button {
 }
 
 .addtocart:hover {
-	width:65px;
+	width: 7vh;
 	font-size: 25px;
 	opacity: 1;
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
@@ -1563,7 +1566,7 @@ button {
 	position: relative;
 	text-align: center;
 	margin-bottom: 0px;
-	font-size: 14px;
+	font-size: 1.5vh;
 }
 
 .wishlist {
@@ -1574,10 +1577,10 @@ button {
 	color: #e48383;
 	margin: 0px;
 	border: solid 1px rgba(0, 0, 0, 0.12);
-	width: 50px;
+	width: 6vh;
 	height: 26px;
 	text-align: center;
-	font-size: 24px;
+	font-size: 25px;
 	text-shadow: 0.1px 1px #3c3838;
 	padding: 3px;
 	opacity: 0.9;
@@ -1587,9 +1590,9 @@ button {
 }
 
 .wishlist:hover {
-	width:65px;
+	width: 7vh;
 	opacity: 1;
-	font-size: 25px;
+	/* font-size: 5vh; */
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
 	transition: 0.5s;
 }
@@ -1764,7 +1767,7 @@ button {
 .bartext p {
 	display: inline-block;
 	margin-left: 5px;
-	font-size: 11px;
+	font-size: 1.5vh;
 }
 
 .barwrap {
@@ -1924,12 +1927,12 @@ h1{
 
 p{
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
-	font-size: 13px;
+	font-size: 1.5vh;
 	line-height: 25px;
 }
 
 .name {
-	font-size: 15px;
+	font-size: 1.7vh;
 	margin: 3;
 	font-weight: bold;
 }
@@ -1958,7 +1961,7 @@ p{
 .ftcols {
 	margin: 0 auto;
 	position: relative;
-	width: 829px;
+	width: 781px;
 }
 
 
