@@ -123,7 +123,7 @@ body {
 	padding: 6;
 	z-index: 5000;
 	right: 0;
-	text-shadow: 2.5px 0.4px rgba(0, 0, 0, 0.26);
+	text-shadow: 1.5px 0.4px rgba(0, 0, 0, 0.26);
 	/* box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.19); */
 }
 
@@ -664,7 +664,7 @@ button {
 	margin: 0 auto;
 	margin-bottom: 15px;
 	position: relative;
-	font-size: 16px;
+	font-size: 1.5vh;
 	color: rgb(199, 68, 68);
 }
 
@@ -753,7 +753,7 @@ button {
 .sorton select{
 	float: right;
 	margin-right: 15px;
-	margin-top: 9px;
+	margin: 9px;
 	font-size: 12px;
 	-webkit-appearance: button;
 	-webkit-border-radius: 2px;
@@ -766,7 +766,6 @@ button {
 	background-repeat: no-repeat;
 	border: 1px solid #AAA;
 	color: #555;
-	font-size: 15px;
 	overflow: hidden;
 	padding: 5px 10px;
 	text-overflow: ellipsis;
@@ -1499,7 +1498,7 @@ button {
 	right: -1px;
 	margin: 0px;
 	border: solid 1px rgba(0, 0, 0, 0.09);
-	width: 6vh;
+	width: 20%;
 	height: 26px;
 	text-align: center;
 	font-size: 22px;
@@ -1567,7 +1566,7 @@ button {
 	position: relative;
 	text-align: center;
 	margin-bottom: 0px;
-	font-size: 14px;
+	font-size: 1.5vh;
 }
 
 .wishlist {
@@ -1579,7 +1578,7 @@ button {
 	margin: 0px;
 	border: solid 1px rgba(0, 0, 0, 0.12);
 	cursor: pointer;
-	width: 6vh;
+	width: 20%;
 	height: 26px;
 	text-align: center;
 	font-size: 25px;
@@ -1592,9 +1591,9 @@ button {
 }
 
 .wishlist:hover {
-	width: 65px;
+	width: 7vh;
 	opacity: 1;
-	font-size: 25px;
+	/* font-size: 5vh; */
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
 	transition: 0.5s;
 }
@@ -1769,7 +1768,7 @@ button {
 .bartext p {
 	display: inline-block;
 	margin-left: 5px;
-	font-size: 11px;
+	font-size: 1.5vh;
 }
 
 .barwrap {
@@ -1929,12 +1928,12 @@ h1{
 
 p{
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
-	font-size: 13px;
+	font-size: 11px;
 	line-height: 25px;
 }
 
 .name {
-	font-size: 15px;
+	font-size: 1.7vh;
 	margin: 3;
 	font-weight: bold;
 }
