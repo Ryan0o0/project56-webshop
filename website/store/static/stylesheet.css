@@ -560,7 +560,7 @@ button {
 	width: 100%;
 	/* border-width: 10px; */
 	border-top: solid 0.7px rgba(0, 0, 0, 0.23);
-	height: 63px;
+	height: 10%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -723,11 +723,15 @@ button {
 
 .sorton{
 	width: 100%;
+	margin-left: -1;
 	display: block;
+	left: 0;
 	height: 50px;
 	border: solid 0.8px rgba(0, 0, 0, 0.11);
 	position: relative;
-	border-radius: 5px;
+	border-top-left-radius: 5px;
+	border-bottom: solid 1px rgba(0, 0, 0, 0.21);
+	border-top-right-radius: 5px;
 	/* box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19); */
 	margin-top: 4%;
 	/* margin: 0 auto; */
@@ -914,10 +918,11 @@ button {
 	font-family: 'Cabin', Helvetica, Arial, sans-serif;
 	vertical-align: middle;
 	text-align: center;
+	width: 20%;
 	left: 0px;
 	/* cursor: pointer; */
 	position: relative;
-	font-size: 2.2vh;
+	font-size: 1.8vh;
 	text-shadow: 1px 1px rgba(0, 0, 0, 0.17);
 	color: rgb(255, 255, 255);
 	transition: 0.1s;
@@ -1059,14 +1064,17 @@ button {
 .regsection {
 	margin: 0 auto;
 	position: relative;
-	/* max-width: 80%; */
+	margin-top: 0;
 	padding-bottom: 70px;
+	width: 100%;
 	/* margin-top: 3%; */
-	background-color: rgba(168, 167, 167, 0.17);
-	/* width: 75%; */
-	border: solid 1px rgba(0, 0, 0, 0.24);
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+	/* background-color: rgba(168, 167, 167, 0.17); */
+	/* border: solid 1px rgba(0, 0, 0, 0.24); */
+	/* border-bottom: solid 1px rgba(0, 0, 0, 0.24); */
+	/* border-left: solid 1px rgba(0, 0, 0, 0.24); */
+	/* border-right: solid 1px rgba(0, 0, 0, 0.24); */
+	/* border-bottom-left-radius: 5px; */
+	/* border-bottom-right-radius: 5px; */
 }
 
 .reg {
@@ -1074,11 +1082,11 @@ button {
 	margin: 0 auto;
 	margin-top: 30px;
 	border-radius: 2px;
-	padding-bottom: 98px;
+	padding-bottom: 80px;
 	border: solid 1px rgba(0, 0, 0, 0.14);
 	padding-left: 40px;
 	padding-right: 40px;
-	padding-top: 10px;
+	padding-top: 15px;
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
 }
 
@@ -1109,7 +1117,7 @@ button {
 	border-radius: 3px;
 	border: solid 1px rgba(0, 0, 0, 0.41);
 	/* text-shadow: 0.3px 0.3px rgba(0, 0, 0, 0.7); */
-	margin-top: 30px;
+	margin-top: 10px;
 	padding: 10 45 10 40;
 	text-align: center;
 }
@@ -2349,15 +2357,15 @@ p{
 
 .faqwrap {
 	margin: 0 auto;
-	/* background-color: rgba(168, 167, 167, 0.17); */
+	background-color: rgb(227, 226, 226);
 	display: block;
 	position: relative;
 	width": 80%;
 	max-width: 80%;
-    margin-top: 4%;
-	width: 85%;
-	;;;/* border: solid 1px rgba(0, 0, 0, 0.24); */;;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;/* height: 703px; */;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;margin-top: 4%;;;
+	;;;;;;;;width: 85%;;;;;;;;;
+	;;;;;/* border: solid 1px rgba(0, 0, 0, 0.24); */;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;border-left: solid 1px rgba(0, 0, 0, 0.24);;;;;border-right: solid 1px rgba(0, 0, 0, 0.24);;;;;border-bottom: solid 1px rgba(0, 0, 0, 0.24);;;/* height: 703px; */;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-radius: 5px;
