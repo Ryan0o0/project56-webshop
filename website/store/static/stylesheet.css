@@ -359,6 +359,7 @@ button {
 	-ms-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
+	/* text-align: center; */
 	-webkit-box-shadow: 0 1px 0 #FFF, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
 	-moz-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
 	-ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
@@ -380,12 +381,13 @@ button {
 	/* margin-left: 0px; */
 	font-size: 18px;
 	/* margin-left: 10%; */
-	/* padding-left: 5px; */
+	padding-left: 5%;
 }
 
 #id_password {
 	-moz-border-radius: 3px;
 	-ms-border-radius: 3px;
+	/* text-align: center; */
 	-o-border-radius: 3px;
 	border-radius: 3px;
 	-webkit-box-shadow: 0 1px 0 #FFF, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
@@ -407,7 +409,7 @@ button {
 	display: block;
 	height: 35px;
 	font-size: 18px;
-	padding-left: 5px;
+	padding-left: 5%;
 	/* margin-left: 0px; */
 }
 
@@ -1001,7 +1003,7 @@ button {
 	/* max-width: 80%; */
 	margin-top: 3%;
 	height: 230px;
-	width: 45%;
+	width: 50%;
 }
 
 .contactsection {
@@ -1227,7 +1229,7 @@ button {
 
 .loginsection {
 	margin: 0 auto;
-	width: 76%;
+	width: 100%;
 }
 
 
@@ -1828,7 +1830,7 @@ textarea:focus{
 	-o-transition: all 0.5s ease;
 	/* background: #ffffff; */
 	border: 1px solid rgb(209, 226, 233);
-	color: #777;
+	/* color: #777; */
 	padding-left: 1%;
 }
 
