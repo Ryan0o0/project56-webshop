@@ -1107,6 +1107,10 @@ button {
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
 }
 
+.completereg img {
+	float: left;
+}
+
 .completereg p {
 	margin-left: 30%;
 	/* margin-top: 30px; */
