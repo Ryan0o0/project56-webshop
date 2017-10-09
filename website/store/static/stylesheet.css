@@ -554,9 +554,36 @@ button {
 	margin-top: 0px;
 }
 
+.nav .withlist {
+	padding-left: 132px;
+	padding-right: 132px;
+}
+
+.nav .withlist1 {
+	padding-left: 157px;
+	padding-right: 157px;
+}
+
+
+.nav .withlist2 {
+	padding-left: 126px;
+	padding-right: 126px;
+}
+
+.nav .withlist3 {
+	padding-left: 183px;
+	padding-right: 183px;
+}
+
+.nav .withlist4 {
+	padding-left: 183px;
+	padding-right: 183px;
+}
+
 .nav {
 	display: table;
 	margin-top: 0px;
+	overflow: hidden;
 	width: 100%;
 	/* border-width: 10px; */
 	border-top: solid 0.7px rgba(0, 0, 0, 0.23);
@@ -564,16 +591,46 @@ button {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.nav a {
+	text-decoration: none;
+	text-align: center;
+	padding-top: 16%;
+	padding-bottom: 18%;
+	padding-left: 150px;
+	width: 500px;
+	text-decoration: none;
+	box-shadow: none;
+	padding-right: 150px;
+	position: relative;
+}
+
+.nav a:hover {
+	/* background-color: rgb(78, 85, 81); */
+}
+
+.nav a p{
+	position: relative;
+	display: inline-block;
+	padding-top: 20px;
+}
+
 #sales {
 	position: relative;
+	top: 10%;
 	left: -20px;
 }
 
 .nav i{
 	padding-right: 15px;
+	text-decoration: none;
 	color: #f3d995;
 	transition: 0.3s;
 }
+
+.nav a p i {
+	text-decoration: none;
+}
+
 
 #sortdown {
 	left: 5px;
