@@ -1014,9 +1014,9 @@ button {
 
 .aboutmid {
     width: 60%;
-	float: left;
-	border-right: solid 1px rgb(204, 204, 204);
-	position: relative;
+    float: left;
+    /* border-right: solid 1px rgb(204, 204, 204); */
+    position: relative;
 }
 
 .contactmid {
