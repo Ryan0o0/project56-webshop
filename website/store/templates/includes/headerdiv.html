@@ -1,7 +1,7 @@
 {% if user.is_authenticated %}
-<div class="forlogin">
-     <p class="lgntext commoncolor">{% user.firstname %}<i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
-</div>
+    <div class="forlogin">
+         <p class="lgntext commoncolor">{{ user.get_username }}<i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
+    </div>
 
 {% else %}
 <div class="register"><a href="/register">
@@ -11,14 +11,6 @@
 <div class="forlogin">
 <a href="/login">
    <p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen </p>
-{#   <div class="logindiv">#}
-{#      <form method="post">#}
-{#         {% csrf_token %}#}
-{#         {{ form.as_p }}#}
-{#         <button type="submit">Login</button>#}
-{#         <a href="/register/">Nog geen lid?</a>#}
-{#      </form>#}
-{#   </div>#}
 </a>
 </div>
 {% endif %}
