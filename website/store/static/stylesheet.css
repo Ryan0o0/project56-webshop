@@ -1101,6 +1101,18 @@ button {
 	border: solid 1px rgba(0, 0, 0, 0.24);
 }
 
+.faqsection {
+	margin: 0 auto;
+	position: relative;
+	/* max-width: 80%; */
+	padding-top: 30px;
+	padding-bottom: 50px;
+	/* margin-top: 3%; */
+	/* background-color: rgba(168, 167, 167, 0.17); */
+	/* width: 75%; */
+	border: solid 1px rgba(0, 0, 0, 0.24);
+}
+
 .contactsection label {
 	display: block;
 	padding-top: 20px;
