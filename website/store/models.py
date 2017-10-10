@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 #Gecontroleerd ERD met mvr. Uberts
 
 class Customers(models.Model):
+    class Meta:
+        verbose_name_plural = "Customers"
+
     customerID = models.IntegerField(primary_key=True)
     email = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
@@ -15,6 +18,7 @@ class Customers(models.Model):
 
 class Address(models.Model):
     class Meta:
+        verbose_name_plural = "Customer addresses"
         unique_together = ('customerID', 'address')
 
     customerID = models.ForeignKey(Customers)
@@ -24,12 +28,21 @@ class Address(models.Model):
     postalcode = models.CharField(max_length=10)
 
 class Products(models.Model):
+    class Meta:
+        verbose_name_plural = "Products"
+
     prodNum = models.IntegerField(primary_key=True)
     prodName = models.CharField(max_length=50)
     prodPrice = models.FloatField()
     prodStock = models.IntegerField()
 
+    def __str__(self):
+        return (str(self.prodNum))
+
 class ProductDetails(models.Model):
+    class Meta:
+        verbose_name_plural = "Product details"
+
     prodNum = models.ForeignKey(Products)
     genre = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
@@ -49,6 +62,9 @@ class WishList(models.Model):
     productNum = models.ForeignKey(Products)
 
 class Orders(models.Model):
+    class Meta:
+        verbose_name_plural = "Orders"
+
     orderNum = models.IntegerField(primary_key=True)
     orderDate = models.DateField()
     orderStatus = models.CharField(max_length=15)
@@ -56,6 +72,7 @@ class Orders(models.Model):
 class OrderDetails(models.Model):
     class Meta:
         unique_together = ('orderNum', 'productNum')
+        verbose_name_plural = "Order details"
 
     orderNum = models.ForeignKey(Orders)
     productNum = models.ForeignKey(Products)

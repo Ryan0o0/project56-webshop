@@ -1,8 +1,17 @@
-from django.shortcuts import render
-from .collections.forms import ContactForm
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
+from django.shortcuts import render
 from django.template.loader import get_template
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
+from .collections.forms import ContactForm
+from .collections.forms import RegistrationForm, LogginginForm
+from django.http import *
+
+from django.contrib.auth import authenticate
+
+
 
 
 # Create your views here.
@@ -33,14 +42,27 @@ def contact(request):
             email = EmailMessage(
                 "Nieuwe contact aanvraag",
                 content,
-                "Comic Fire" + '',
-                ['keyboardwarriorsinfo@gmail.com'],
-                headers={'Reply-to' : contact_email}
+                "Comicfire" + '',
+                ['admin@comicfire.com'],
+                headers = {'Reply-to': contact_email}
             )
             email.send()
             return redirect('contact')
 
-    return render(request, 'contact.html', {'form':formClass, })
+    return render(request, 'contact.html', {'contact_form':formClass, })
+
+def register(request):
+    args = {}
+    if request.method == 'POST':
+        print("POST")
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'completeregistration.html')
+    else:
+        form = RegistrationForm()
+    args['form'] = form
+    return render(request, 'register.html', args)
 
 def faq(request):
     return render(request, 'faq.html')
@@ -52,9 +74,61 @@ def product(request):
     return render(request, 'product.html')
 
 def product2(request, item):
-    print(item)
-    return render(request, 'product.html')
-  
+    productNumber = (int(item))
+    prodName = getProdName(productNumber)
+    prodPrice = getProdPrice(productNumber)
+    prodStock = getProdStock(productNumber)
+    prodGenre = getProdGenre(productNumber)
+    prodType = getProdType(productNumber)
+    prodPublisher = getProdPublish(productNumber)
+    prodPages = getProdTotalPages(productNumber)
+    prodLanguage = getProdLanguage(productNumber)
+    prodRating = getProdRating(productNumber)
+    prodAuthor = getProdAuthor(productNumber)
+    prodDesc = getProdDesc(productNumber)
+    prodImage = getProdImage(productNumber)
+    return render(request, 'product2.html', {
+        'prodNum' : productNumber,
+        'prodName' : prodName,
+        'prodPrice' : prodPrice,
+        'prodStock' : prodStock,
+        'prodGenre' : prodGenre,
+        'prodType' : prodType,
+        'prodPublisher' : prodPublisher,
+        'prodPages' : prodPages,
+        'prodLanguage' : prodLanguage,
+        'prodRating' : range(prodRating),
+        'prodAuthor' : prodAuthor,
+        'prodDesc' : prodDesc,
+        'prodImage' : prodImage,
+    })
+
 def testing(request):
     return render(request, 'testing.html')
 
+def about(request):
+    return render(request, 'about.html')
+
+def logoutview(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('/')
+    else:
+        return redirect('/')
+
+
+def loginview(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            return redirect('/login')
+    else:
+        return render(request, 'login.html', {'form': LogginginForm})
+
+def registrationcomplete(request):
+    return render(request, 'completeregistration.html')

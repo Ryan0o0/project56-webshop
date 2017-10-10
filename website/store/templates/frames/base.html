@@ -5,11 +5,61 @@
         {% include 'includes/header.html' %}
     </head>
 
-    <body class="body" style="background-color:#f6f6f6">
+    <body class="body">
         {% include 'includes/headerdiv.html'%}
         {% include 'includes/navbar.html' %}
+		<div class="content"> 
+		<div class="right sidecolors">
+	<div class="promoted">
+		<div class="sale">
+			<div class="salep">
+				<p>Nu in de uitverkoop</p>
+			</div>
+			<div class="comicslides fade" style="display: block;">
+				<img src="https://i.annihil.us/u/prod/marvel/i/mg/6/10/4bb440850f56b/portrait_incredible.jpg">
+				<p class="promoprice">€ 14.99</p>
+			</div>
+			<div class="comicslides fade" style="display: none;">
+				<img src="https://i.annihil.us/u/prod/marvel/i/mg/7/80/59b93f48d26d9/portrait_incredible.jpg">
+				<p class="promoprice">€ 16.99</p>
+			</div>
+			<div class="comicslides fade" style="display: none;">
+				<img src="https://i.annihil.us/u/prod/marvel/i/mg/6/50/5811114de7c6f/portrait_incredible.jpg">
+				<p class="promoprice">€ 14.99</p>
+			</div>
+			<div style="text-align:center; margin-bottom: 40px;">
+				<span class="dot active"></span> <span class="dot"></span> <span class="dot"></span>
+			</div>
+			<script>
+			 var slideIndex = 0;
+			 showSlides();
+
+			 function showSlides() {
+			     var i;
+			     var slides = document.getElementsByClassName("comicslides");
+			     var dots = document.getElementsByClassName("dot");
+			     for (i = 0; i < slides.length; i++) {
+			        slides[i].style.display = "none";  
+			     }
+			     slideIndex++;
+			     if (slideIndex > slides.length) {slideIndex = 1}    
+			     for (i = 0; i < dots.length; i++) {
+			         dots[i].className = dots[i].className.replace(" active", "");
+			     }
+			     slides[slideIndex-1].style.display = "block";  
+			     dots[slideIndex-1].className += " active";
+			     setTimeout(showSlides, 4000); // Change image every 2 seconds
+			 }
+			</script>
+		</div>
+	</div>
+	<div class="line"></div>
+	<!-- <p class="commoncolor" id="righttext">We garanderen de beste quality stripboeken, voor de laagste prijs!</p> --->
+	<img src="https://www.dotan.com/images/payment-1.png" width="100%"></div>
         {% block content %}
+		
         {% endblock %}
+		</div>
     </body>
 
     <footer>
