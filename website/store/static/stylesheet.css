@@ -177,11 +177,11 @@ body {
 }
 
 .register{
-	position: absolute;
 	right: 7.5%;
-	width: 9.6%;
+	width: 10%;
+	float: left;
 	position: absolute;
-	height: 10%;
+	height: 100%;
 	z-index: 50000;
 }
 
@@ -207,6 +207,15 @@ body {
 	display: table-cell;
 	vertical-align: middle;
 	font-size: 2vh;
+}
+
+.forlogin1 {
+	right: 0;
+	width: 10%;
+	position: absolute;
+	text-align: center;
+	height: 100%;
+	z-index: 50000;
 }
 
 .forlogin {
