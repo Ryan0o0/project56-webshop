@@ -555,13 +555,14 @@ button {
 }
 
 .nav .withlist {
-	padding-left: 132px;
-	padding-right: 132px;
+	padding-left: 11vh;
+	padding-right: 11vh;
+	/* width: 50%; */
 }
 
 .nav .withlist1 {
-	padding-left: 157px;
-	padding-right: 157px;
+	padding-left: 10vh;
+	padding-right: 10vh;
 }
 
 
@@ -621,7 +622,8 @@ button {
 }
 
 .nav i{
-	padding-right: 15px;
+	padding-right: 2vh;
+	padding-left: 2vh;
 	text-decoration: none;
 	color: #f3d995;
 	transition: 0.3s;
@@ -979,7 +981,7 @@ button {
 	left: 0px;
 	/* cursor: pointer; */
 	position: relative;
-	font-size: 1.8vh;
+	font-size: 2.2vh;
 	text-shadow: 1px 1px rgba(0, 0, 0, 0.17);
 	color: rgb(255, 255, 255);
 	transition: 0.1s;
@@ -988,6 +990,8 @@ button {
 
 .nav p a{
 	color: white;
+	/* padding-left: 10vh; */
+	/* padding-right: 10vh; */
 	text-decoration: none;
 }
 
