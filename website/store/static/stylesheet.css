@@ -1028,7 +1028,7 @@ button {
 .faqmid {
 	width: 60%;
 	float: left;
-	border-right: solid 1px rgb(204, 204, 204);
+	/* border-right: solid 1px rgb(204, 204, 204); */
 	position: relative;
 	margin-bottom: 100px;
 }
