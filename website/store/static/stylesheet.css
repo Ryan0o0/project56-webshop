@@ -1028,7 +1028,7 @@ button {
 .faqmid {
 	width: 60%;
 	float: left;
-	/* border-right: solid 1px rgb(204, 204, 204); */
+	border-right: solid 1px rgb(204, 204, 204);
 	position: relative;
 	margin-bottom: 100px;
 }
@@ -1098,7 +1098,7 @@ button {
 	/* margin-top: 3%; */
 	/* background-color: rgba(168, 167, 167, 0.17); */
 	/* width: 75%; */
-	border: solid 1px rgba(0, 0, 0, 0.24);
+	/* border: solid 1px rgba(0, 0, 0, 0.24); */
 }
 
 .faqsection {
