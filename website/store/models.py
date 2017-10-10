@@ -53,6 +53,7 @@ class ProductDetails(models.Model):
     author = models.CharField(max_length=50)
     desc = models.TextField()
     imageLink = models.CharField(max_length=100)
+    pubDatum = models.CharField(max_length=30, default="1 januari, 1990")
 
 class WishList(models.Model):
     class Meta:

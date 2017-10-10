@@ -4,15 +4,12 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages
+from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from .collections.forms import ContactForm
 from .collections.forms import RegistrationForm, LogginginForm
 from django.http import *
 
 from django.contrib.auth import authenticate
-
-
-
 
 # Create your views here.
 
@@ -87,6 +84,7 @@ def product2(request, item):
     prodAuthor = getProdAuthor(productNumber)
     prodDesc = getProdDesc(productNumber)
     prodImage = getProdImage(productNumber)
+    prodDate = getProdData(productNumber)
     return render(request, 'product2.html', {
         'prodNum' : productNumber,
         'prodName' : prodName,
@@ -101,6 +99,7 @@ def product2(request, item):
         'prodAuthor' : prodAuthor,
         'prodDesc' : prodDesc,
         'prodImage' : prodImage,
+        'prodDate' : prodDate,
     })
 
 def testing(request):
