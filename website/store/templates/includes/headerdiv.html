@@ -1,6 +1,6 @@
 {% if user.is_authenticated %}
 <div class="forlogin">
-     <p class="lgntext commoncolor"><i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
+     <p class="lgntext commoncolor">{% user.firstname %}<i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
 </div>
 
 {% else %}
