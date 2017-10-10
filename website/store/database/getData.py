@@ -52,3 +52,41 @@ def getProdDesc(prNum):
 def getProdImage(prNum):
     object = ProductDetails.objects.get(prodNum = prNum)
     return object.imageLink
+
+def getResult(query):
+    object = ProductDetails.objects.raw('SELECT * FROM ProductDetails'
+                                        'WHERE prodNum LIKE ' + query +
+                                        'OR prodName LIKE ' + query +
+                                        'OR prodPrice LIKE ' + query +
+                                        'OR prodStock LIKE ' + query +
+                                        'OR genre LIKE ' + query +
+                                        'OR type LIKE ' + query +
+                                        'OR publisher LIKE ' + query +
+                                        'OR totalPages LIKE ' + query +
+                                        'OR language LIKE ' + query +
+                                        'OR author LIKE ' + query +
+                                        'OR desc LIKE ' + query)
+    return object
+
+def getPublisherBox(publisherQuery):
+  object = ProductDetails.objects.get(publisher = publisherQuery)
+  return object.prodNum
+
+def getRatingBox(ratingQuery):
+  object = ProductDetails.objects.get(rating = ratingQuery)
+  return object.prodNum
+
+def getTypeBox(typeQuery):
+  object = ProductDetails.objects.get(type = typeQuery)
+  return object.prodNum
+
+def getLanguageBox(languageQuery):
+  object = ProductDetails.objects.get(language = languageQuery)
+  return object.prodNum
+
+def getPriceBox(priceMin, priceMax):
+  object = ProductDetails.objects.raw('SELECT * FROM ProductDetails'
+                                      'WHERE prodPrice >= ' + priceMin +
+                                      'AND prodPrice <= ' + priceMax)
+  return object.prodNum
+
