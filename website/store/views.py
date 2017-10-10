@@ -5,6 +5,7 @@ from django.template.loader import get_template
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
+from .database.verifyData import verifyProdNum
 from .collections.forms import ContactForm
 from .collections.forms import RegistrationForm, LogginginForm
 from django.http import *
@@ -71,6 +72,9 @@ def product(request):
     return render(request, 'product.html')
 
 def product2(request, item):
+    if not verifyProdNum(item):
+        return render(request, 'productnietgevonden.html')
+
     productNumber = (int(item))
     prodName = getProdName(productNumber)
     prodPrice = getProdPrice(productNumber)
