@@ -1,8 +1,7 @@
 {% if user.is_authenticated %}
-    <div class="forlogin">
-         <p class="lgntext commoncolor">{{ user.get_username }}<i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
-    </div>
-
+<div class="usersection"><div class="user"><p>{{ user.get_username }}</p></div><div class="forlogin">
+         <p class="lgntext commoncolor"><i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
+    </div></div>
 {% else %}
 <div class="register"><a href="/register">
    <p class="lgntext commoncolor"> <i class="fa fa-user-plus" aria-hidden="true"></i>Registreren </p>
