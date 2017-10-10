@@ -52,3 +52,7 @@ def getProdDesc(prNum):
 def getProdImage(prNum):
     object = ProductDetails.objects.get(prodNum = prNum)
     return object.imageLink
+
+def getProdData(prNum):
+    object = ProductDetails.objects.get(prodNum = prNum)
+    return object.pubDatum
