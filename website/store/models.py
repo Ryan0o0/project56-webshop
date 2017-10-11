@@ -32,7 +32,7 @@ class Products(models.Model):
         verbose_name_plural = "Products"
 
     prodNum = models.IntegerField(primary_key=True)
-    prodName = models.CharField(max_length=50)
+    prodName = models.CharField(max_length=200)
     prodPrice = models.FloatField()
     prodStock = models.IntegerField()
 
