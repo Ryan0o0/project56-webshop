@@ -21,6 +21,11 @@ from django.contrib.auth import authenticate
 # Create your views here.
 
 def index(request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            print(request.POST.get('searchtext', ''))
+            #De print print de waarde die in de zoekbar staat uit -> gebruik dat als variable voor je zoek functie.
+
     return render(request, 'index.html')
 
 def contact(request):
