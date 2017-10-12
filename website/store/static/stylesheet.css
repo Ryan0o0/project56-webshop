@@ -1356,6 +1356,7 @@ button {
 	border-radius: 3px;
 	margin: 0 auto;
 	width: 70%;
+	cursor: pointer;
 	color: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.17);
 	font-size: 17px;
@@ -1366,6 +1367,7 @@ button {
 
 .generalquestions {
 	background-color: rgba(106, 108, 109, 0.9);
+	cursor: pointer;
 	border-radius: 3px;
 	margin: 40 auto;
 	width: 70%;
@@ -1376,7 +1378,6 @@ button {
 	text-align: center;
 	padding: 15px;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .contact {
