@@ -51,7 +51,7 @@ def contact(request):
                 headers = {'Reply-to': contact_email}
             )
             email.send()
-            return redirect('contact')
+            return redirect('messagesend')
 
     return render(request, 'contact.html', {'contact_form':formClass, })
 
@@ -169,3 +169,6 @@ def activate(request, uidb64, token):
         return render(request, 'completeregistration.html')
     else:
         return HttpResponse('Activation link is invalid!')
+
+def contactRequestHandeld(request):
+    return render(request, 'mailsend.html')
