@@ -929,6 +929,11 @@ button {
 	height: 50%;
 }
 
+.headmid form {
+	position: relative;
+	top: 17%;
+}
+
 #searchbar {
 	text-align: center;
 	display: inline-block;
