@@ -46,7 +46,8 @@ def contact(request):
             email = EmailMessage(
                 "Nieuwe contact aanvraag",
                 content,
-                to= ['admin@comicfire.com'],
+                'noreply@comicfire.com',
+                ['admin@comicfire.com'],
                 headers = {'Reply-to': contact_email}
             )
             email.send()
