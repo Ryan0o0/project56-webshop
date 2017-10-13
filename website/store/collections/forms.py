@@ -50,6 +50,7 @@ class RegistrationForm(UserCreationForm):
         self.fields['password2'].help_text = "Herhaal het wachtwoord"
         self.error_messages = {
             'password_mismatch': ("Oeps! De twee opgegeven wachtwoorden kwamen niet overeen! Probeer het opnieuw!"),
+            'password_too_short': ("Dit wachtwoord is te kort!"),
         }
 
     def save(self, commit=True):

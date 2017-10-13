@@ -1,55 +1,66 @@
+<<<<<<< HEAD
+<div class="register"><p class="lgntext commoncolor"> <i class="fa fa-user-plus" aria-hidden="true"></i>Register </p> <div class="registerdiv"><p>Name</p><input type="textbox" placeholder="Clark"><p>Surname</p><input type="textbox" placeholder="Kent"><p>E-mail</p><input type="textbox" placeholder="Superman@comicshop.nl"><p>Password</p><input type="password" placeholder="****************">
+<p>Repeat Password</p>
+<input type="password" placeholder="****************"><input type="submit" value="Register"></div></div>
+    
+    <div class="forlogin"><p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in </p><div class="logindiv"><p>E-mail</p><input type="textbox" placeholder="Batman@comicshop.nl"><p>Password</p><input type="password" placeholder="****************"><input type="submit" value="Login"></div></div>
+    
 <div class="header">
-   {% if user.is_authenticated %}
-   <div class="logowrap commoncolor">
-      <div class="logo">
-         {% load static %}
-         <a href="/">
-         <img src="{% static 'images/comicfirelogo3.png' %}">
-         </a>
-      </div>
-   </div>
-    <div class="headmid">
-       <form name="searchForm" action="" method="post" id="srchform">
-          {% csrf_token %}
-          <input type="text" id="searchbar" name="searchtext" placeholder="Deadpool vs The Punisher">
-          <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" id="srchbutton">
-       </form>
-       <div class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" id="cartid"></i></div>
+    <div class="logintexts commoncolor"><div class="logowrap commoncolor">
+    <div class="logo">
+    {% load static %}
+    <a href="/">
+        <img src="{% static 'images/ComicFireLogo.png' %}">
+    </a>
+
     </div>
-   <div class="usersection">
-      <div class="user">
-         <p>{{ user.get_username }}</p>
-      </div>
-      <div class="forlogin">
-         <p class="lgntext commoncolor"><i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
-      </div>
-   </div>
-   {% else %}
-   <div class="logowrap commoncolor">
-      <div class="logo">
-         {% load static %}
-         <a href="/">
-         <img src="{% static 'images/comicfirelogo3.png' %}">
-         </a>
-      </div>
-   </div>
-    <div class="headmid">
-       <form name="searchForm" action="" method="post">
-          {% csrf_token %}
-          <input type="text" id="searchbar" name="searchtext" placeholder="Deadpool vs The Punisher">
-          <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" id="srchbutton">
-       </form>
-       <div class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" id="cartid"></i></div>
     </div>
-   <div class="register">
-      <a href="/register">
-         <p class="lgntext commoncolor"> <i class="fa fa-user-plus" aria-hidden="true"></i>Registreren </p>
-      </a>
+    
+    <input type="text" id="searchbar" name="searchtext" placeholder="Deadpool vs The Punisher" class="">
+    <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" id="srchbutton">
+    <div class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" id="cartid"></i></div>
+         
+        
+    </div>
+=======
+{% if user.is_authenticated %}
+<div class="forlogin">
+     <p class="lgntext commoncolor"><i class="fa fa-sign-out" aria-hidden="true"></i><a class="logout" href="/logout">Logout</a></p>
+</div>
+
+{% else %}
+<div class="register"><a href="/register">
+   <p class="lgntext commoncolor"> <i class="fa fa-user-plus" aria-hidden="true"></i>Registreren </p>
+    </a>
+</div>
+<div class="forlogin">
+<a href="/login">
+   <p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen </p>
+{#   <div class="logindiv">#}
+{#      <form method="post">#}
+{#         {% csrf_token %}#}
+{#         {{ form.as_p }}#}
+{#         <button type="submit">Login</button>#}
+{#         <a href="/register/">Nog geen lid?</a>#}
+{#      </form>#}
+{#   </div>#}
+</a>
+</div>
+{% endif %}
+<div class="header">
+      <div class="logowrap commoncolor">
+         <div class="logo">
+            {% load static %}
+            <a href="/">
+            <img src="{% static 'images/comicfirelogo3.png' %}">
+            </a>
+         </div>
+     </div>
+           <div class="headmid">
+      <input type="text" id="searchbar" name="searchtext" placeholder="Deadpool vs The Punisher">
+      <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" id="srchbutton">
+      <div class="cart"><i class="fa fa-shopping-cart" aria-hidden="true" id="cartid"></i></div>
+           </div>
    </div>
-   <div class="forlogin1">
-      <a href="/login">
-         <p class="lgntext commoncolor"><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen </p>
-      </a>
-   </div>
-   {% endif %}
+>>>>>>> 27e73e910d34c0d618ca784b9f02dc46f0a65101
 </div>
