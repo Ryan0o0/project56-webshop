@@ -1,5 +1,6 @@
 from django import template
 import urllib.request, json
+from ..database.getData import getProdImage, getProdName, getProdPublish, getProdPrice, getProdAuthor, getProdStock
 
 register = template.Library()
 
@@ -15,4 +16,31 @@ def any_function():
     return "{0}, {1}, {2}, {3}".format(title, desc, count, fullurl)
 
 
+@register.simple_tag()
+def prodImageTag(prodNum):
+    return getProdImage(prodNum)
 
+@register.simple_tag()
+def prodUrlTag(prodNum):
+    url = "/product/" + str(prodNum)
+    return url
+
+@register.simple_tag()
+def prodTitleTag(prodNum):
+    return getProdName(prodNum)
+
+@register.simple_tag()
+def prodPublTag(prodNum):
+    return getProdPublish(prodNum)
+
+@register.simple_tag()
+def prodPriceTag(prodNum):
+    return getProdPrice(prodNum)
+
+@register.simple_tag()
+def prodAuthorTag(prodNum):
+    return getProdAuthor(prodNum)
+
+@register.simple_tag()
+def prodStockTag(prodNum):
+    return getProdStock(prodNum)
