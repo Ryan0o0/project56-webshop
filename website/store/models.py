@@ -33,7 +33,7 @@ class Products(models.Model):
 
     prodNum = models.IntegerField(primary_key=True)
     prodName = models.CharField(max_length=200)
-    prodPrice = models.FloatField()
+    prodPrice = models.DecimalField(max_digits=999, decimal_places=2)
     prodStock = models.IntegerField()
 
     def __str__(self):
