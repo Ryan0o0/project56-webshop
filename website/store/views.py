@@ -15,6 +15,7 @@ from .database.verifyData import verifyProdNum
 from .collections.forms import ContactForm
 from .collections.forms import RegistrationForm, LogginginForm
 from django.http import *
+from .database.getData import getResult
 
 from django.contrib.auth import authenticate
 
@@ -23,7 +24,7 @@ from django.contrib.auth import authenticate
 def index(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
-            print(request.POST.get('searchtext', ''))
+            results(request, "Fairy")
             #De print print de waarde die in de zoekbar staat uit -> gebruik dat als variable voor je zoek functie.
 
     return render(request, 'index.html')
@@ -177,3 +178,13 @@ def activate(request, uidb64, token):
 
 def contactRequestHandeld(request):
     return render(request, 'mailsend.html')
+
+def results(request, query):
+    #returnPage(request.GET.get('searchtext'))
+    object = getResult(query)
+    print(object)
+    prodName = getProdName()
+    prodPrice = getProdPrice()
+    prodStock = getProdStock()
+    prodAuthor = getProdAuthor()
+    return render(request, 'results.html')
