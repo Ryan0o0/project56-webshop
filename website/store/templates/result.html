@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="result">
-<div class="bars sidecolors">
+  <div class="bars sidecolors">
     <div class="barwrap">
         <div class="leftbar commoncolor">
             <p>Taal<i class="fa fa-sort-desc" aria-hidden="true" id="sortdown"></i></p>
@@ -96,9 +96,8 @@
             <br>
         </div>
     </div>
-</div>
-</div>
-<div class="resultmid">
+  </div>
+  <div class="resultmid">
     <div class="qrs">
         <div class="sorton commoncolor">
             <p>Totale Resultaten: </p>
@@ -111,40 +110,16 @@
             </select>
             <p id="sortp">Sorteren op: </p>
         </div>
-      <ul class="list">
-        <li>
-          <div class="productwrap">
-            <img src="https://i.annihil.us/u/prod/marvel/i/mg/6/10/4bb440850f56b/portrait_incredible.jpg" id="zoom_05" data-zoom-image="https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg">
-            <p class="author">
-              Marvel</p>
-            <p class="name">
-              The Invincible Iron Man</p>
-            <p><i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-            </p>
-            <p class="price">
-              € 14.99</p>
-            <p class="addtocart">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            </p>
-            <p class="wishlist">
-              <i class="fa fa-heart" aria-hidden="true"></i></p>
-            <p class="stock">
-              Op voorraad</p>
-          </div>
-        </li>
-      </ul>
+        {% for x in ""%}
+          <ul class="list">
+            {% for x in "xxx" %}
+             <li>
+               {% add views.result() %}
+             </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
     </div>
+  </div>
 </div>
-<div>
-  {% for object in page.object %}
-  <tr>
-    
-  </tr>
-  {% endfor %}
-</div>
-{% endblock%}
+{% endblock %}

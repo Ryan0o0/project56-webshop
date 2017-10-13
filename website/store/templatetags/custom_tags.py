@@ -14,5 +14,8 @@ def any_function():
         fullurl = str(data['data']['results'][0]['thumbnail']['path']) + '.jpg'
     return "{0}, {1}, {2}, {3}".format(title, desc, count, fullurl)
 
+def getRows(getal):
+    return (int(getal / 3))
+
 
 
