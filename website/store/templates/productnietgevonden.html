@@ -1,4 +1,5 @@
 {% extends 'frames/base.html' %}
+{% load custom_tags %}
 {% block content %}
 <div class="content" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
    <div class="bars sidecolors">
@@ -7,9 +8,11 @@
             <div class="salep" id="arrive">
                <p>New Arrival</p>
             </div>
-            <img src="https://i.annihil.us/u/prod/marvel/i/mg/6/e0/5988e0273d1fc/portrait_incredible.jpg">
-            <p style="color: grey;font-size: 13px;text-align: center;">Marvel</p>
-            <p style="color: #635c5c; font-size: 20px; text-align: center; margin: 0; margin-bottom: 20px">Daredevil</p>
+            <a href={% prodUrlTag 1 %}>
+               <img src="{% prodImageTag 1 %}">
+            </a>
+            <p style="color: grey;font-size: 13px;text-align: center;">{% prodPublTag 1 %}</p>
+            <p style="color: #635c5c; font-size: 20px; text-align: center; margin: 0; margin-bottom: 20px">{% prodTitleTag 1 %}</p>
          </div>
       </div>
    </div>
@@ -33,7 +36,9 @@
             <div class="salep">
                <p>Now on Sale</p>
             </div>
-            <img src="https://i.annihil.us/u/prod/marvel/i/mg/6/10/4bb440850f56b/portrait_incredible.jpg">
+            <a href={% prodUrlTag 2 %}>
+               <img src="{% prodImageTag 2 %}">
+            </a>
             <p style="text-decoration: line-through;color: grey;font-size: 11px;text-align: center;position: relative;margin: 0;">€ 19.99</p>
             <p class="promoprice">€ 14.99</p>
          </div>
