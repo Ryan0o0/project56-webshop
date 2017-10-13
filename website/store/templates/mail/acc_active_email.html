@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hallo {{ user.username }},
+Bedankt voor uw registratie op www.comicfire.com
+
+Klik onderstaande link om uw account te activeren:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

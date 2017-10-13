@@ -70,7 +70,7 @@ def register(request):
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
-            message = render_to_string('acc_active_email.html', {
+            message = render_to_string('mail/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
