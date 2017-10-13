@@ -126,12 +126,13 @@ STATIC_URL = '/static/'
 
 #Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = 'comicfire.com'
+EMAIL_HOST_USER = 'noreply'
+EMAIL_HOST_PASSWORD = 'kaas123'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 25
-DEFAULT_FROM_EMAIL = 'admin@comicfire.com'
+DEFAULT_FROM_EMAIL = 'noreply@comicfire.com'
 
 
 LOGIN_REDIRECT_URL = '/contact'
+
