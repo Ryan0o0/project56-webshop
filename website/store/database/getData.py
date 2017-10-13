@@ -55,17 +55,17 @@ def getProdImage(prNum):
 
 
 def getResult(query):
-    object = ProductDetails.objects.raw("SELECT DISTINCT * FROM store_productdetails d, store_products p"
+    object = ProductDetails.objects.raw("SELECT DISTINCT * FROM store_productdetails d, store_products p "
                                         "WHERE d.\"prodName\" = p.\"prodNum\" AND " +
-                                        "( " +
-                                        "prodName LIKE '%" + query + "%'" +
-                                        "OR d.genre LIKE '%" + query + "%'" +
-                                        "OR d.type LIKE '%" + query + "%'" +
-                                        "OR d.publisher LIKE '%" + query + "%'" +
-                                        "OR d.language LIKE '%" + query + "%'" +
-                                        "OR d.author LIKE '%" + query + "%'" +
-                                        "OR \"desc\" LIKE '%" + query + "%')" +
-                                        "ORDER BY d.\"prodNum\";")
+                                        "(" +
+                                        " prodName LIKE '%" + query + "%'" +
+                                        " OR d.genre LIKE '%" + query + "%'" +
+                                        " OR d.type LIKE '%" + query + "%'" +
+                                        " OR d.publisher LIKE '%" + query + "%'" +
+                                        " OR d.language LIKE '%" + query + "%'" +
+                                        " OR d.author LIKE '%" + query + "%'" +
+                                        " OR \"desc\" LIKE '%" + query + "%')" +
+                                        " ORDER BY d.\"prodNum\";")
     print(object)
     return object
 

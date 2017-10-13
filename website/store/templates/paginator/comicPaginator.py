@@ -1,11 +1,14 @@
 from Django.core.paginator import Paginator
+from ...database.getData import getResult
+
 objects = ['A', 'B']
-maxResults = 1
+maxResults = 15
 page = Paginator(objects, maxResults)
 print(page.count)
 print(page.num_pages)
 
-def getResult(objects, maxResults, pageNumber):
-  page.object_list = objects
-  page.per_page = maxResults
-  return page.page(pageNumber)
+
+def returnPage(query):
+  page.object_list = getResult(query)
+  page.per_page = 1000
+  return page.page(1)
