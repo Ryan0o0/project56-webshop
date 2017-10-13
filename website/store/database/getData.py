@@ -53,6 +53,7 @@ def getProdImage(prNum):
     object = ProductDetails.objects.get(prodNum = prNum)
     return object.imageLink
 
+
 def getResult(query):
     object = ProductDetails.objects.raw("SELECT DISTINCT * FROM store_productdetails d, store_products p"
                                         "WHERE d.\"prodName\" = p.\"prodNum\" AND " +
@@ -90,3 +91,6 @@ def getPriceBox(priceMin, priceMax):
                                       'AND prodPrice <= ' + priceMax)
   return object.prodNum
 
+def getProdData(prNum):
+    object = ProductDetails.objects.get(prodNum = prNum)
+    return object.pubDatum
