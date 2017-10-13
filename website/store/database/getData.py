@@ -55,18 +55,18 @@ def getProdImage(prNum):
 
 
 def getResult(query):
-    object = ProductDetails.objects.raw('SELECT * FROM ProductDetails'
-                                        'WHERE prodNum LIKE ' + query +
-                                        'OR prodName LIKE ' + query +
-                                        'OR prodPrice LIKE ' + query +
-                                        'OR prodStock LIKE ' + query +
-                                        'OR genre LIKE ' + query +
-                                        'OR type LIKE ' + query +
-                                        'OR publisher LIKE ' + query +
-                                        'OR totalPages LIKE ' + query +
-                                        'OR language LIKE ' + query +
-                                        'OR author LIKE ' + query +
-                                        'OR desc LIKE ' + query)
+    object = ProductDetails.objects.raw("SELECT DISTINCT * FROM store_productdetails d, store_products p"
+                                        "WHERE d.\"prodName\" = p.\"prodNum\" AND " +
+                                        "( " +
+                                        "prodName LIKE '%" + query + "%'" +
+                                        "OR d.genre LIKE '%" + query + "%'" +
+                                        "OR d.type LIKE '%" + query + "%'" +
+                                        "OR d.publisher LIKE '%" + query + "%'" +
+                                        "OR d.language LIKE '%" + query + "%'" +
+                                        "OR d.author LIKE '%" + query + "%'" +
+                                        "OR \"desc\" LIKE '%" + query + "%')" +
+                                        "ORDER BY d.\"prodNum\";")
+    print(object)
     return object
 
 def getPublisherBox(publisherQuery):
