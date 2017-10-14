@@ -769,9 +769,8 @@ button {
 }
 
 .line2{
-	border: solid 0.5px rgba(0, 0, 0, 0.13);
-	/* margin-top: -50px; */
-	position: relative;
+	border: solid 0.5px rgba(0, 0, 0, 0.1);
+	margin-top: 13%;
 }
 .promoted {
 	top: 0;
@@ -1431,7 +1430,7 @@ button {
 	margin: 0 auto;
 }
 
-.list li:last-child{
+.list li:nth-child(3){
 	right:0;
 	margin-left: 7%;
 }
@@ -2319,6 +2318,7 @@ p{
 	text-align: center;
 	/* width: 700px; */
 }
+
 
 .textsection {
 	width: 90%;
