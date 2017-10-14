@@ -16,7 +16,8 @@ from .collections.forms import ContactForm
 from .collections.forms import RegistrationForm, LogginginForm
 from django.http import *
 from .database.getData import getResult
-
+from .database.getData import getResult2
+from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
 
 # Create your views here.
@@ -131,8 +132,12 @@ def product2(request, item):
         'prodDate' : prodDate,
     })
 
-def testing(request):
-    return render(request, 'testing.html')
+def testing(request, query):
+    # thequery = request.POST.get("query", "")
+    thequery = query
+    return render(request, 'testing.html', {
+        'query' : thequery,
+    })
 
 def about(request):
     return render(request, 'about.html')
@@ -181,10 +186,10 @@ def contactRequestHandeld(request):
 
 def results(request, query):
     #returnPage(request.GET.get('searchtext'))
-    object = getResult(query)
+    object = getResult2(query)
     print(object)
-    prodName = getProdName()
-    prodPrice = getProdPrice()
-    prodStock = getProdStock()
-    prodAuthor = getProdAuthor()
-    return render(request, 'results.html')
+#    prodName = getProdName()
+ #   prodPrice = getProdPrice()
+  #  prodStock = getProdStock()
+   # prodAuthor = getProdAuthor()
+    return render(request, 'testing.html')

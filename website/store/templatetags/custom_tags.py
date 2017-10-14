@@ -1,7 +1,9 @@
 from django import template
 import urllib.request, json
 from ..database.getData import getProdImage, getProdName, getProdPublish, getProdPrice, getProdAuthor, getProdStock
-
+from ..database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
+from ..database.verifyData import verifyProdNum
+from ..database.getData import getResult2
 register = template.Library()
 
 @register.assignment_tag
@@ -59,3 +61,8 @@ def listloop():
             cnt += 1
         txt += "</ul>"
     return txt
+
+@register.simple_tag()
+def resulttest(query):
+    object = getResult2(str(query))
+    return object
