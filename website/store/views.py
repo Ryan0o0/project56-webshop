@@ -23,6 +23,7 @@ from django.contrib.auth import authenticate
 # Create your views here.
 
 def index(request):
+    print("Session key: " + str(request.session.session_key))
     if request.method == 'POST':
         if 'searchtext' in request.POST:
             results(request, "Fairy")
@@ -98,6 +99,14 @@ def product(request):
     return render(request, 'product.html')
 
 def product2(request, item):
+    if request.method == 'POST':
+        if "addToCartButton" in request.POST:
+            print("Adding to cart")
+            if not request.session.get('has_session'):
+                request.session['has_session'] = True
+            return redirect("/")
+
+
     if not verifyProdNum(item):
         return render(request, 'productnietgevonden.html')
 
