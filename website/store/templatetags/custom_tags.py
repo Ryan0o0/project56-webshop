@@ -1,4 +1,5 @@
 from django import template
+from ..models import Products, ProductDetails
 import urllib.request, json
 from ..database.getData import getProdImage, getProdName, getProdPublish, getProdPrice, getProdAuthor, getProdStock
 from ..database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
@@ -66,3 +67,53 @@ def listloop():
 def resulttest(query):
     object = getResult2(str(query))
     return object
+
+@register.simple_tag()
+def suggesteditems(prod, type):
+    object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + prod.split()[0] + "%%' EXCEPT SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" = '" + prod + "' LIMIT 3")
+
+    txt = ""
+    imgarr = []
+    titlearr = []
+    pricearr = []
+    linkarr = []
+
+    for i in object:
+        imgarr.append(i.imageLink)
+        titlearr.append(i.prodName)
+        pricearr.append(i.prodPrice)
+        linkarr.append(i.prodNum)
+
+    cnt = 0
+
+    if type == 'Manga':
+        object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE NOT \"prodName\" = '" + prod + "' AND \"type\" = 'Manga' ORDER BY RANDOM() LIMIT 3")
+
+        imgarr = []
+        titlearr = []
+        pricearr = []
+        linkarr = []
+
+        for i in object:
+            imgarr.append(i.imageLink)
+            titlearr.append(i.prodName)
+            pricearr.append(i.prodPrice)
+            linkarr.append(i.prodNum)
+    elif len(titlearr) < 3 :
+        object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE NOT \"prodName\" = '" + prod + "' ORDER BY RANDOM() LIMIT 3")
+
+        imgarr = []
+        titlearr = []
+        pricearr = []
+        linkarr = []
+
+        for i in object:
+            imgarr.append(i.imageLink)
+            titlearr.append(i.prodName)
+            pricearr.append(i.prodPrice)
+            linkarr.append(i.prodNum)
+
+    for i in range(3):
+        txt += "<li><a href='/product/"+ str(linkarr[cnt]) +"'><img src='" + str(imgarr[cnt]) + "'></a><p>" + str(titlearr[cnt]) + "</p><p>€ " + str(pricearr[cnt]) + "</p></li>"
+        cnt += 1
+    return txt

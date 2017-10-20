@@ -142,4 +142,4 @@ def getPriceBox(priceMin, priceMax):
 
 def getProdData(prNum):
   object = ProductDetails.objects.get(prodNum = prNum)
-  return object.pubDatum
+  return object.pubDatum[0:10]

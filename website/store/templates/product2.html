@@ -1,5 +1,5 @@
 {% extends 'frames/base.html' %}
-
+{% load custom_tags %}
 {% block content %}
 <div class="content">
    <div class="bars sidecolors">
@@ -64,21 +64,7 @@
             <h1>Suggested Products</h1>
          </div>
          <ul class="ulsugg">
-            <li>
-               <img src="https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg">
-               <p>The Black Panther</p>
-               <p>€11.99</p>
-            </li>
-            <li>
-               <img src="https://i.annihil.us/u/prod/marvel/i/mg/6/50/5811114de7c6f/portrait_incredible.jpg">
-               <p>The Avengers</p>
-               <p>€17.99</p>
-            </li>
-            <li class="">
-               <img src="https://i.annihil.us/u/prod/marvel/i/mg/6/e0/5988e0273d1fc/portrait_incredible.jpg">
-               <p>DareDevil</p>
-               <p>€13.99</p>
-            </li>
+            {% autoescape off %}{% suggesteditems prodName prodType %}{% endautoescape %}
          </ul>
       </div>
    </div>
