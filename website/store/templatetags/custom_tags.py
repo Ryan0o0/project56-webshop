@@ -70,7 +70,7 @@ def resulttest(query):
 
 @register.simple_tag()
 def suggesteditems(prod, type):
-    object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + prod.split()[0] + "%%' EXCEPT SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" = '" + prod + "' LIMIT 3")
+    object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + prod.split()[0].replace("'", "''") + "%%' EXCEPT SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" = '" + prod.replace("'", "''") + "' LIMIT 3")
 
     txt = ""
     imgarr = []
@@ -87,7 +87,7 @@ def suggesteditems(prod, type):
     cnt = 0
 
     if type == 'Manga':
-        object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE NOT \"prodName\" = '" + prod + "' AND \"type\" = 'Manga' ORDER BY RANDOM() LIMIT 3")
+        object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE NOT \"prodName\" = '" + prod.replace("'", "''") + "' AND \"type\" = 'Manga' ORDER BY RANDOM() LIMIT 3")
 
         imgarr = []
         titlearr = []
@@ -100,7 +100,7 @@ def suggesteditems(prod, type):
             pricearr.append(i.prodPrice)
             linkarr.append(i.prodNum)
     elif len(titlearr) < 3 :
-        object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE NOT \"prodName\" = '" + prod + "' ORDER BY RANDOM() LIMIT 3")
+        object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE NOT \"prodName\" = '" + prod.replace("'", "''") + "' ORDER BY RANDOM() LIMIT 3")
 
         imgarr = []
         titlearr = []
