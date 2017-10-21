@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-#Gecontroleerd ERD met mvr. Uberts
-
 class Customers(models.Model):
     class Meta:
         verbose_name_plural = "Customers"
@@ -87,3 +85,13 @@ class OrderDetails(models.Model):
 
     def __str__(self):
         return (str(self.orderNum))
+
+class ShoppingCart(models.Model):
+    session_key = models.CharField(max_length=40)
+    prodNum = models.ForeignKey(Products, db_column='prodNum')
+    amount = models.IntegerField()
+
+    class Meta:
+        unique_together = ('session_key', 'prodNum')
+
+

@@ -21,4 +21,5 @@ urlpatterns = [
         views.activate, name='activate'),
     url(r'^messagesend/$', views.contactRequestHandeld, name='messagesend'),
     url(r'^result$', views.product2, name='result'),
+    url(r'^winkelwagentje/$', views.shoppingcart, name="shoppingcart"),
 ]
