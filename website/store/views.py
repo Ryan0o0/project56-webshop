@@ -19,6 +19,7 @@ from .database.getData import getResult
 from .database.getData import getResult2
 from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
+from .database.CartOps import addToCart
 
 # Create your views here.
 
@@ -102,8 +103,10 @@ def product2(request, item):
     if request.method == 'POST':
         if "addToCartButton" in request.POST:
             print("Adding to cart")
-            if not request.session.get('has_session'):
-                request.session['has_session'] = True
+            if not request.session.exists(request.session.session_key):
+                print("Creating session...")
+                request.session.create()
+            addToCart(request, item)
             return redirect("/")
 
 
@@ -202,3 +205,6 @@ def results(request, query):
   #  prodStock = getProdStock()
    # prodAuthor = getProdAuthor()
     return render(request, 'testing.html')
+
+def shoppingcart(request):
+    return render(request, 'shoppingcart.html')
