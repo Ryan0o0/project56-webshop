@@ -1,4 +1,5 @@
 {% extends 'frames/base.html' %}
+{% load shoppingcart_tags %}
 {% block content %}
 <div class="content">
     <div class="bars sidecolors">
@@ -11,7 +12,7 @@
                     <h1> Uw winkelwagentje: </h1>
                 </div>
                 <div class="aboutwrap">
-                    ------
+                    {% autoescape off %}{% displayCart request.session.session_key %}{% endautoescape %}
                 </div>
             </div>
         </div>

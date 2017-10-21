@@ -15,3 +15,6 @@ def incrementEntry(request, prodnum):
     existingEntry = ShoppingCart.objects.get(session_key=request.session.session_key, prodNum=Products(prodNum=prodnum))
     existingEntry.amount += 1
     existingEntry.save()
+
+def cartLength(sessionkey):
+    return ShoppingCart.objects.all().filter(session_key=sessionkey).count()

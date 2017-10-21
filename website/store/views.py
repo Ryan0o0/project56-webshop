@@ -107,7 +107,7 @@ def product2(request, item):
                 print("Creating session...")
                 request.session.create()
             addToCart(request, item)
-            return redirect("/")
+            return redirect('/winkelwagentje/')
 
 
     if not verifyProdNum(item):
