@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'webshopdatabase',
         'USER': 'postgres',
         'PASSWORD': 'kaas123',
-        'HOST': 'comicfire.com',
+        'HOST': '45.77.139.57',
         'PORT': '5432',
     }
 }
@@ -136,3 +136,6 @@ DEFAULT_FROM_EMAIL = 'noreply@comicfire.com'
 
 LOGIN_REDIRECT_URL = '/contact'
 
+#Session settings
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_ENGINE = 'store.sessionsbackend'
