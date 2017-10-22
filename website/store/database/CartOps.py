@@ -18,3 +18,6 @@ def incrementEntry(request, prodnum):
 
 def cartLength(sessionkey):
     return ShoppingCart.objects.all().filter(session_key=sessionkey).count()
+
+def removeFromCart(request, prodnum):
+    ShoppingCart.objects.filter(session_key=request.session.session_key, prodNum=Products(prodNum=prodnum)).delete()
