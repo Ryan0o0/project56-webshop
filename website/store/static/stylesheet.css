@@ -1390,14 +1390,15 @@ input[type=submit], .logindiv button{
 }
 
 .cartitem .movetowishlist p{
-	top: 0px;
-	z-index: 5000;
+	/* top: 0px; */
+	/* z-index: 5000; */
 	display: inline;
+	padding: 10px;
 	font-size: 1.8vh;
 	color: white;
 }
 .movetowishlist i{
-	margin-right: 10px;
+	/* margin-right: 10px; */
 	color: #ff745c;
 	font-size: 1.8vh;
 }
@@ -1444,6 +1445,8 @@ input[type=submit], .logindiv button{
 .remove p{
 	display: inline;
 	color: #ffffff;
+	padding: 10px;
+	font-size: 1.8vh;
 }
 
 .cartitem img{
