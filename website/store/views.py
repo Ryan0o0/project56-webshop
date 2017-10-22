@@ -19,7 +19,7 @@ from .database.getData import getResult
 from .database.getData import getResult2
 from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
-from .database.CartOps import addToCart
+from .database.CartOps import addToCart, removeFromCart
 
 # Create your views here.
 
@@ -207,4 +207,8 @@ def results(request, query):
     return render(request, 'testing.html')
 
 def shoppingcart(request):
+    if request.method == 'POST':
+        if 'removeFromCartButton' in request.POST:
+            removeFromCart(request, int(request.POST.get('removeFromCartButton')))
+            return redirect('/winkelwagentje/')
     return render(request, 'shoppingcart.html')
