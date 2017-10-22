@@ -1304,7 +1304,6 @@ input[type=submit], .logindiv button{
 .aboutwrap {
 	background-color: rgba(213, 209, 209, 0.39);
 	position: relative;
-	height: 70%;
 	width: 100%;
 	margin: 0;
 	display: block;
@@ -1314,6 +1313,10 @@ input[type=submit], .logindiv button{
 	z-index: 0;
 	position: relative;
 	/* padding: 5px 50px 50px 50px; */
+}
+
+.aboutwrap form{
+	margin-bottom: 0;
 }
 
 .cartwrap {list-style-type: none;list-style-position: inside;padding: 0;margin: 0;-webkit-padding-start: 0;-webkit-padding-end: 0;-webkit-margin-before: 0;-webkit-margin-after: 0;display: block;width: 100%;}
