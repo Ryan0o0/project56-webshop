@@ -16,6 +16,31 @@
                    {% csrf_token %}
                    {% autoescape off %}{% displayCart request.session.session_key %}{% endautoescape %}
                </form>
+                <script>
+                    $(function() {
+                        var counter = 0;
+                        $('.amountselect').each(function(i){
+                            var idofselect = '#amountselect';
+                            var meer = '#meer';
+                            idofselect = idofselect + counter.toString();
+                            meer = meer + counter.toString();
+                            console.log(idofselect);
+                            counter = counter + 1;
+                            $(idofselect).change(function() {
+                               if ($(this).val() == 'meer..') {
+                                   $(idofselect).hide();
+                                   $(meer).show();
+                               } else {
+                                   $(meer).hide();
+                               }
+                           });
+                        });
+
+                        console.log(counter);
+
+
+                    });
+                </script>
             </div>
          </div>
       </div>
