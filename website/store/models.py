@@ -10,16 +10,17 @@ class Customers(models.Model):
         verbose_name_plural = "Customers"
 
     customerID = models.OneToOneField(User, primary_key=True, db_column='customerID')
-    email = models.CharField(max_length=100)
-    name = models.CharField(max_length=50)
-    surname = models.CharField(max_length=50)
-    telephone = models.CharField(max_length=12)
+    email = models.CharField(max_length=100, blank=True, default='')
+    name = models.CharField(max_length=50, blank=True, default='')
+    surname = models.CharField(max_length=50, blank=True, default='')
+    telephone = models.CharField(max_length=12, blank=True, default='')
     isRegistered = models.BooleanField()
 
 
     def create_profile(sender, **kwargs):
         if kwargs['created']:
             user_profile = Customers.objects.create(customerID=kwargs['instance'], isRegistered=True)
+            user_profile.save()
 
     post_save.connect(create_profile, sender=User)
 
