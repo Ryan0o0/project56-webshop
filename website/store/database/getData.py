@@ -71,6 +71,7 @@ def getResult(query):
   return object
 
 def getResult2(query):
+  query = ((query[:1].upper())+(query[1:].lower()))
   object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%'")
   counter = len(list(object))
 
