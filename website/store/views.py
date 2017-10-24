@@ -28,9 +28,7 @@ def index(request):
     if request.method == 'POST':
         print("Salty Ryan")
         if 'searchtext' in request.POST:
-            # results(request, 'searchtext')
-            # #De print print de waarde die in de zoekbar staat uit -> gebruik dat als variable voor je zoek functie.
-            return redirect("testing/" + (str(request.POST.get('searchtext'))))
+            return redirect("search/" + (str(request.POST.get('searchtext'))))
 
     return render(request, 'index.html')
 
@@ -146,8 +144,7 @@ def product2(request, item):
         'prodDate' : prodDate,
     })
 
-def testing(request, query):
-    # thequery = request.POST.get("query", "")
+def search(request, query):
     thequery = query
     return render(request, 'testing.html', {
         'query' : thequery,
