@@ -71,7 +71,7 @@ def getResult(query):
   return object
 
 def getResult2(query):
-  query = ((query[:1].upper())+(query[1:].lower()))
+  query = queryVerbeterFunctie(query)
   object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%'")
   counter = len(list(object))
 
@@ -117,7 +117,14 @@ def getResult2(query):
     txt += "</ul>"
   return txt
 
-  
+def queryVerbeterFunctie(query):
+  i = 1
+  query = ((query[:1].upper())+(query[1:].lower()))
+  while i < len(query):
+    if query[i-1:i] == " ":
+      query = (query[:i]) + (query[i:i+1].upper()) + (query[i+1:])
+    i += 1
+  return query
  
 def getPublisherBox(publisherQuery):
   object = ProductDetails.objects.get(publisher = publisherQuery)
