@@ -26,9 +26,11 @@ from .database.CartOps import addToCart, removeFromCart
 def index(request):
     print("Session key: " + str(request.session.session_key))
     if request.method == 'POST':
+        print("Salty Ryan")
         if 'searchtext' in request.POST:
-            results(request, "Fairy")
-            #De print print de waarde die in de zoekbar staat uit -> gebruik dat als variable voor je zoek functie.
+            # results(request, 'searchtext')
+            # #De print print de waarde die in de zoekbar staat uit -> gebruik dat als variable voor je zoek functie.
+            return redirect("testing/" + (str(request.POST.get('searchtext'))))
 
     return render(request, 'index.html')
 
