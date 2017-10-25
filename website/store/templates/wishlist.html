@@ -1,0 +1,27 @@
+{% extends 'frames/base.html' %}
+{% load wishlist_tags %}
+{% block content %}
+<div class="content">
+   <div class="bars sidecolors">
+      {% include 'includes/nieuwproduct.html' %}
+   </div>
+   <div class="aboutmid">
+      <div class="qrs">
+         <div class="aboutsection commontextbox">
+            <div class="sorton commoncolor">
+               <h1> Uw Wenslijst: </h1>
+            </div>
+            <div class="aboutwrap">
+               <form role='form' method='post' name='removeButtonForm'>
+                   {% csrf_token %}
+                   {% autoescape off %}{% displayList request.session.session_key %}{% endautoescape %}
+               </form>
+               </div>
+         </div>
+      </div>
+   </div>
+   <div class="right sidecolors">
+      {% include 'includes/aanbieding.html' %}
+   </div>
+</div>
+{% endblock%}

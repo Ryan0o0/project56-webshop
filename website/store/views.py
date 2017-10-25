@@ -20,6 +20,7 @@ from .database.getData import getResult2
 from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
+from .database.WishListOps import addToWishList, removeFromWishList
 
 # Create your views here.
 
@@ -108,6 +109,12 @@ def product2(request, item):
                 request.session.create()
             addToCart(request, item)
             return redirect('/winkelwagentje/')
+        elif "addToWishList" in request.POST:
+            print("adding to list")
+            addToWishList(request, item)
+        return redirect('/wenslijst/')
+
+
 
 
     if not verifyProdNum(item):
@@ -211,3 +218,12 @@ def shoppingcart(request):
             removeFromCart(request, int(request.POST.get('removeFromCartButton')))
             return redirect('/winkelwagentje/')
     return render(request, 'shoppingcart.html')
+
+def wishlist(request):
+    if request.method == 'POST':
+        if 'removeFromWishList' in request.POST:
+            removeFromWishList(request, int(request.POST.get('removeFromListButton')))
+            return redirect('/wenslijst/')
+    return render(request, 'wishlist.html')
+
+
