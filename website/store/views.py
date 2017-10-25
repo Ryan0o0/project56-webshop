@@ -112,7 +112,7 @@ def product2(request, item):
         elif "addtowishlistButton" in request.POST:
             print("adding to list")
             addToWishList(request, item)
-            return redirect('/wenslijst/')
+            return redirect('/verlanglijst/')
 
 
 
@@ -220,10 +220,13 @@ def shoppingcart(request):
     return render(request, 'shoppingcart.html')
 
 def wishlist(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+
     if request.method == 'POST':
         if 'removeFromWishListButton' in request.POST:
             removeFromWishList(request, int(request.POST.get('removeFromWishListButton')))
-            return redirect('/wenslijst/')
+            return redirect('/verlanglijst/')
     return render(request, 'wishlist.html')
 
 

@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^messagesend/$', views.contactRequestHandeld, name='messagesend'),
     url(r'^result$', views.product2, name='result'),
     url(r'^winkelwagentje/$', views.shoppingcart, name="shoppingcart"),
-    url(r'^wenslijst/$', views.wishlist, name="wishlist"),
+    url(r'^verlanglijst/$', views.wishlist, name="wishlist"),
 ]
