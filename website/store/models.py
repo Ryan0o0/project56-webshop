@@ -70,8 +70,8 @@ class WishList(models.Model):
     class Meta:
         unique_together = ('custId', 'productNum')
 
-    custId = models.ForeignKey(Customers)
-    productNum = models.ForeignKey(Products)
+    custId = models.ForeignKey(Customers, db_column='custId')
+    productNum = models.ForeignKey(Products, db_column='productNum')
 
 class Orders(models.Model):
     class Meta:

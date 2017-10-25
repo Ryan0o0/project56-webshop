@@ -109,10 +109,10 @@ def product2(request, item):
                 request.session.create()
             addToCart(request, item)
             return redirect('/winkelwagentje/')
-        elif "addToWishList" in request.POST:
+        elif "addtowishlistButton" in request.POST:
             print("adding to list")
             addToWishList(request, item)
-        return redirect('/wenslijst/')
+            return redirect('/wenslijst/')
 
 
 
@@ -221,8 +221,8 @@ def shoppingcart(request):
 
 def wishlist(request):
     if request.method == 'POST':
-        if 'removeFromWishList' in request.POST:
-            removeFromWishList(request, int(request.POST.get('removeFromListButton')))
+        if 'removeFromWishListButton' in request.POST:
+            removeFromWishList(request, int(request.POST.get('removeFromWishListButton')))
             return redirect('/wenslijst/')
     return render(request, 'wishlist.html')
 
