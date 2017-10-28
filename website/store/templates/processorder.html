@@ -10,12 +10,24 @@
                 <div class="sorton commoncolor">
                     <h1>Maak svp een keuze:</h1>
                 </div>
-                <div class="abouttext">
-                    <form action="/login">
-                        <input type="submit" value="Login" />
-                    </form>
+                <div class="loginwrap">
+                    <div style="float:left; width:50%;">
+                        <div class="loginsection">
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="loginbutton" name="loginbutton">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="float:right; width:50%;">
+                        <form action="/checkout/">
+                            <input type="submit" value="Login" />
+                        </form>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="right sidecolors">

@@ -174,25 +174,24 @@ def logoutview(request):
         return redirect('/')
 
 
+
 def loginview(request):
+    args = {}
     if request.method == "POST":
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'loginbutton' in request.POST:
+            form = LogginginForm(request.POST)
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                print("URL!: " + request.META.get('HTTP_REFERER'))
-                if not request.META.get('HTTP_REFERER') is None:
-                    if '/processorder/' in request.META.get('HTTP_REFERER'):
-                        return redirect('/checkout/')
                 return redirect('/')
-            else:
-                return redirect('/login')
     else:
-        return render(request, 'login.html', {'form': LogginginForm})
+        form = LogginginForm()
+    args['form'] = form
+    return render(request, 'login.html', args)
 
 def registrationcomplete(request):
     if request.method == "POST":
@@ -261,13 +260,34 @@ def wishlist(request):
 
 def processOrder(request):
     if not request.META.get('HTTP_REFERER') is None:
-        if '/winkelwagentje/' in request.META.get('HTTP_REFERER'):
+        if '/winkelwagentje/' in request.META.get('HTTP_REFERER') or '/processorder/' in request.META.get('HTTP_REFERER'):
             if request.user.is_authenticated:
                 return redirect('/checkout/')
             else:
-                return render(request, 'processorder.html')
+                args = {}
+                if request.method == 'POST':
+                    if 'loginbutton' in request.POST:
+                        form = LogginginForm(request.POST)
+                        username = request.POST['username']
+                        password = request.POST['password']
+                        user = authenticate(request, username=username, password=password)
+                        if user is not None:
+                            login(request, user)
+                            return redirect('/checkout/')
+                        else:
+                            args['form'] = form
+                            return render(request, 'processorder.html', args)
+                else:
+                    form = LogginginForm()
+                args['form'] = form
+                return render(request, 'processorder.html', args)
     else:
         return redirect('/')
 
 def checkout(request):
-    return render(request, 'checkout.html')
+    if not request.META.get('HTTP_REFERER') is None:
+        if '/processorder/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
+            return render(request, 'checkout.html')
+        else:
+            redirect('/')
+    return redirect('/')
