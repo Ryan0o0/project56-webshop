@@ -184,6 +184,10 @@ def loginview(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                print("URL!: " + request.META.get('HTTP_REFERER'))
+                if not request.META.get('HTTP_REFERER') is None:
+                    if '/processorder/' in request.META.get('HTTP_REFERER'):
+                        return redirect('/checkout/')
                 return redirect('/')
             else:
                 return redirect('/login')
@@ -237,6 +241,10 @@ def shoppingcart(request):
         elif "moveToWishListButton" in request.POST:
             addToWishList(request, int(request.POST.get('moveToWishListButton')))
             return redirect('/verlanglijst/')
+        elif 'placeorderbutton' in request.POST:
+            print("Processing order!!!!!!")
+            return redirect('/processorder/')
+
     return render(request, 'shoppingcart.html')
 
 def wishlist(request):
@@ -251,4 +259,15 @@ def wishlist(request):
             return redirect('/verlanglijst/')
     return render(request, 'wishlist.html')
 
+def processOrder(request):
+    if not request.META.get('HTTP_REFERER') is None:
+        if '/winkelwagentje/' in request.META.get('HTTP_REFERER'):
+            if request.user.is_authenticated:
+                return redirect('/checkout/')
+            else:
+                return render(request, 'processorder.html')
+    else:
+        return redirect('/')
 
+def checkout(request):
+    return render(request, 'checkout.html')

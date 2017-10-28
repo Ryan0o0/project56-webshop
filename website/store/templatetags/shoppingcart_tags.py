@@ -40,3 +40,11 @@ def displayCart(sessionkey, userAuth):
 
     return html
 
+@register.simple_tag()
+def cartEmpty(sessionkey):
+    if cartLength(sessionkey) == 0:
+        print("EMPTY")
+        return True
+    else:
+        print("FULL")
+        return False

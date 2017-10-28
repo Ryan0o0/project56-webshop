@@ -16,6 +16,14 @@
                    {% csrf_token %}
                    {% autoescape off %}{% displayCart request.session.session_key user.is_authenticated %}{% endautoescape %}
                </form>
+                {% cartEmpty request.session.session_key as cartEmptyBool %}
+               {% if cartEmptyBool %}
+                {% else %}
+                <form role="form" method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="placeorderbutton">Bestel</button>
+                </form>
+                {% endif %}
                 <script>
                     $(function() {
                         var counter = 0;
