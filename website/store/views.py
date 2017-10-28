@@ -21,15 +21,15 @@ from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
+from .requests.posts import *
+
 
 # Create your views here.
 
 def index(request):
-    print("Session key: " + str(request.session.session_key))
     if request.method == 'POST':
-        print("Salty Ryan")
         if 'searchtext' in request.POST:
-            return redirect("search/" + (str(request.POST.get('searchtext'))))
+            return searchPost(request)
 
     return render(request, 'index.html')
 
@@ -37,72 +37,85 @@ def contact(request):
     formClass = ContactForm
 
     if request.method == 'POST':
-        form = formClass(data=request.POST)
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+        elif 'contactsubmitbutton' in request.POST:
+            form = formClass(data=request.POST)
 
-        if form.is_valid():
-            contact_name = request.POST.get('contact_name', '')
-            contact_email = request.POST.get('contact_email', '')
-            contact_content = request.POST.get('content', '')
+            if form.is_valid():
+                contact_name = request.POST.get('contact_name', '')
+                contact_email = request.POST.get('contact_email', '')
+                contact_content = request.POST.get('content', '')
 
-            template = get_template('mail/contact_template.txt')
-            context = {
-                    'contact_name' : contact_name,
-                    'contact_email' : contact_email,
-                    'contact_content' : contact_content,
-                }
+                template = get_template('mail/contact_template.txt')
+                context = {
+                        'contact_name' : contact_name,
+                        'contact_email' : contact_email,
+                        'contact_content' : contact_content,
+                    }
 
-            content = template.render(context)
+                content = template.render(context)
 
-            email = EmailMessage(
-                "Nieuwe contact aanvraag",
-                content,
-                'noreply@comicfire.com',
-                ['admin@comicfire.com'],
-                headers = {'Reply-to': contact_email}
-            )
-            email.send()
-            return redirect('messagesend')
+                email = EmailMessage(
+                    "Nieuwe contact aanvraag",
+                    content,
+                    'noreply@comicfire.com',
+                    ['admin@comicfire.com'],
+                    headers = {'Reply-to': contact_email}
+                )
+                email.send()
+                return redirect('messagesend')
 
     return render(request, 'contact.html', {'contact_form':formClass, })
 
 def register(request):
     args = {}
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            current_site = get_current_site(request)
-            message = render_to_string('mail/acc_active_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            mail_subject = 'Activate your blog account'
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(mail_subject, message, to=[to_email])
-            email.send()
-            # form.save()
-            return render(request, 'completeregistration.html')
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+        elif 'registerbutton' in request.POST:
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                current_site = get_current_site(request)
+                message = render_to_string('mail/acc_active_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                })
+                mail_subject = 'Activate your blog account'
+                to_email = form.cleaned_data.get('email')
+                email = EmailMessage(mail_subject, message, to=[to_email])
+                email.send()
+                # form.save()
+                return render(request, 'completeregistration.html')
     else:
         form = RegistrationForm()
     args['form'] = form
     return render(request, 'register.html', args)
 
 def faq(request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
     return render(request, 'faq.html')
 
 def about(request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
     return render(request, 'about.html')
 
-def product(request):
-    return render(request, 'product.html')
-
-def product2(request, item):
+def product(request, item):
     if request.method == 'POST':
-        if "addToCartButton" in request.POST:
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+        elif "addToCartButton" in request.POST:
             print("Adding to cart")
             if not request.session.exists(request.session.session_key):
                 print("Creating session...")
@@ -112,9 +125,6 @@ def product2(request, item):
         elif "addtowishlistButton" in request.POST:
             addToWishList(request, item)
             return redirect('/verlanglijst/')
-
-
-
 
     if not verifyProdNum(item):
         return render(request, 'productnietgevonden.html')
@@ -156,9 +166,6 @@ def search(request, query):
         'query' : thequery,
     })
 
-def about(request):
-    return render(request, 'about.html')
-
 def logoutview(request):
     if request.user.is_authenticated:
         logout(request)
@@ -169,18 +176,24 @@ def logoutview(request):
 
 def loginview(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/')
-        else:
-            return redirect('/login')
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+        elif 'loginbutton' in request.POST:
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                return redirect('/login')
     else:
         return render(request, 'login.html', {'form': LogginginForm})
 
 def registrationcomplete(request):
+    if request.method == "POST":
+        if 'searchtext' in request.POST:
+            return searchPost(request)
     return render(request, 'completeregistration.html')
 
 def activate(request, uidb64, token):
@@ -199,6 +212,9 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 def contactRequestHandeld(request):
+    if request.method == "POST":
+        if 'searchtext' in request.POST:
+            return searchPost(request)
     return render(request, 'mailsend.html')
 
 def results(request, query):
@@ -213,7 +229,9 @@ def results(request, query):
 
 def shoppingcart(request):
     if request.method == 'POST':
-        if 'removeFromCartButton' in request.POST:
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+        elif 'removeFromCartButton' in request.POST:
             removeFromCart(request, int(request.POST.get('removeFromCartButton')))
             return redirect('/winkelwagentje/')
         elif "moveToWishListButton" in request.POST:
@@ -226,7 +244,9 @@ def wishlist(request):
         return redirect('/')
 
     if request.method == 'POST':
-        if 'removeFromWishListButton' in request.POST:
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+        elif 'removeFromWishListButton' in request.POST:
             removeFromWishList(request, int(request.POST.get('removeFromWishListButton')))
             return redirect('/verlanglijst/')
     return render(request, 'wishlist.html')
