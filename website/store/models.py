@@ -9,20 +9,12 @@ class Customers(models.Model):
     class Meta:
         verbose_name_plural = "Customers"
 
-    customerID = models.OneToOneField(User, primary_key=True, db_column='customerID')
-    email = models.CharField(max_length=100, blank=True, default='')
-    name = models.CharField(max_length=50, blank=True, default='')
-    surname = models.CharField(max_length=50, blank=True, default='')
-    telephone = models.CharField(max_length=12, blank=True, default='')
+    customerID = models.IntegerField(primary_key=True)
+    email = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=50)
+    telephone = models.CharField(max_length=12)
     isRegistered = models.BooleanField()
-
-
-    def create_profile(sender, **kwargs):
-        if kwargs['created']:
-            user_profile = Customers.objects.create(customerID=kwargs['instance'], isRegistered=True)
-            user_profile.save()
-
-    post_save.connect(create_profile, sender=User)
 
 class Address(models.Model):
     class Meta:
@@ -78,6 +70,7 @@ class Orders(models.Model):
         verbose_name_plural = "Orders"
 
     orderNum = models.IntegerField(primary_key=True)
+    customerID = models.ForeignKey(Customers, db_column='customerID')
     orderDate = models.DateField()
     orderStatus = models.CharField(max_length=15)
 
