@@ -1,6 +1,4 @@
 from django.core.mail import EmailMessage
-from django.shortcuts import redirect, render
-from django.http import HttpResponse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -8,21 +6,17 @@ from django.template.loader import render_to_string
 from store.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.template.loader import get_template
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
+from django.contrib.auth import login, logout
+from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from .database.verifyData import verifyProdNum
-from .collections.forms import ContactForm
-from .collections.forms import RegistrationForm, LogginginForm
+from .collections.forms import ContactForm, RegistrationForm, LogginginForm, CheckoutForm, CustomerDetails
 from django.http import *
-from .database.getData import getResult
 from .database.getData import getResult2
-from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
 from .requests.posts import *
-
+from .database.CheckoutOps import *
 
 # Create your views here.
 
@@ -273,7 +267,7 @@ def processOrder(request):
                         user = authenticate(request, username=username, password=password)
                         if user is not None:
                             login(request, user)
-                            return redirect('/checkout/')
+                            return redirect('/customerdetails/')
                         else:
                             args['form'] = form
                             return render(request, 'processorder.html', args)
@@ -284,10 +278,45 @@ def processOrder(request):
     else:
         return redirect('/')
 
-def checkout(request):
+def customerdetails(request):
+    args = {}
     if not request.META.get('HTTP_REFERER') is None:
-        if '/processorder/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
-            return render(request, 'checkout.html')
+        if '/processorder/' in request.META.get('HTTP_REFERER') or '/customerdetails/' in request.META.get('HTTP_REFERER'):
+            if request.method =='POST':
+                if 'customerdetailssubmitbutton' in request.POST:
+                    form = CustomerDetails(data=request.POST)
+
+                    if form.is_valid():
+                        request.session['customer_fname'] = request.POST.get('customer_fname', '')
+                        request.session['customer_lname'] = request.POST.get('customer_lname', '')
+                        request.session['customer_email'] = request.POST.get('customer_email', '')
+                        request.session['customer_phone'] = request.POST.get('customer_phone', '')
+                        return redirect('/checkout/')
+            else:
+                form = CustomerDetails()
+            args['customerdetailsform'] = form
+            return render(request, 'customerdetails.html', args)
         else:
-            redirect('/')
+            return redirect('/')
+    return redirect('/')
+
+def checkout(request):
+    args = {}
+    if not request.META.get('HTTP_REFERER') is None:
+        if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
+            if request.method =='POST':
+                if 'checkoutsubmitbutton' in request.POST:
+                    form = CheckoutForm(data=request.POST)
+
+                    if form.is_valid():
+                        print("Placing order... stand by")
+                        createOrder(request)
+                        return redirect('/contact/')
+            else:
+                form = CheckoutForm()
+            args['checkoutform'] = form
+            return render(request, 'checkout.html', args)
+        else:
+            return redirect('/')
+    print("Doing this one...")
     return redirect('/')

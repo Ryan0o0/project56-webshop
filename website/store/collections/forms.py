@@ -63,3 +63,31 @@ class RegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+class CustomerDetails(forms.Form):
+    customer_fname = forms.CharField(required=True)
+    customer_lname = forms.CharField(required=True)
+    customer_email = forms.EmailField(required=True)
+    customer_phone = forms.CharField(required=False, max_length=12)
+
+    def __init__(self, *args, **kwargs):
+        super(CustomerDetails, self).__init__(*args, **kwargs)
+        self.fields['customer_fname'].label = "Voornaam:"
+        self.fields['customer_lname'].label = "Achternaam:"
+        self.fields['customer_email'].label = "E-mailadres:"
+        self.fields['customer_phone'].label = "Telefoonnummer"
+
+class CheckoutForm(forms.Form):
+    card_name = forms.CharField(required=True)
+    card_number = forms.IntegerField(required=True, max_value=9999999999999999, min_value=1000000000000000)
+    card_edm = forms.IntegerField(required=True, max_value=12, min_value=1)
+    card_edy = forms.IntegerField(required=True, max_value=9999, min_value=1000)
+    card_CVC = forms.IntegerField(required=True, max_value=999, min_value=100)
+
+    def __init__(self, *args, **kwargs):
+        super(CheckoutForm, self).__init__(*args, **kwargs)
+        self.fields['card_name'].label = "Volledige naam op kaart:"
+        self.fields['card_number'].label = "Creditcardnummer:"
+        self.fields['card_edm'].label = "Verval datum (mm-jj):"
+        self.fields['card_edy'].label = ""
+        self.fields['card_CVC'].label = "Controlenummer:"

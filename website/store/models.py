@@ -89,8 +89,8 @@ class OrderDetails(models.Model):
         unique_together = ('orderNum', 'productNum')
         verbose_name_plural = "Order details"
 
-    orderNum = models.ForeignKey(Orders)
-    productNum = models.ForeignKey(Products)
+    orderNum = models.ForeignKey(Orders, db_column='orderNum')
+    productNum = models.ForeignKey(Products, db_column='productNum')
     amount = models.IntegerField()
 
     def __str__(self):
