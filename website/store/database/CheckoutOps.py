@@ -9,7 +9,7 @@ def createOrder(request):
     status = "Processed"
 
     if not request.user.is_authenticated:
-        custID = getNewCustomerNum()
+        custID = createCustomer(request)
     else:
         custID = request.user.id
 

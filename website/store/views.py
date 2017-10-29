@@ -235,7 +235,6 @@ def shoppingcart(request):
             addToWishList(request, int(request.POST.get('moveToWishListButton')))
             return redirect('/verlanglijst/')
         elif 'placeorderbutton' in request.POST:
-            print("Processing order!!!!!!")
             return redirect('/processorder/')
 
     return render(request, 'shoppingcart.html')
@@ -267,7 +266,7 @@ def processOrder(request):
                         user = authenticate(request, username=username, password=password)
                         if user is not None:
                             login(request, user)
-                            return redirect('/customerdetails/')
+                            return redirect('/checkout/')
                         else:
                             args['form'] = form
                             return render(request, 'processorder.html', args)
@@ -303,7 +302,8 @@ def customerdetails(request):
 def checkout(request):
     args = {}
     if not request.META.get('HTTP_REFERER') is None:
-        if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
+        if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER') or ('/winkelwagentje/' in request.META.get('HTTP_REFERER') and request.user.is_authenticated) or ('/processorder/' in request.META.get('HTTP_REFERER') and request.user.is_authenticated):
+            print("Getting stuck here for some fucked reason")
             if request.method =='POST':
                 if 'checkoutsubmitbutton' in request.POST:
                     form = CheckoutForm(data=request.POST)
