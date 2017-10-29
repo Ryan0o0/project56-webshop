@@ -21,4 +21,7 @@ urlpatterns = [
     url(r'^result$', views.product, name='result'),
     url(r'^winkelwagentje/$', views.shoppingcart, name="shoppingcart"),
     url(r'^verlanglijst/$', views.wishlist, name="wishlist"),
+    url(r'^processorder/$', views.processOrder, name="processorder"),
+    url(r'^customerdetails/$', views.customerdetails, name="customerdetails"),
+    url(r'^checkout/$', views.checkout, name="checkout"),
 ]
