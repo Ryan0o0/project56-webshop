@@ -21,7 +21,7 @@ class Address(models.Model):
         verbose_name_plural = "Customer addresses"
         unique_together = ('customerID', 'address')
 
-    customerID = models.ForeignKey(Customers)
+    customerID = models.ForeignKey(Customers, db_column='customerID')
     address = models.CharField(max_length=100)
     number = models.CharField(max_length=10)
     city = models.CharField(max_length=25)
