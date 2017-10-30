@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db.models import Max
 
-from ..models import Customers
+from ..models import Customers, Address
 
 
 # our new form
@@ -103,3 +103,24 @@ class CheckoutForm(forms.Form):
         self.fields['card_edm'].label = "Verval datum (mm-jj):"
         self.fields['card_edy'].label = ""
         self.fields['card_CVC'].label = "Controlenummer:"
+
+class AccountForm(forms.ModelForm):
+
+    class Meta:
+        model = Address
+        fields=(
+            'address',
+            'number',
+            'city',
+            'postalcode',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(AccountForm, self).__init__(*args, **kwargs)
+        self.fields['address'].label = "Adres:"
+        self.fields['number'].label = "huisnummer:"
+        self.fields['city'].label = "stad:"
+        self.fields['postalcode'].label = "Postcode:"
+
+
+

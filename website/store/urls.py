@@ -24,4 +24,7 @@ urlpatterns = [
     url(r'^processorder/$', views.processOrder, name="processorder"),
     url(r'^customerdetails/$', views.customerdetails, name="customerdetails"),
     url(r'^checkout/$', views.checkout, name="checkout"),
+    url(r'^account/$', views.account, name="account"),
+    url(r'^account/accountedit/$', views.accountedit, name="accountedit"),
+
 ]

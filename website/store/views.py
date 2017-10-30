@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from django.contrib.auth import login, logout
 from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from .database.verifyData import verifyProdNum
-from .collections.forms import ContactForm, RegistrationForm, LogginginForm, CheckoutForm, CustomerDetails
+from .collections.forms import ContactForm, RegistrationForm, LogginginForm, CheckoutForm, CustomerDetails, AccountForm
 from django.http import *
 from .database.getData import getResult2
 from django.contrib.auth import authenticate
@@ -17,6 +17,7 @@ from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
 from .requests.posts import *
 from .database.CheckoutOps import *
+from .database.AccountOps import *
 
 # Create your views here.
 
@@ -320,3 +321,26 @@ def checkout(request):
             return redirect('/')
     print("Doing this one...")
     return redirect('/')
+
+def account(request):
+    return render(request, 'account.html')
+
+def accountedit(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            account_form = AccountForm(request.POST, instance=request.user)
+            if account_form.is_valid():
+                saveAdress(request)
+                return redirect('/account/')
+            else:
+                print("error")
+        else:
+            account_form = AccountForm()
+
+        return render(request, 'accountedit.html', {
+            'account_form': account_form,
+        })
+
+
