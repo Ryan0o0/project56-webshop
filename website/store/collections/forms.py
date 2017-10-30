@@ -81,6 +81,10 @@ class CustomerDetails(forms.Form):
     customer_lname = forms.CharField(required=True, max_length=50)
     customer_email = forms.EmailField(required=True, max_length=100)
     customer_phone = forms.CharField(required=False, max_length=12)
+    customer_address = forms.CharField(required=True, max_length=100)
+    customer_adressnum = forms.CharField(required=True, max_length=10)
+    customer_city = forms.CharField(required=True, max_length=25)
+    customer_postalcode = forms.CharField(required=True, max_length=6)
 
     def __init__(self, *args, **kwargs):
         super(CustomerDetails, self).__init__(*args, **kwargs)
@@ -88,6 +92,10 @@ class CustomerDetails(forms.Form):
         self.fields['customer_lname'].label = "Achternaam:"
         self.fields['customer_email'].label = "E-mailadres:"
         self.fields['customer_phone'].label = "Telefoonnummer"
+        self.fields['customer_address'].label = "Adres:"
+        self.fields['customer_adressnum'].label = "Huisnummer en eventule toevoeging:"
+        self.fields['customer_city'].label = "Stad:"
+        self.fields['customer_postalcode'].label = "Postcode:"
 
 class CheckoutForm(forms.Form):
     card_name = forms.CharField(required=True)

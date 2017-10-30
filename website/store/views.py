@@ -29,7 +29,10 @@ def index(request):
     return render(request, 'index.html')
 
 def contact(request):
-    formClass = ContactForm
+    if request.user.is_authenticated:
+        formClass = ContactForm(initial={'contact_name': str(request.user.first_name + " " + request.user.last_name), 'contact_email': request.user.email})
+    else:
+        formClass = ContactForm
 
     if request.method == 'POST':
         if 'searchtext' in request.POST:
@@ -256,7 +259,7 @@ def processOrder(request):
     if not request.META.get('HTTP_REFERER') is None:
         if '/winkelwagentje/' in request.META.get('HTTP_REFERER') or '/processorder/' in request.META.get('HTTP_REFERER'):
             if request.user.is_authenticated:
-                return redirect('/checkout/')
+                return redirect('/customerdetails/')
             else:
                 args = {}
                 if request.method == 'POST':
@@ -267,7 +270,7 @@ def processOrder(request):
                         user = authenticate(request, username=username, password=password)
                         if user is not None:
                             login(request, user)
-                            return redirect('/checkout/')
+                            return redirect('/customerdetails/')
                         else:
                             args['form'] = form
                             return render(request, 'processorder.html', args)
@@ -281,7 +284,7 @@ def processOrder(request):
 def customerdetails(request):
     args = {}
     if not request.META.get('HTTP_REFERER') is None:
-        if '/processorder/' in request.META.get('HTTP_REFERER') or '/customerdetails/' in request.META.get('HTTP_REFERER'):
+        if '/processorder/' in request.META.get('HTTP_REFERER') or '/customerdetails/' in request.META.get('HTTP_REFERER') or ('/winkelwagentje/' in request.META.get('HTTP_REFERER') and request.user.is_authenticated):
             if request.method =='POST':
                 if 'customerdetailssubmitbutton' in request.POST:
                     form = CustomerDetails(data=request.POST)
@@ -291,9 +294,16 @@ def customerdetails(request):
                         request.session['customer_lname'] = request.POST.get('customer_lname', '')
                         request.session['customer_email'] = request.POST.get('customer_email', '')
                         request.session['customer_phone'] = request.POST.get('customer_phone', '')
+                        request.session['customer_address'] = request.POST.get('customer_address', '')
+                        request.session['customer_adressnum'] = request.POST.get('customer_adressnum', '')
+                        request.session['customer_city'] = request.POST.get('customer_city', '')
+                        request.session['customer_postalcode'] = request.POST.get('customer_postalcode', '')
                         return redirect('/checkout/')
             else:
-                form = CustomerDetails()
+                if request.user.is_authenticated:
+                    form = CustomerDetails(initial={'customer_fname': request.user.first_name, 'customer_lname': request.user.last_name, 'customer_email':request.user.email})
+                else:
+                    form = CustomerDetails()
             args['customerdetailsform'] = form
             return render(request, 'customerdetails.html', args)
         else:
@@ -303,7 +313,7 @@ def customerdetails(request):
 def checkout(request):
     args = {}
     if not request.META.get('HTTP_REFERER') is None:
-        if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER') or ('/winkelwagentje/' in request.META.get('HTTP_REFERER') and request.user.is_authenticated) or ('/processorder/' in request.META.get('HTTP_REFERER') and request.user.is_authenticated):
+        if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
             print("Getting stuck here for some fucked reason")
             if request.method =='POST':
                 if 'checkoutsubmitbutton' in request.POST:
