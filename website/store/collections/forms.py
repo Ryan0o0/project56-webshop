@@ -115,6 +115,12 @@ class AccountForm(forms.ModelForm):
             'postalcode',
         )
 
+    def __init__(self, *args, **kwargs):
+        super(AccountForm, self).__init__(*args, **kwargs)
+        self.fields['address'].label = "Adres:"
+        self.fields['number'].label = "huisnummer:"
+        self.fields['city'].label = "stad:"
+        self.fields['postalcode'].label = "Postcode:"
 
 
 

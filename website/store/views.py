@@ -17,6 +17,7 @@ from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
 from .requests.posts import *
 from .database.CheckoutOps import *
+from .database.AccountOps import *
 
 # Create your views here.
 
@@ -331,12 +332,12 @@ def accountedit(request):
         if request.method == 'POST':
             account_form = AccountForm(request.POST, instance=request.user)
             if account_form.is_valid():
-                account_form.save()
+                saveAdress(request)
                 return redirect('/account/')
             else:
                 print("error")
         else:
-            account_form = AccountForm(instance=request.user)
+            account_form = AccountForm()
 
         return render(request, 'accountedit.html', {
             'account_form': account_form,
