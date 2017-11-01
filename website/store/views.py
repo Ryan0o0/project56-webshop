@@ -343,7 +343,7 @@ def accountedit(request):
             account_form = AccountForm(request.POST, instance=request.user)
             accountinfo_form = CustomerInfoForm(request.POST, instance=request.user)
             if account_form.is_valid() and accountinfo_form.is_valid():
-                saveCustomerInfo(request)
+                updateCustomerInfo(request)
                 saveAddress(request)
                 return redirect('/account/')
             else:
