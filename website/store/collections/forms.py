@@ -130,5 +130,19 @@ class AccountForm(forms.ModelForm):
         self.fields['city'].label = "stad:"
         self.fields['postalcode'].label = "Postcode:"
 
+class CustomerInfoForm(forms.ModelForm):
 
+    class Meta:
+        model = Customers
+        fields = (
+            'name',
+            'surname',
+            'telephone'
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(CustomerInfoForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = "Voornaam:"
+        self.fields['surname'].label = "Achternaam:"
+        self.fields['telephone'].label = "telefoonnummer:"
 
