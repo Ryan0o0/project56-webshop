@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from django.contrib.auth import login, logout
 from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from .database.verifyData import verifyProdNum
-from .collections.forms import ContactForm, RegistrationForm, LogginginForm, CheckoutForm, CustomerDetails, AccountForm
+from .collections.forms import *
 from django.http import *
 from .database.getData import getResult2
 from django.contrib.auth import authenticate
@@ -341,16 +341,19 @@ def accountedit(request):
     else:
         if request.method == 'POST':
             account_form = AccountForm(request.POST, instance=request.user)
-            if account_form.is_valid():
-                saveAdress(request)
+            accountinfo_form = CustomerInfoForm(request.POST, instance=request.user)
+            if account_form.is_valid() and accountinfo_form.is_valid():
+                saveCustomerInfo(request)
+                saveAddress(request)
                 return redirect('/account/')
             else:
                 print("error")
         else:
             account_form = AccountForm()
+            accountinfo_form = CustomerInfoForm()
 
         return render(request, 'accountedit.html', {
-            'account_form': account_form,
+            'account_form': account_form, 'accountinfo_form' : accountinfo_form,
         })
 
 

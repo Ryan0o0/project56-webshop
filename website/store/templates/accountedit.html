@@ -13,6 +13,7 @@
                 <div class="loginsection">
                     <form method="post">
                       {% csrf_token %}
+                      {{ accountinfo_form.as_p }}
                       {{ account_form.as_p }}
                       <button type="submit">Opslaan</button>
                     </form>
