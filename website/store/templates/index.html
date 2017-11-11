@@ -106,7 +106,11 @@
          </select>
          <p id="sortp">Sorteren op: </p>
       </div>
-      {% autoescape off %}{% listloop %}{% endautoescape %}
+
+      <form role='form' method='post' name='productactions'>
+        {% csrf_token %}
+        {% autoescape off %}{% listloop user.is_authenticated %}{% endautoescape %}
+      </form>
    </div>
 </div>
 {% endblock %}

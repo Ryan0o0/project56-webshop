@@ -11,7 +11,6 @@ from .database.getData import getProdName, getProdPrice, getProdStock, getProdGe
 from .database.verifyData import verifyProdNum
 from .collections.forms import *
 from django.http import *
-from .database.getData import getResult2
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
@@ -25,6 +24,14 @@ def index(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
             return searchPost(request)
+        elif 'addToCartItemBoxButton' in request.POST:
+            if not request.session.exists(request.session.session_key):
+                request.session.create()
+            addToCart(request, int(request.POST.get('addToCartItemBoxButton')))
+            return redirect('/winkelwagentje/')
+        elif 'moveToWishListItemBoxButton' in request.POST:
+            addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
+            return redirect('/verlanglijst/')
 
     return render(request, 'index.html')
 
@@ -114,9 +121,7 @@ def product(request, item):
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif "addToCartButton" in request.POST:
-            print("Adding to cart")
             if not request.session.exists(request.session.session_key):
-                print("Creating session...")
                 request.session.create()
             addToCart(request, item)
             return redirect('/winkelwagentje/')
@@ -141,7 +146,7 @@ def product(request, item):
     prodDesc = getProdDesc(productNumber)
     prodImage = getProdImage(productNumber)
     prodDate = getProdData(productNumber)
-    return render(request, 'product2.html', {
+    return render(request, 'product.html', {
         'prodNum' : productNumber,
         'prodName' : prodName,
         'prodPrice' : prodPrice,
@@ -159,8 +164,19 @@ def product(request, item):
     })
 
 def search(request, query):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+        elif 'addToCartItemBoxButton' in request.POST:
+            if not request.session.exists(request.session.session_key):
+                request.session.create()
+            addToCart(request, int(request.POST.get('addToCartItemBoxButton')))
+            return redirect('/winkelwagentje/')
+        elif 'moveToWishListItemBoxButton' in request.POST:
+            addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
+            return redirect('/verlanglijst/')
     thequery = query
-    return render(request, 'testing.html', {
+    return render(request, 'searchresults.html', {
         'query' : thequery,
     })
 
@@ -217,16 +233,16 @@ def contactRequestHandeld(request):
         if 'searchtext' in request.POST:
             return searchPost(request)
     return render(request, 'mailsend.html')
-
-def results(request, query):
-    #returnPage(request.GET.get('searchtext'))
-    object = getResult2(query)
-    print(object)
-#    prodName = getProdName()
- #   prodPrice = getProdPrice()
-  #  prodStock = getProdStock()
-   # prodAuthor = getProdAuthor()
-    return render(request, 'testing.html')
+#
+# def results(request, query):
+#     #returnPage(request.GET.get('searchtext'))
+#     object = getResult2(query)
+#     print(object)
+# #    prodName = getProdName()
+#  #   prodPrice = getProdPrice()
+#   #  prodStock = getProdStock()
+#    # prodAuthor = getProdAuthor()
+#     return render(request, 'searchresults.html')
 
 def shoppingcart(request):
     if request.method == 'POST':

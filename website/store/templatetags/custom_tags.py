@@ -4,7 +4,7 @@ import urllib.request, json
 from ..database.getData import getProdImage, getProdName, getProdPublish, getProdPrice, getProdAuthor, getProdStock
 from ..database.getData import getProdName, getProdNum, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from ..database.verifyData import verifyProdNum
-from ..database.getData import getResult2
+from ..database.getData import getSearchResults
 register = template.Library()
 
 @register.assignment_tag
@@ -52,20 +52,24 @@ def prodStockTag(prodNum):
     return getProdStock(prodNum)
 
 @register.simple_tag()
-def listloop():
+def listloop(userAuth):
     cnt = 1
     txt = ""
     for i in range(4):
         txt += "<ul class='list'>"
         for x in range(3):
-            txt = txt + "<li><div class='productwrap'><a href='" + prodUrlTag(cnt) + "'><img src='" + prodImageTag(cnt) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + prodAuthorTag(cnt) + "</p><p class='name'>" + prodTitleTag(cnt) + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(prodPriceTag(cnt)) + "</p><form name='addtocrt' action='#' method='POST'><button class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button></form><form name='wish' action='#' method='POST'><button class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button></form><p class='stock'>Voorraad: " + str(prodStockTag(cnt)) + "</p></div></li>"
+            txt = txt + "<li><div class='productwrap'><a href='" + prodUrlTag(cnt) + "'><img src='" + prodImageTag(cnt) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + prodAuthorTag(cnt) + "</p><p class='name'>" + prodTitleTag(cnt) + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(prodPriceTag(cnt)) + "</p>" \
+                       "<button name='addToCartItemBoxButton' value='" + str(cnt) + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
+            if userAuth:
+                txt = txt + "<button name='moveToWishListItemBoxButton' value='" + str(cnt) +"' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
+            txt = txt + "<p class='stock'>Voorraad: " + str(prodStockTag(cnt)) + "</p></div></li>"
             cnt += 1
         txt += "</ul>"
     return txt
 
 @register.simple_tag()
-def resulttest(query):
-    object = getResult2(str(query))
+def searchList(query, userAuth):
+    object = getSearchResults(str(query), userAuth)
     return object
 
 @register.simple_tag()
