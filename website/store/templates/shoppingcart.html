@@ -47,8 +47,7 @@
                 {% else %}
                 <form role="form" method="post" id="bestellen">
                     {% csrf_token %}
-                   <i class="fa fa-caret-right" aria-hidden="true"></i>
-                    <button type="submit" name="placeorderbutton">Bestel</button>
+                    <button type="submit" name="placeorderbutton"><i class="fa fa-caret-right" aria-hidden="true"></i>Bestel</button>
                 </form>
                 {% endif %}
          </div>
