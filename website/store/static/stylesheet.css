@@ -1087,6 +1087,25 @@ input[type=submit], .logindiv button{
 	/* width: 75%; */
 }
 
+#bestellen button{
+	position: absolute;
+	right: 0;
+	margin-right: 40px;
+	background-color: rgb(243, 217, 149);
+	margin-right: 0px;
+	color: #4f4a4a;
+	border-radius: 3px;
+	border: solid 1px rgba(0, 0, 0, 0.41);
+	/* text-shadow: 0.3px 0.3px rgba(0, 0, 0, 0.7); */
+	margin-top: 20px;
+	padding: 6 45px 7px 45px;
+	text-align: center;
+}
+
+#bestellen i{
+	padding-right: 5px;
+}
+
 .loginsec {
 	margin: 0 auto;
 	position: relative;
@@ -1419,7 +1438,7 @@ input[type=submit], .logindiv button{
 	color: rgb(134, 49, 49);
 	transition: 0.5s;
 	border-top-left-radius: 5px;
-	/* border-bottom-right-radius: 5px; */
+	border-bottom-right-radius: 5px;
 }
 
 .remove:hover{
@@ -2931,6 +2950,7 @@ p{
 	background-color: rgba(168, 167, 167, 0.17);
 	display: block;
 	position: relative;
+	width": 80%;;
 	max-width: 80%;
     margin-top: 4%;
 	overflow: hidden;
