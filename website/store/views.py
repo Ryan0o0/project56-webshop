@@ -256,7 +256,6 @@ def shoppingcart(request):
             return redirect('/verlanglijst/')
         elif 'placeorderbutton' in request.POST:
             return redirect('/processorder/')
-
     return render(request, 'shoppingcart.html')
 
 def wishlist(request):
