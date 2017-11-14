@@ -13,6 +13,11 @@ from .collections.forms import *
 from django.http import *
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
+from .database.getData import queryVerbeterFunctie
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.contrib.auth import authenticate
+from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
 from .requests.posts import *
 from .database.CheckoutOps import *

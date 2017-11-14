@@ -1,0 +1,24 @@
+{% extends 'frames/base.html' %}
+{% block content %}
+<div class="content">
+    <div class="bars sidecolors">
+        {% include 'includes/nieuwproduct.html' %}
+    </div>
+    <div class="aboutmid">
+        <div class="qrs">
+            <div class="aboutsection commontextbox">
+                <div class="sorton commoncolor">
+                    <h1> Geen rechten! </h1>
+                </div>
+                <div class="aboutwrap">
+                  Sorry, deze Request wordt niet geaccepteerd. Mogelijk ging er iets fout bij het laden van de webpagina, of is uw verbinding niet goed genoeg / onveilig.
+                  Als u vragen heeft kunt u altijd contact met ons opnemen via de contact pagina.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right sidecolors">
+        {% include 'includes/aanbieding.html' %}
+    </div>
+</div>
+{% endblock %}
