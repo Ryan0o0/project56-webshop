@@ -15,20 +15,21 @@ from .database.verifyData import verifyProdNum
 from .collections.forms import ContactForm
 from .collections.forms import RegistrationForm, LogginginForm
 from django.http import *
-from .database.getData import getResult
 from .database.getData import getResult2
 from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
+from .database.getData import queryVerbeterFunctie
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 # Create your views here.
 
 def index(request):
     print("Session key: " + str(request.session.session_key))
     if request.method == 'POST':
-        print("Salty Ryan")
         if 'searchtext' in request.POST:
-            return redirect("search/" + (str(request.POST.get('searchtext'))))
+            return redirect("search/" + queryVerbeterFunctie(str(request.POST.get('searchtext'))))
 
     return render(request, 'index.html')
 
