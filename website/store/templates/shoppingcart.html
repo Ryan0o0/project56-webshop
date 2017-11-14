@@ -14,9 +14,10 @@
             <div class="aboutwrap">
                 {% cartItems request.session.session_key as cartItems %}
                 {% for e in cartItems %}
-                   <form role='form' method='post' name='itemForm' value={{e.value}}>
+                   <form role='form' method='post' name='itemForm' value="{{e.prodNum}}">
                        {% csrf_token %}
-                       {% autoescape off %}{% displayCart request.session.session_key user.is_authenticated %}{% endautoescape %}
+                       <input type="hidden" name="cartItemProdNum" value="{{e.prodNum}}">
+                       {% autoescape off %}{% displayCartItem e user.is_authenticated %}{% endautoescape %}
                    </form>
                 {% endfor %}
                 {% cartEmpty request.session.session_key as cartEmptyBool %}

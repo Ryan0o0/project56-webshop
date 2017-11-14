@@ -18,6 +18,8 @@ from .requests.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
 
+from .database.CartOps import setAmount
+
 # Create your views here.
 
 def index(request):
@@ -246,6 +248,7 @@ def contactRequestHandeld(request):
 
 def shoppingcart(request):
     if request.method == 'POST':
+        print(request.POST)
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'removeFromCartButton' in request.POST:
@@ -256,6 +259,10 @@ def shoppingcart(request):
             return redirect('/verlanglijst/')
         elif 'placeorderbutton' in request.POST:
             return redirect('/processorder/')
+        elif 'amount' in request.POST:
+            setAmount(request, int(request.POST.get('cartItemProdNum')), int(request.POST.get('amount')))
+            return redirect('/winkelwagentje/')
+
     return render(request, 'shoppingcart.html')
 
 def wishlist(request):
