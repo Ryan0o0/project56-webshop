@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import  post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -19,7 +21,7 @@ class Address(models.Model):
         verbose_name_plural = "Customer addresses"
         unique_together = ('customerID', 'address')
 
-    customerID = models.ForeignKey(Customers)
+    customerID = models.ForeignKey(Customers, db_column='customerID')
     address = models.CharField(max_length=100)
     number = models.CharField(max_length=10)
     city = models.CharField(max_length=25)
@@ -60,14 +62,15 @@ class WishList(models.Model):
     class Meta:
         unique_together = ('custId', 'productNum')
 
-    custId = models.ForeignKey(Customers)
-    productNum = models.ForeignKey(Products)
+    custId = models.ForeignKey(Customers, db_column='custId')
+    productNum = models.ForeignKey(Products, db_column='productNum')
 
 class Orders(models.Model):
     class Meta:
         verbose_name_plural = "Orders"
 
     orderNum = models.IntegerField(primary_key=True)
+    customerID = models.ForeignKey(Customers, db_column='customerID')
     orderDate = models.DateField()
     orderStatus = models.CharField(max_length=15)
 
@@ -79,8 +82,8 @@ class OrderDetails(models.Model):
         unique_together = ('orderNum', 'productNum')
         verbose_name_plural = "Order details"
 
-    orderNum = models.ForeignKey(Orders)
-    productNum = models.ForeignKey(Products)
+    orderNum = models.ForeignKey(Orders, db_column='orderNum')
+    productNum = models.ForeignKey(Products, db_column='productNum')
     amount = models.IntegerField()
 
     def __str__(self):

@@ -10,4 +10,4 @@ for i in range(12):
             amounttxt += "<option>" + str(i) + "</option>"
 amounttxt += "</select>"
 
-print(amounttxt)
+#print(amounttxt)
