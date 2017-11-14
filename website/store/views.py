@@ -11,8 +11,6 @@ from .database.getData import getProdName, getProdPrice, getProdStock, getProdGe
 from .database.verifyData import verifyProdNum
 from .collections.forms import *
 from django.http import *
-from .database.getData import getResult2
-from .templatetags.custom_tags import resulttest
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
 from .database.getData import queryVerbeterFunctie
@@ -30,7 +28,7 @@ from .database.AccountOps import *
 def index(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
-            return redirect("search/" + queryVerbeterFunctie(str(request.POST.get('searchtext'))))
+            return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
             if not request.session.exists(request.session.session_key):
                 request.session.create()
