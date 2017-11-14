@@ -19,7 +19,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
-from .requests.posts import *
+from .collections.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
 
