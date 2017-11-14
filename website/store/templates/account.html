@@ -1,4 +1,5 @@
 {% extends 'frames/base.html' %}
+{% load accounttags %}
 {% block content %}
 <div class="bars sidecolors">
     {% include 'includes/nieuwproduct.html' %}
@@ -6,6 +7,7 @@
 <div class="aboutmid">
     <a href="/account/accountedit/">adres gegevens</a>
     <a href="/verlanglijst/">verlanglijstje</a>
+    <div>{% autoescape off %}{% displayorders request %}{% endautoescape %}</div>
 </div>
 <div class="right sidecolors">
     {% include 'includes/aanbieding.html' %}
