@@ -12,11 +12,19 @@
                <h1> Uw winkelwagentje: </h1>
             </div>
             <div class="aboutwrap">
-               <form role='form' method='post' name='removeButtonForm'>
-                   {% csrf_token %}
-                   {% autoescape off %}{% displayCart request.session.session_key user.is_authenticated %}{% endautoescape %}
-               </form>
                 {% cartEmpty request.session.session_key as cartEmptyBool %}
+                {% if cartEmptyBool %}
+                <p class='title'>Momenteel zit er nog niks in je winkelwagentje.</p>
+                {% else %}
+                    {% cartItems request.session.session_key as cartItems %}
+                    {% for e in cartItems %}
+                       <form role='form' method='post' name='itemForm' value="{{e.prodNum}}">
+                           {% csrf_token %}
+                           <input type="hidden" name="cartItemProdNum" value="{{e.prodNum}}">
+                           {% autoescape off %}{% displayCartItem e user.is_authenticated %}{% endautoescape %}
+                       </form>
+                    {% endfor %}
+                {% endif %}
                 <script>
                     $(function() {
                         var counter = 0;
