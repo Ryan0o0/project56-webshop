@@ -43,8 +43,10 @@ def displayCart(sessionkey, userAuth):
 @register.simple_tag()
 def cartEmpty(sessionkey):
     if cartLength(sessionkey) == 0:
-        print("EMPTY")
         return True
     else:
-        print("FULL")
         return False
+
+@register.simple_tag()
+def cartItems(sessionkey):
+    return ShoppingCart.objects.all().filter(session_key=sessionkey)
