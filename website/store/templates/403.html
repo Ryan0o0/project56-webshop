@@ -1,0 +1,24 @@
+{% extends 'frames/base.html' %}
+{% block content %}
+<div class="content">
+    <div class="bars sidecolors">
+        {% include 'includes/nieuwproduct.html' %}
+    </div>
+    <div class="aboutmid">
+        <div class="qrs">
+            <div class="aboutsection commontextbox">
+                <div class="sorton commoncolor">
+                    <h1> Geen rechten! </h1>
+                </div>
+                <div class="aboutwrap">
+                  Sorry, u heeft momenteel geen rechten om deze pagina te bezoeken. Probeer terug te keren naar de hoofdpagina (eventueel met het klikbare logo linksboven!).
+                  Als dit niet werkt is er een tijdelijke storing aan de gang. Kom over een uur terug voor de beste strips en manga!
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right sidecolors">
+        {% include 'includes/aanbieding.html' %}
+    </div>
+</div>
+{% endblock %}
