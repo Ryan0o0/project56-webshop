@@ -1,0 +1,25 @@
+{% extends 'frames/base.html' %}
+{% block content %}
+{% load custom_tags %}
+<div class="content">
+    <div class="bars sidecolors">
+        {% include 'includes/nieuwproduct.html' %}
+    </div>
+    <div class="mid">
+        <div class="qrs">
+            <div class="sorton commoncolor">
+                <h1>Resultaten</h1>
+            </div>
+            <div class="contactsection commontextbox">
+                <form role='form' method='post' name='productactions'>
+                    {% csrf_token %}
+                    {% autoescape off %}{% searchList query user.is_authenticated %}{% endautoescape %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="right sidecolors">
+        {% include 'includes/aanbieding.html' %}
+    </div>
+</div>
+{% endblock%}

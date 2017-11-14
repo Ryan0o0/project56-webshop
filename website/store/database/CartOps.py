@@ -21,3 +21,7 @@ def cartLength(sessionkey):
 
 def removeFromCart(request, prodnum):
     ShoppingCart.objects.filter(session_key=request.session.session_key, prodNum=Products(prodNum=prodnum)).delete()
+
+def clearCart(request):
+    for e in ShoppingCart.objects.all().filter(session_key=request.session.session_key):
+        e.delete()

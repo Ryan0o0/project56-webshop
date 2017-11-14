@@ -7,14 +7,15 @@
     <div class="qrs">
         <div class="loginsec commontextbox">
             <div class="sorton commoncolor">
-                <h1> Adress gegevens </h1>
+                <h1> Adres gegevens </h1>
             </div>
             <div class="loginwrap">
                 <div class="loginsection">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="loginbutton" name="loginbutton">Login</button>
+                    <form method="post">
+                      {% csrf_token %}
+                      {{ accountinfo_form.as_p }}
+                      {{ account_form.as_p }}
+                      <button type="submit">Opslaan</button>
                     </form>
                 </div>
             </div>

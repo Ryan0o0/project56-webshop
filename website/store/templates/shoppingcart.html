@@ -14,8 +14,9 @@
             <div class="aboutwrap">
                <form role='form' method='post' name='removeButtonForm'>
                    {% csrf_token %}
-                   {% autoescape off %}{% displayCart request.session.session_key %}{% endautoescape %}
+                   {% autoescape off %}{% displayCart request.session.session_key user.is_authenticated %}{% endautoescape %}
                </form>
+                {% cartEmpty request.session.session_key as cartEmptyBool %}
                 <script>
                     $(function() {
                         var counter = 0;
@@ -42,6 +43,13 @@
                     });
                 </script>
             </div>
+                {% if cartEmptyBool %}
+                {% else %}
+                <form role="form" method="post" id="bestellen">
+                    {% csrf_token %}
+                    <button type="submit" name="placeorderbutton"><i class="fa fa-caret-right" aria-hidden="true"></i>Bestel</button>
+                </form>
+                {% endif %}
          </div>
       </div>
    </div>
