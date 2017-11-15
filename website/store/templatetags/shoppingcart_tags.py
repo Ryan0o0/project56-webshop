@@ -2,7 +2,7 @@ from django import template
 from ..database.CartOps import cartLength
 from ..database.getData import getProdImage, getProdStock
 from ..models import ShoppingCart
-
+from decimal import Decimal
 register = template.Library()
 
 @register.simple_tag()
@@ -28,6 +28,22 @@ def displayCartItem(e, userAuth):
     html += "</ul>"
     return html
 
+@register.simple_tag()
+def getItemClass():
+    return ItemClass()
+
+@register.simple_tag()
+def incItemClass(item):
+    item.increment()
+
+@register.simple_tag()
+class ItemClass:
+    def __init__(self):
+        self.total = 0
+    def increment(self):
+        self.total += 1
+    def total(self):
+        return self.total
 
 @register.simple_tag()
 def cartEmpty(sessionkey):
@@ -39,3 +55,40 @@ def cartEmpty(sessionkey):
 @register.simple_tag()
 def cartItems(sessionkey):
     return ShoppingCart.objects.all().filter(session_key=sessionkey)
+
+@register.simple_tag()
+def getTotal(cartobjects):
+    topay = 0
+    products = 0
+    for e in cartobjects:
+        topay += e.amount * e.prodNum.prodPrice
+        products += e.amount
+
+    if topay >= 100:
+        verzendkosten = "<p style='color: #4d884d;'>Gratis</p>"
+        grandtotal = topay
+    else:
+        verzendkosten = "<p>€ 3.50</p>"
+        grandtotal = Decimal(float(topay) + 3.50)
+        grandtotal = round(grandtotal, 2)
+
+    text = """<div class='totalsum'>
+                 <div class='korting'><p>Vul hier uw kortingscode in</p></div>
+                 <div class='pricesum'>
+                     <table style='border-bottom: solid 1px rgba(0, 0, 0, 0.26);'>
+                         <tbody>
+                         <tr><td><p>Totaal producten<span style='font-size: 8px'>({0})</span>:</p></td><td style='text-align: right; font-weight: 700;'><p>€ {1}</p></td></tr>
+                         <tr><td><p>Verzendkosten:</p></td><td style='text-align: right; font-weight: 700;'>{2}</td></tr>
+                         </tbody>
+                     </table>
+                     <table>
+                     <tbody>
+                     <tr>
+                     <td style='font-weight: 700;'><p>Totaal</p></td>
+                     <td style='font-weight: 700;'><p style='text-align: right; color: #534b4a;'>€ {3}</p></td>
+                     </tr>
+                     </tbody>
+                     </table>
+                 </div>
+    </div>""".format(products, topay, verzendkosten, str(grandtotal))
+    return text

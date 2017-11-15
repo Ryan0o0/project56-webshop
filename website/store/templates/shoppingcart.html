@@ -44,15 +44,13 @@
                                }
                            });
                         });
-
                         console.log(counter);
-
-
                     });
                 </script>
             </div>
                 {% if cartEmptyBool %}
                 {% else %}
+                {% autoescape off %}{% getTotal cartItems %}{% endautoescape %}
                 <form role="form" method="post" id="bestellen">
                     {% csrf_token %}
                     <button type="submit" name="placeorderbutton"><i class="fa fa-check" aria-hidden="true"></i>Bestellen</button>

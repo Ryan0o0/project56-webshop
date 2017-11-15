@@ -1194,6 +1194,44 @@ label{
 	margin-top: 60px;
 }
 
+.totalsum {
+	height: 145px;
+	color: white;
+	background-color: #f5deb3;
+	margin-top: 20px;
+	border: solid 1px rgba(116, 116, 116, 0.41);
+	border-radius: 2px;
+}
+
+.korting {
+	padding-left: 10px;
+	width: 63%;
+	float: left;
+	color: #504d4f;
+}
+
+.pricesum {
+	/* padding-right: 10px; */
+	width: 35%;
+	float: left;
+	padding-top: 5px;
+}
+
+.pricesum table{
+	width: 250px;
+	font-family: "Open Sans",Arial,Helvetica,sans-serif;
+}
+
+.pricesum tr{
+	width: 500px;
+}
+
+.pricesum td{
+	padding-bottom: 20px;
+	color: #534b4a;
+	width: 400px;
+}
+
 #bestellen button{
 	position: absolute;
 	right: 0;
