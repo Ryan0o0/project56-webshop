@@ -371,10 +371,12 @@ def accountedit(request):
     else:
         print(request.user)
         if request.method == 'POST':
-            account_form = AccountForm(request.POST, initial={'address' : request.POST.get('address', '')})
-            accountinfo_form = CustomerInfoForm(initial={'name': str(request.user.first_name), 'surname': str(request.user.last_name)})
-            form = accountinfo_form(data=request.POST)
-            if account_form.is_valid() and accountinfo_form.is_valid():
+            initialinfo = Customers.objects.get(customerID=request.user.id)
+            data = {'name' : initialinfo.name, 'surname' : initialinfo.surname, 'telephone' : initialinfo.telephone}
+            accountinfo_form = CustomerInfoForm(request.POST, initial=data)
+            account_form = AccountForm(request.POST, initial={'address': request.POST.get('address', '')})
+
+            if accountinfo_form.is_valid() and accountinfo_form.is_valid():
                 updateCustomerInfo(request)
                 saveAddress(request)
                 return redirect('/account/')

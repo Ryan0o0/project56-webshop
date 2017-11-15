@@ -130,7 +130,7 @@ class AccountForm(forms.ModelForm):
         self.fields['city'].label = "Stad:"
         self.fields['postalcode'].label = "Postcode:"
 
-class CustomerInfoForm(forms.ModelForm):
+class CustomerInfoForm(forms.Form):
 
     name = forms.CharField(required=True)
     surname = forms.CharField(required=True)
