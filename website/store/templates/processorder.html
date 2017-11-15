@@ -8,11 +8,11 @@
         <div class="qrs">
             <div class="aboutsection commontextbox">
                 <div class="sorton commoncolor">
-                    <h1>Maak svp een keuze:</h1>
+                    <h1>Maak a.u.b. een keuze:</h1>
                 </div>
-                <div class="loginwrap">
-                    <div style="float:left; width:50%;">
-                        <div class="loginsection">
+                <div class="loginwrap2">
+                    <div class="loginleft">
+                        <div class="loginsection2">
                             <form method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
@@ -20,9 +20,9 @@
                             </form>
                         </div>
                     </div>
-                    <div style="float:right; width:50%;">
+                    <div class="loginright">
                         <form action="/customerdetails/">
-                            <input type="submit" value="Login" />
+                            <input type="submit" value="Verder gaan als gast" />
                         </form>
                     </div>
                 </div>
