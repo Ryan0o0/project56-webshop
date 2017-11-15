@@ -360,15 +360,20 @@ def checkout(request):
     return redirect('/')
 
 def account(request):
-    return render(request, 'account.html')
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        return render(request, 'account.html')
 
 def accountedit(request):
     if not request.user.is_authenticated:
         return redirect('/')
     else:
+        print(request.user)
         if request.method == 'POST':
-            account_form = AccountForm(request.POST, instance=request.user)
-            accountinfo_form = CustomerInfoForm(request.POST, instance=request.user)
+            account_form = AccountForm(request.POST, initial={'address' : request.POST.get('address', '')})
+            accountinfo_form = CustomerInfoForm(initial={'name': str(request.user.first_name), 'surname': str(request.user.last_name)})
+            form = accountinfo_form(data=request.POST)
             if account_form.is_valid() and accountinfo_form.is_valid():
                 updateCustomerInfo(request)
                 saveAddress(request)
@@ -381,6 +386,7 @@ def accountedit(request):
 
         return render(request, 'accountedit.html', {
             'account_form': account_form, 'accountinfo_form' : accountinfo_form,
-        })
+    })
+
 
 

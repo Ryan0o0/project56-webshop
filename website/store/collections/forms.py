@@ -126,23 +126,27 @@ class AccountForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
         self.fields['address'].label = "Adres:"
-        self.fields['number'].label = "huisnummer:"
-        self.fields['city'].label = "stad:"
+        self.fields['number'].label = "Huisnummer:"
+        self.fields['city'].label = "Stad:"
         self.fields['postalcode'].label = "Postcode:"
 
 class CustomerInfoForm(forms.ModelForm):
+
+    name = forms.CharField(required=True)
+    surname = forms.CharField(required=True)
+    telephone = forms.CharField(required=True)
 
     class Meta:
         model = Customers
         fields = (
             'name',
             'surname',
-            'telephone'
+            'telephone',
         )
 
     def __init__(self, *args, **kwargs):
         super(CustomerInfoForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Voornaam:"
         self.fields['surname'].label = "Achternaam:"
-        self.fields['telephone'].label = "telefoonnummer:"
+        self.fields['telephone'].label = "Telefoonnummer:"
 
