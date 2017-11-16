@@ -366,7 +366,7 @@ def checkout(request):
 
                         email = EmailMultiAlternatives("Your order details", text_content, 'noreply@comicfire.com', [c])
                         email.attach_alternative(html_content, "text/html")
-                        email.attach_file('/images/comicfirelogo2.png')
+                        email.attach_file('static/images/comicfirelogo2.png')
                         email.mixed_subtype = 'related'
 
                         for f in ['img1.png', 'img2.png']:
