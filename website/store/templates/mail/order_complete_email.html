@@ -1,5 +1,6 @@
 <!--This order email-->
 {% load custom_tags %}
+{% load shoppingcart_tags %}
 < lang="en">
 {% block extrastyle %}
 <style type="text/css">
@@ -21,6 +22,7 @@ body.login {background-color: #c5eabb;}
             {% autoescape off %}{% displayCartItem e user.is_authenticated %}{% endautoescape %}
         </form>
     {% endfor %}
+    {% autoescape off %}{% getTotal cartItems %}{% endautoescape %}
     {% autoescape off %}
         <p></p>
     <p>Wij streven ernaar uw bestelling binnen 2 dagen tijd bij u te leveren.</p>
