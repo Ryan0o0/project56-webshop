@@ -12,6 +12,7 @@ body.login {background-color: #c5eabb;}
         <p></p>
     <p>U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:</p>
         <p></p>
+    {% endautoescape %}
     {% cartItems request.session.session_key as cartItems %}
     {% for e in cartItems %}
         <form role='form' method='post' name='itemForm' value="{{e.prodNum}}">
@@ -20,6 +21,7 @@ body.login {background-color: #c5eabb;}
             {% autoescape off %}{% displayCartItem e user.is_authenticated %}{% endautoescape %}
         </form>
     {% endfor %}
+    {% autoescape off %}
         <p></p>
     <p>Wij streven ernaar uw bestelling binnen 2 dagen tijd bij u te leveren.</p>
     <p>Als u nog enige vragen heeft, wees dan niet bang ons te contacteren via onze online contact forum</p>
