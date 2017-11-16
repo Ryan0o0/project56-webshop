@@ -9,14 +9,14 @@
             <div class="sorton commoncolor">
                 <h1> Adres gegevens </h1>
             </div>
-            <div class="loginwrap">
+            <div class="loginwrap2">
                 <div class="loginsection3">
                     <div class="adresform">
                     <form method="post">
                       {% csrf_token %}
                       {{ accountinfo_form.as_p }}
                       {{ account_form.as_p }}
-                      <button type="submit">Opslaan</button>
+                      <button type="submit" class="loginbutton">Opslaan</button>
                     </form>
                     </div>
                 </div>
