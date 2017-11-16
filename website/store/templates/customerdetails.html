@@ -11,11 +11,13 @@
                     <h1>Vul in</h1>
                 </div>
                 <div class="abouttext">
+				<div class="fillin">
                     <form role="form" action="" method="post">
                         {% csrf_token %}
                         {{customerdetailsform}}
-                     <input type="submit" id="customerdetailssubmit" name="customerdetailssubmitbutton">
+                     <input type="submit" id="customerdetailssubmit" name="customerdetailssubmitbutton" value="Naar betalen">
                   </form>
+				  </div>
                 </div>
             </div>
         </div>
