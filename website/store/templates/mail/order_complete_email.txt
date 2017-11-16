@@ -1,4 +1,4 @@
-Beste {{ contact_name }},
+Beste klant,
 
 U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:
 
