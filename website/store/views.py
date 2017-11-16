@@ -2,7 +2,6 @@ from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.template.loader import render_to_string
 from store.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.template.loader import get_template
@@ -22,6 +21,11 @@ from .database.WishListOps import addToWishList, removeFromWishList
 from .collections.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
+
+import os
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from email.MIMEImage import MIMEImage
 
 from .database.CartOps import setAmount
 
@@ -348,6 +352,51 @@ def checkout(request):
 
                     if form.is_valid():
                         print("Placing order... stand by")
+
+                        c = request.session['customer_email']
+                        # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
+                        # text_content = 'This is an important message.'
+                        # html_content = '<p>This is an <strong>important</strong> message.</p>'
+                        # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        # msg.attach_alternative(html_content, "text/html")
+                        # # msg.attach_file('/images/comicfirelogo2.png')
+                        # msg.send()
+
+                        html_content = render_to_string('order_complete_email.html', context)
+                        text_content = render_to_string('order_complete_email.txt', context)
+                        subject, sender, to_mail = 'Your order details', 'noreply@comicfire.com', c
+
+                        msg = EmailMultiAlternatives(subject, text_content,
+                                                     sender, [to_mail])
+
+                        msg.attach_alternative(html_content, "text/html")
+
+                        msg.mixed_subtype = 'related'
+
+                        # for f in ['img1.png', 'img2.png']:
+                        #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
+                        #     msg_img = MIMEImage(fp.read())
+                        #     fp.close()
+                        #     msg_img.add_header('Content-ID', '<{}>'.format(f))
+                        #     msg.attach(msg_img)
+
+                        msg.send()
+
+                        # user = form.save(commit=False)
+                        # user.is_active = False
+                        # user.save()
+                        # current_site = get_current_site(request)
+                        # message = render_to_string('mail/order_complete_email.html', {
+                        #     'user': user,
+                        #     'domain': current_site.domain,
+                        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        #     # 'token': account_activation_token.make_token(user),
+                        # })
+                        # mail_subject = 'Your order details'
+                        # to_email = form.cleaned_data.get('email')
+                        # email = EmailMessage(mail_subject, message, to=[to_email])
+                        # email.send()
+
                         createOrder(request)
                         return redirect('/contact/')
             else:
