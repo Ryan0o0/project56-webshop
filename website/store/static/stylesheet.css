@@ -1104,6 +1104,7 @@ input[type=submit], .logindiv button{
     float: left;
     /* border-right: solid 1px rgb(204, 204, 204); */
     position: relative;
+    padding-bottom: 50px;
 }
 
 .contactmid {
