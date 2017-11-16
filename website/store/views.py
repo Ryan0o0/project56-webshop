@@ -5,8 +5,9 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
 from store.tokens import account_activation_token
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from .database.verifyData import verifyProdNum
 from .collections.forms import *
@@ -374,8 +375,7 @@ def accountedit(request):
             initialinfo = Customers.objects.get(customerID=request.user.id)
             data = {'name' : initialinfo.name, 'surname' : initialinfo.surname, 'telephone' : initialinfo.telephone}
             accountinfo_form = CustomerInfoForm(request.POST, initial=data)
-            account_form = AccountForm(request.POST, initial={'address': request.POST.get('address', '')})
-
+            account_form = AccountForm(request.POST)
             if accountinfo_form.is_valid() and accountinfo_form.is_valid():
                 updateCustomerInfo(request)
                 saveAddress(request)
@@ -389,6 +389,23 @@ def accountedit(request):
         return render(request, 'accountedit.html', {
             'account_form': account_form, 'accountinfo_form' : accountinfo_form,
     })
+
+
+def changepassword(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            password_form = PasswordForm(request.user, request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                return redirect('/account/')
+            else:
+                print("Error")
+        else:
+            password_form = PasswordForm(request.user)
+        return render(request, 'changepassword.html', {'password_form' : password_form})
 
 
 
