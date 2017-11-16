@@ -399,7 +399,7 @@ def checkout(request):
                         # email.send()
 
                         createOrder(request)
-                        return redirect('/contact/')
+                        return render(request, 'completeorder.html')
             else:
                 form = CheckoutForm()
             args['checkoutform'] = form

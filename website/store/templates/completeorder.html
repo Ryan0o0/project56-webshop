@@ -1,0 +1,27 @@
+{% extends 'frames/base.html' %}
+{% block content %}
+<div class="content" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <div class="bars sidecolors">
+        {% include 'includes/nieuwproduct.html' %}
+    </div>
+    <div class="faqmid">
+        <div class="faqwrap">
+            <div class="sorton commoncolor" style="margin-top: 0;">
+                <h1>Bedankt voor uw order!</h1>
+            </div>
+            <div class="regsection commontextbox">
+                <div class="completereg">
+                    <img src="http://vignette4.wikia.nocookie.net/avengers-assemble/images/3/35/Captain_America_1.png/revision/latest?cb=20131128204135" style="">
+                    <p>Bedankt voor het plaatsen van uw bestelling!
+                        <br />Op uw email kun u binnen 10 minuten een confirmatie verwachten.
+                    </p>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right sidecolors">
+        {% include 'includes/aanbieding.html' %}
+    </div>
+</div>
+{% endblock %}
