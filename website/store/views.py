@@ -26,7 +26,7 @@ from .database.AccountOps import *
 import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from email.MIMEImage import MIMEImage
+from email.mime.image import MIMEImage
 
 
 from .database.CartOps import setAmount
