@@ -26,7 +26,8 @@ from .database.AccountOps import *
 import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from email.MIMEImage import MIMEImage
+from email.mime.image import MIMEImage
+
 
 from .database.CartOps import setAmount
 
@@ -51,13 +52,13 @@ def contact(request):
     if request.user.is_authenticated:
         formClass = ContactForm(initial={'contact_name': str(request.user.first_name + " " + request.user.last_name), 'contact_email': request.user.email})
     else:
-        formClass = ContactForm
+        formClass = ContactForm()
 
     if request.method == 'POST':
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'contactsubmitbutton' in request.POST:
-            form = formClass(data=request.POST)
+            form = ContactForm(data=request.POST)
 
             if form.is_valid():
                 contact_name = request.POST.get('contact_name', '')
@@ -355,6 +356,52 @@ def checkout(request):
                         print("Placing order... stand by")
 
                         c = request.session['customer_email']
+
+
+                        contact_name = request.POST.get('contact_name', '')
+                        contact_email = request.POST.get('contact_email', '')
+                        contact_content = request.POST.get('content', '')
+                        html_content = render_to_string('mail/order_complete_email.html')
+                        text_content = render_to_string('mail/order_complete_email.txt')
+
+                        email = EmailMultiAlternatives("Your order details", text_content, 'noreply@comicfire.com', [c])
+                        email.attach_alternative(html_content, "text/html")
+                        # email.attach_file('static/images/comicfirelogo2.png')
+                        email.mixed_subtype = 'related'
+
+                        # for f in ['img1.png', 'img2.png']:
+                        #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
+                        #     email_img = MIMEImage(fp.read())
+                        #     fp.close()
+                        #     email_img.add_header('Content-ID', '<{}>'.format(f))
+                        #     email.attach(email_img)
+
+
+                        # template = get_template('mail/order_complete_email.txt')
+                        # context = {
+                        #     'contact_name': contact_name,
+                        #     'contact_email': contact_email,
+                        #     'contact_content': contact_content,
+                        # }
+
+                        # content = template.render(context)
+
+
+
+                        # email = EmailMessage(
+                        #     "Your order details",
+                        #     content,
+                        #     'noreply@comicfire.com',
+                        #     [c],
+                        #     headers={'Reply-to': contact_email}
+                        # )
+
+                        email.send()
+                        createOrder(request)
+
+                        return redirect('/contact/')
+
+
                         # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
                         # text_content = 'This is an important message.'
                         # html_content = '<p>This is an <strong>important</strong> message.</p>'
@@ -362,18 +409,20 @@ def checkout(request):
                         # msg.attach_alternative(html_content, "text/html")
                         # # msg.attach_file('/images/comicfirelogo2.png')
                         # msg.send()
-
-                        html_content = render_to_string('order_complete_email.html', context)
-                        text_content = render_to_string('order_complete_email.txt', context)
-                        subject, sender, to_mail = 'Your order details', 'noreply@comicfire.com', c
-
-                        msg = EmailMultiAlternatives(subject, text_content,
-                                                     sender, [to_mail])
-
-                        msg.attach_alternative(html_content, "text/html")
-
-                        msg.mixed_subtype = 'related'
-
+                        #
+                        # print("WUT WUT IN THE BUTT")
+                        # html_content = render_to_string('mail/order_complete_email.html')
+                        # text_content = render_to_string('mail/order_complete_email.txt')
+                        # print("Test1")
+                        # subject, sender, to_mail = 'Your order details', 'noreply@comicfire.com', c
+                        # print("Test2")
+                        # msg = EmailMultiAlternatives(subject, text_content,
+                        #                              sender, [to_mail])
+                        # print("Test3")
+                        # msg.attach_alternative(html_content, "text/html")
+                        # print("Test4")
+                        # msg.mixed_subtype = 'related'
+                        # print("Test5")
                         # for f in ['img1.png', 'img2.png']:
                         #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
                         #     msg_img = MIMEImage(fp.read())
@@ -381,8 +430,7 @@ def checkout(request):
                         #     msg_img.add_header('Content-ID', '<{}>'.format(f))
                         #     msg.attach(msg_img)
 
-                        msg.send()
-
+                        # msg.send()
                         # user = form.save(commit=False)
                         # user.is_active = False
                         # user.save()
@@ -398,8 +446,6 @@ def checkout(request):
                         # email = EmailMessage(mail_subject, message, to=[to_email])
                         # email.send()
 
-                        createOrder(request)
-                        return redirect('/contact/')
             else:
                 form = CheckoutForm()
             args['checkoutform'] = form
@@ -408,6 +454,7 @@ def checkout(request):
             return redirect('/')
     print("Doing this one...")
     return redirect('/')
+
 
 def account(request):
     if not request.user.is_authenticated:
