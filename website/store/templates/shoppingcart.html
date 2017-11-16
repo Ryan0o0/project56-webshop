@@ -12,11 +12,19 @@
                <h1> Uw winkelwagentje: </h1>
             </div>
             <div class="aboutwrap">
-               <form role='form' method='post' name='removeButtonForm'>
-                   {% csrf_token %}
-                   {% autoescape off %}{% displayCart request.session.session_key user.is_authenticated %}{% endautoescape %}
-               </form>
                 {% cartEmpty request.session.session_key as cartEmptyBool %}
+                {% if cartEmptyBool %}
+                <p class='title'>Momenteel zit er nog niks in je winkelwagentje.</p>
+                {% else %}
+                    {% cartItems request.session.session_key as cartItems %}
+                    {% for e in cartItems %}
+                       <form role='form' method='post' name='itemForm' value="{{e.prodNum}}">
+                           {% csrf_token %}
+                           <input type="hidden" name="cartItemProdNum" value="{{e.prodNum}}">
+                           {% autoescape off %}{% displayCartItem e user.is_authenticated %}{% endautoescape %}
+                       </form>
+                    {% endfor %}
+                {% endif %}
                 <script>
                     $(function() {
                         var counter = 0;
@@ -36,18 +44,16 @@
                                }
                            });
                         });
-
                         console.log(counter);
-
-
                     });
                 </script>
             </div>
                 {% if cartEmptyBool %}
                 {% else %}
+                {% autoescape off %}{% getTotal cartItems %}{% endautoescape %}
                 <form role="form" method="post" id="bestellen">
                     {% csrf_token %}
-                    <button type="submit" name="placeorderbutton"><i class="fa fa-caret-right" aria-hidden="true"></i>Bestel</button>
+                    <button type="submit" name="placeorderbutton"><i class="fa fa-check" aria-hidden="true"></i>Bestellen</button>
                 </form>
                 {% endif %}
          </div>

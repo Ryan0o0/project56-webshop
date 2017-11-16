@@ -25,3 +25,8 @@ def removeFromCart(request, prodnum):
 def clearCart(request):
     for e in ShoppingCart.objects.all().filter(session_key=request.session.session_key):
         e.delete()
+
+def setAmount(request, prodnum, amount):
+    existingEntry = ShoppingCart.objects.get(session_key=request.session.session_key, prodNum=Products(prodNum=prodnum))
+    existingEntry.amount = amount
+    existingEntry.save()

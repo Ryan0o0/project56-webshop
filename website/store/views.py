@@ -2,31 +2,38 @@ from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.template.loader import render_to_string
-from django.test.client import  RequestFactory
 from store.tokens import account_activation_token
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from .database.verifyData import verifyProdNum
 from .collections.forms import *
 from django.http import *
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
+from .database.getData import queryVerbeterFunctie
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.contrib.auth import authenticate
+from .database.CartOps import addToCart, removeFromCart
 from .database.WishListOps import addToWishList, removeFromWishList
-from .requests.posts import *
+from .collections.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
+
+import os
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from email.MIMEImage import MIMEImage
+
+from .database.CartOps import setAmount
 
 # Create your views here.
 
 def index(request):
     if request.method == 'POST':
-        if request.POST.get('searchtext').__len__() == 0 or request.POST.get('searchtext') == "":
-          request = RequestFactory().post('/')
-          request.POST = request.POST.copy()
-          request.POST['searchtext'] = 'No Query Found'
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
@@ -37,6 +44,7 @@ def index(request):
         elif 'moveToWishListItemBoxButton' in request.POST:
             addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
             return redirect('/verlanglijst/')
+
     return render(request, 'index.html')
 
 def contact(request):
@@ -169,10 +177,6 @@ def product(request, item):
 
 def search(request, query):
     if request.method == 'POST':
-        if request.POST.get('searchtext').__len__() == 0 or request.POST.get('searchtext') == "":
-            request = RequestFactory().post('/')
-            request.POST = request.POST.copy()
-            request.POST['searchtext'] = 'No Query Found'
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
@@ -186,12 +190,6 @@ def search(request, query):
     thequery = query
     return render(request, 'searchresults.html', {
         'query' : thequery,
-    })
-
-def emptySearch(request):
-    print('empty search')
-    return render(request, 'searchresults.html', {
-      'query' : 'Empty Query',
     })
 
 def logoutview(request):
@@ -260,6 +258,7 @@ def contactRequestHandeld(request):
 
 def shoppingcart(request):
     if request.method == 'POST':
+        print(request.POST)
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'removeFromCartButton' in request.POST:
@@ -270,6 +269,10 @@ def shoppingcart(request):
             return redirect('/verlanglijst/')
         elif 'placeorderbutton' in request.POST:
             return redirect('/processorder/')
+        elif 'amount' in request.POST:
+            setAmount(request, int(request.POST.get('cartItemProdNum')), int(request.POST.get('amount')))
+            return redirect('/winkelwagentje/')
+
     return render(request, 'shoppingcart.html')
 
 def wishlist(request):
@@ -350,6 +353,51 @@ def checkout(request):
 
                     if form.is_valid():
                         print("Placing order... stand by")
+
+                        c = request.session['customer_email']
+                        # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
+                        # text_content = 'This is an important message.'
+                        # html_content = '<p>This is an <strong>important</strong> message.</p>'
+                        # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        # msg.attach_alternative(html_content, "text/html")
+                        # # msg.attach_file('/images/comicfirelogo2.png')
+                        # msg.send()
+
+                        html_content = render_to_string('order_complete_email.html', context)
+                        text_content = render_to_string('order_complete_email.txt', context)
+                        subject, sender, to_mail = 'Your order details', 'noreply@comicfire.com', c
+
+                        msg = EmailMultiAlternatives(subject, text_content,
+                                                     sender, [to_mail])
+
+                        msg.attach_alternative(html_content, "text/html")
+
+                        msg.mixed_subtype = 'related'
+
+                        # for f in ['img1.png', 'img2.png']:
+                        #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
+                        #     msg_img = MIMEImage(fp.read())
+                        #     fp.close()
+                        #     msg_img.add_header('Content-ID', '<{}>'.format(f))
+                        #     msg.attach(msg_img)
+
+                        msg.send()
+
+                        # user = form.save(commit=False)
+                        # user.is_active = False
+                        # user.save()
+                        # current_site = get_current_site(request)
+                        # message = render_to_string('mail/order_complete_email.html', {
+                        #     'user': user,
+                        #     'domain': current_site.domain,
+                        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        #     # 'token': account_activation_token.make_token(user),
+                        # })
+                        # mail_subject = 'Your order details'
+                        # to_email = form.cleaned_data.get('email')
+                        # email = EmailMessage(mail_subject, message, to=[to_email])
+                        # email.send()
+
                         createOrder(request)
                         return redirect('/contact/')
             else:
@@ -362,27 +410,52 @@ def checkout(request):
     return redirect('/')
 
 def account(request):
-    return render(request, 'account.html')
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        return render(request, 'account.html')
 
 def accountedit(request):
     if not request.user.is_authenticated:
         return redirect('/')
     else:
+        print(request.user)
         if request.method == 'POST':
-            account_form = AccountForm(request.POST, instance=request.user)
-            accountinfo_form = CustomerInfoForm(request.POST, instance=request.user)
-            if account_form.is_valid() and accountinfo_form.is_valid():
+            accountinfo_form = CustomerInfoForm(request.POST)
+            account_form = AccountForm(request.POST)
+            if accountinfo_form.is_valid() and accountinfo_form.is_valid():
                 updateCustomerInfo(request)
                 saveAddress(request)
                 return redirect('/account/')
             else:
                 print("error")
         else:
-            account_form = AccountForm()
-            accountinfo_form = CustomerInfoForm()
+            Inaddress = Address.objects.get(customerID=request.user.id)
+            AddressData = {'address' : Inaddress.address, 'number' : Inaddress.number, 'city' : Inaddress.city, 'postalcode' : Inaddress.postalcode}
+            account_form = AccountForm(initial=AddressData)
+            Ininfo = Customers.objects.get(customerID=request.user.id)
+            CustomerData = {'name': Ininfo.name, 'surname': Ininfo.surname, 'telephone': Ininfo.telephone}
+            accountinfo_form = CustomerInfoForm(initial=CustomerData)
 
         return render(request, 'accountedit.html', {
             'account_form': account_form, 'accountinfo_form' : accountinfo_form,
-        })
+    })
+
+
+def changepassword(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            password_form = PasswordForm(request.user, request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                return redirect('/account/')
+            else:
+                print("Error")
+        else:
+            password_form = PasswordForm(request.user)
+        return render(request, 'changepassword.html', {'password_form' : password_form})
 
 

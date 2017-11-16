@@ -1,0 +1,15 @@
+Beste {{ contact_name }},
+
+U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:
+
+...
+
+Wij streven ernaar uw bestelling binnen 2 dagen tijd bij u te leveren.
+Als u nog enige vragen heeft, wees dan niet bang ons te contacteren via onze online contact forum
+http://comicfire.com/contact/
+
+Wij hopen u hierbij genoeg van dienst geweest te zijn.
+
+Met vriendelijke groeten,
+
+Comicfire

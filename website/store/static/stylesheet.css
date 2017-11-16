@@ -1087,6 +1087,151 @@ input[type=submit], .logindiv button{
 	/* width: 75%; */
 }
 
+.fillin{
+	background-color: rgb(227, 226, 226);
+	/* height: 400px; */
+	padding-top: 40px;
+	padding-bottom: 40px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border: solid 1px rgba(0, 0, 0, 0.24);
+}
+
+.formwrap{
+	/* border: solid 1px; */
+}
+
+.fillin input[type=submit]{
+	margin-top: 20px;
+	width: 100%;
+	height: 30px;
+	float: right;
+	background-color: rgb(243, 217, 149);
+	color: #4f4a4a;
+	border-radius: 3px;
+	border: solid 1px rgba(0, 0, 0, 0.41);
+}
+
+.fillin form{
+	width: 55%;
+	margin: auto;
+	border: solid 1px rgba(0, 0, 0, 0.13);
+	padding-bottom: 80px;
+	padding-left: 80px;
+	padding-right: 80px;
+	padding-top: 40px;
+}
+
+.fillin input[type=text], .fillin input[type=email],
+.fillin input[type=number]{
+	width: 100%;
+	display: block;
+	/* margin: auto; */
+	height: 30px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 0 #FFF, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+	-moz-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	box-shadow: 0 1px 0 #7d8f97, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	/* background: #ffffff; */
+	border: 1px solid rgb(209, 226, 233);
+	color: #777;
+	margin-bottom: 30px;
+	margin-top: 5px;
+}
+
+label{
+	font-family: "Open Sans",Arial,Helvetica,sans-serif
+}
+
+.fillin form label{
+	/* margin: 0 auto; */
+	/* width: 10px; */
+	/* display: inline-block; */
+	font-size: 2.5vh;
+	margin-bottom: 5px;
+	color: #4b4444;
+}
+
+.fillin #id_card_edm, .fillin #id_card_edy{
+	width: 25%;
+	display: inline-block;
+	float: right;
+	/* vertical-align: top; */
+	/* margin: auto; */
+	margin-left: 10px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 0 #FFF, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+	-moz-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	box-shadow: 0 1px 0 #7d8f97, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	/* background: #ffffff; */
+	border: 1px solid rgb(209, 226, 233);
+	color: #777;
+	/* margin-bottom: 30px; */
+	margin-top: 5px;
+} */
+
+.qrs .fillin form label #id_card_CVC{
+	position: absolute;
+	display: block;
+	margin-top: 60px;
+}
+
+.totalsum {
+	height: 145px;
+	color: white;
+	background-color: #f5deb3;
+	margin-top: 20px;
+	border: solid 1px rgba(116, 116, 116, 0.41);
+	border-radius: 2px;
+}
+
+.korting {
+	padding-left: 10px;
+	width: 63%;
+	float: left;
+	color: #504d4f;
+}
+
+.pricesum {
+	/* padding-right: 10px; */
+	width: 35%;
+	float: left;
+	padding-top: 5px;
+}
+
+.pricesum table{
+	width: 250px;
+	font-family: "Open Sans",Arial,Helvetica,sans-serif;
+}
+
+.pricesum tr{
+	width: 500px;
+}
+
+.pricesum td{
+	padding-bottom: 20px;
+	color: #534b4a;
+	width: 400px;
+}
+
 #bestellen button{
 	position: absolute;
 	right: 0;
@@ -1589,6 +1734,7 @@ input[type=submit], .logindiv button{
 	position: relative;
 	height: 80%;
 	/* width: 100%; */
+	overflow: hidden;
 	/* margin-top: 5%; */
 	display: block;
 	border: solid 1px rgba(0, 0, 0, 0.15);
@@ -1597,6 +1743,21 @@ input[type=submit], .logindiv button{
 	z-index: 0;
 	position: relative;
 	padding: 5px 50px 50px 50px;
+}
+
+.loginwrap2 {
+	background-color: rgba(213, 209, 209, 0.39);
+	position: relative;
+	height: 80%;
+	/* width: 100%; */
+	overflow: hidden;
+	/* margin-top: 5%; */
+	display: block;
+	border: solid 1px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+	margin-top: -5px;
+	z-index: 0;
+	position: relative;
 }
 
 .contactsection p{
@@ -1655,6 +1816,11 @@ input[type=submit], .logindiv button{
 .loginsection {
 	margin: 0 auto;
 	width: 100%;
+}
+
+.loginsection2 {
+	margin: 0 auto;
+	width: 80%;
 }
 
 
@@ -3016,4 +3182,34 @@ p{
   -webkit-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
+}
+
+.loginleft{
+	position: relative;
+	width: 50%;
+	float: left;
+}
+
+.loginright{
+	position: relative;
+	width: 49.8%;
+	height: 230px;
+	border-left: solid 1px #cec6c6;
+	float: left;
+}
+
+.loginright input[type=submit]{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	width: 200px;
+	background-color: rgba(39, 37, 37, 0.61);
+	border: solid 1px rgba(0, 0, 0, 0.25);
+	color: white;
+	border-radius: 3px;
+	height: 50px;
+	margin: auto;
+	cursor: pointer;
 }

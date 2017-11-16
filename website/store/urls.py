@@ -11,8 +11,7 @@ urlpatterns = [
     url(r'^faq$', views.faq, name='faq'),
     url(r'^about$', views.about, name='about'),
     url(r'^product/(?P<item>\d+)$', views.product, name='product2'), #url = /product/{item}, \d+ betekent 1 nummer of meer
-	  url(r'^search/(?P<query>[\w|\W]+)/$', views.search, name='search'),
-    #url(r'^search/$', views.search, name='search'),
+	url(r'^search/(?P<query>[\w|\W]+)/$', views.search, name='search'),
     #url(r'^testing$', views.testing, name='testing'),
     url(r'^logout/$', views.logoutview, name='logout'),
     url(r'^registrationcomplete/$', views.registrationcomplete, name='regdone'),
@@ -27,5 +26,6 @@ urlpatterns = [
     url(r'^checkout/$', views.checkout, name="checkout"),
     url(r'^account/$', views.account, name="account"),
     url(r'^account/accountedit/$', views.accountedit, name="accountedit"),
+    url(r'^account/changepassword/$', views.changepassword, name="changepassword")
 
 ]

@@ -72,6 +72,8 @@ def getResult(query):
 
 def getSearchResults(query, userAuth):
     query = queryVerbeterFunctie(query)
+
+def getSearchResultsOud(query, userAuth):
     object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%'")
     counter = len(list(object))
 

@@ -5,10 +5,26 @@
     {% include 'includes/nieuwproduct.html' %}
 </div>
 <div class="aboutmid">
+    <div class="qrs">
+         <div class="aboutsection commontextbox">
+            <div class="sorton commoncolor">
+               <h1> Mijn Profiel </h1>
+            </div>
+             <div class="aboutwrap">
     <a href="/account/accountedit/">adres gegevens</a>
     <a href="/verlanglijst/">verlanglijstje</a>
+             </div>
+        </div>
+                 <div class="aboutsection commontextbox">
+            <div class="sorton commoncolor">
+               <h1> Mijn Orders </h1>
+            </div>
+             <div class="aboutwrap">
     <div>{% autoescape off %}{% displayorders request %}{% endautoescape %}</div>
+             </div>
+        </div>
 </div>
+    </div>
 <div class="right sidecolors">
     {% include 'includes/aanbieding.html' %}
 </div>

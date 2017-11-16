@@ -9,9 +9,9 @@ def displayorders(request):
     if getOrderAmount(request) == 0:
         html = "Je hebt nog geen orders geplaatst bij ons."
     else:
-        html = "<ul>"
+        html = "<table><tbody><tr><td>Order Nummer</td><td>Datum Geplaatst</td><td>Status</td></tr>"
         for e in Orders.objects.all().filter(customerID=Customers(request.user.id)):
-            html = html + "<li> Order nummer: " + str(e.orderNum) + " Geplaatst op: +" + str(e.orderDate) + " Status: " + e.orderStatus + "</li>"
-        html = html + "</ul>"
+            html = html + "<tr><td>" + str(e.orderNum) + "</td><td>" + str(e.orderDate) + "</td><td>" + e.orderStatus + "</td></tr>"
+        html = html + "</tbody></table>"
 
     return html
