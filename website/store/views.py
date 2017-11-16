@@ -372,9 +372,7 @@ def accountedit(request):
     else:
         print(request.user)
         if request.method == 'POST':
-            initialinfo = Customers.objects.get(customerID=request.user.id)
-            data = {'name' : initialinfo.name, 'surname' : initialinfo.surname, 'telephone' : initialinfo.telephone}
-            accountinfo_form = CustomerInfoForm(request.POST, initial=data)
+            accountinfo_form = CustomerInfoForm(request.POST)
             account_form = AccountForm(request.POST)
             if accountinfo_form.is_valid() and accountinfo_form.is_valid():
                 updateCustomerInfo(request)
@@ -383,8 +381,12 @@ def accountedit(request):
             else:
                 print("error")
         else:
-            account_form = AccountForm()
-            accountinfo_form = CustomerInfoForm()
+            Inaddress = Address.objects.get(customerID=request.user.id)
+            AddressData = {'address' : Inaddress.address, 'number' : Inaddress.number, 'city' : Inaddress.city, 'postalcode' : Inaddress.postalcode}
+            account_form = AccountForm(initial=AddressData)
+            Ininfo = Customers.objects.get(customerID=request.user.id)
+            CustomerData = {'name': Ininfo.name, 'surname': Ininfo.surname, 'telephone': Ininfo.telephone}
+            accountinfo_form = CustomerInfoForm(initial=CustomerData)
 
         return render(request, 'accountedit.html', {
             'account_form': account_form, 'accountinfo_form' : accountinfo_form,
