@@ -3,7 +3,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
-from ..store.tokens import account_activation_token
+from django.test.client import  RequestFactory
+from store.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.template.loader import get_template
 from django.contrib.auth import login, logout
@@ -22,6 +23,10 @@ from .database.AccountOps import *
 
 def index(request):
     if request.method == 'POST':
+        if request.POST.get('searchtext').__len__() == 0 or request.POST.get('searchtext') == "":
+          request = RequestFactory().post('/')
+          request.POST = request.POST.copy()
+          request.POST['searchtext'] = 'No Query Found'
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
@@ -164,6 +169,10 @@ def product(request, item):
 
 def search(request, query):
     if request.method == 'POST':
+        if request.POST.get('searchtext').__len__() == 0 or request.POST.get('searchtext') == "":
+            request = RequestFactory().post('/')
+            request.POST = request.POST.copy()
+            request.POST['searchtext'] = 'No Query Found'
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
@@ -177,6 +186,12 @@ def search(request, query):
     thequery = query
     return render(request, 'searchresults.html', {
         'query' : thequery,
+    })
+
+def emptySearch(request):
+    print('empty search')
+    return render(request, 'searchresults.html', {
+      'query' : 'Empty Query',
     })
 
 def logoutview(request):
