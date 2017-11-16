@@ -1156,18 +1156,18 @@ label{
 	/* margin: 0 auto; */
 	/* width: 10px; */
 	/* display: inline-block; */
+	font-size: 2.5vh;
 	margin-bottom: 5px;
 	color: #4b4444;
 }
 
 .fillin #id_card_edm, .fillin #id_card_edy{
-	width: 108px;
+	width: 25%;
 	display: inline-block;
-	/* float: right; */
+	float: right;
 	/* vertical-align: top; */
 	/* margin: auto; */
 	margin-left: 10px;
-	height: 30px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-ms-border-radius: 3px;
