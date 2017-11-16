@@ -51,13 +51,13 @@ def contact(request):
     if request.user.is_authenticated:
         formClass = ContactForm(initial={'contact_name': str(request.user.first_name + " " + request.user.last_name), 'contact_email': request.user.email})
     else:
-        formClass = ContactForm
+        formClass = ContactForm()
 
     if request.method == 'POST':
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'contactsubmitbutton' in request.POST:
-            form = formClass(data=request.POST)
+            form = ContactForm(data=request.POST)
 
             if form.is_valid():
                 contact_name = request.POST.get('contact_name', '')
