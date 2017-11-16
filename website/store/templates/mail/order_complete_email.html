@@ -1,29 +1,40 @@
 <!--This order email-->
- {% load custom_tags %}
- <html lang="en">
- {% block extrastyle %}
+{% load custom_tags %}
+{% load shoppingcart_tags %}
+{% block content %}
+{% block extrastyle %}
+< lang="en">
 <style type="text/css">
 body.login {background-color: #c5eabb;}
 </style>
 {% endblock %}
+{% autoescape off %}
 
- {% autoescape off %}
- <p>Beste klant,</p>
-<p></p>
- <p>U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:</p>
-<p></p>
- <p>...</p>
-<p></p>
-<p>Wij streven ernaar uw bestelling binnen 2 dagen tijd bij u te leveren.</p>
- <p>Als u nog enige vragen heeft, wees dan niet bang ons te contacteren via onze online contact forum</p>
- <p>http://comicfire.com/contact/</p>
-<p></p>
- <p>Wij hopen u hierbij genoeg van dienst geweest te zijn.</p>
-<p></p>
- <p>Met vriendelijke groeten,</p>
-<p></p>
- <p><strong>Comicfire</strong></p>
- <!--<img src="cid:img1.png">-->
- {% endautoescape %}
- </body>
- </html>
+    <p>Beste klant,</p>
+        <p></p>
+    <p>U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:</p>
+        <p></p>
+    {% cartItems request.session.session_key as cartItems %}
+    {% for e in cartItems %}
+        <form role='form' method='post' name='itemForm' value="{{e.prodNum}}">
+            {% csrf_token %}
+            <input type="hidden" name="cartItemProdNum" value="{{e.prodNum}}">
+            {% autoescape off %}{% displayCartItem e user.is_authenticated %}{% endautoescape %}
+        </form>
+    {% endfor %}
+        <p></p>
+    <p>Wij streven ernaar uw bestelling binnen 2 dagen tijd bij u te leveren.</p>
+    <p>Als u nog enige vragen heeft, wees dan niet bang ons te contacteren via onze online contact forum</p>
+    <p>http://comicfire.com/contact/</p>
+        <p></p>
+    <p>Wij hopen u hierbij genoeg van dienst geweest te zijn.</p>
+        <p></p>
+        <p></p>
+    <p>Met vriendelijke groeten,</p>
+        <p></p>
+    <p><strong>Comicfire</strong></p>
+
+<!--<img src="cid:img1.png">-->
+{% endautoescape %}
+</body>
+</html>
