@@ -10,17 +10,19 @@
             <div class="sorton commoncolor">
                <h1> Mijn Profiel </h1>
             </div>
-             <div class="aboutwrap">
-    <a href="/account/accountedit/">adres gegevens</a>
-    <a href="/verlanglijst/">verlanglijstje</a>
+	<div class="aboutwrap">
+		<div class="profilesection"><div class="profiledesc"><div class="profilemenu"><h1>Profiel Informatie</h1></div><div class="profiletable">{% autoescape off %}{% displayuser request %}{% endautoescape %}</div></div><div class="profilebuttonsection"><div class="profilemenu"><h1>Opties</h1></div>
+    <div class="profilebuttons"><button onclick="location.href='accountedit/'" class="loginbutton">adres wijzigen</button>
+    <button onclick="location.href='/verlanglijst/'" class="loginbutton">verlanglijstje</button><button onclick="location.href='changepassword/'" class="loginbutton">wachtwoord veranderen</button>
+    </div></div></div>
              </div>
         </div>
                  <div class="aboutsection commontextbox">
-            <div class="sorton commoncolor">
+            <div class="sorton commoncolor" style="border-bottom: none;">
                <h1> Mijn Orders </h1>
             </div>
              <div class="aboutwrap">
-    <div>{% autoescape off %}{% displayorders request %}{% endautoescape %}</div>
+    <div class="orderform">{% autoescape off %}{% displayorders request %}{% endautoescape %}</div>
              </div>
         </div>
 </div>
