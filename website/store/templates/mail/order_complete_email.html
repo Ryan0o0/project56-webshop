@@ -1,7 +1,11 @@
 <!--This order email-->
  {% load custom_tags %}
  <html lang="en">
- <body style="background-color: a8ffac">
+ {% block extrastyle %}
+<style type="text/css">
+body.login {background-color: #c5eabb;}
+</style>
+{% endblock %}
 
  {% autoescape off %}
  <p>Beste klant,</p>
