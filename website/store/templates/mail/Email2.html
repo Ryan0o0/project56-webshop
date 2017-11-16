@@ -1,0 +1,23 @@
+<!--This is the contact email-->
+{% load custom_tags %}
+<html lang="en">
+<body style="background-color: green">
+
+{% autoescape off %}
+
+Beste administrator,
+
+Zojuist heeft een klant weer een contact vraag ingediend via onze website!
+
+
+Klant naam:
+<strong>{{ contact_name }}</strong>
+
+Klant email:
+<strong>{{ contact_email }}</strong>
+
+Het bericht van de klant:
+<strong>{{ contact_content|safe|striptags }}</strong>
+{% endautoescape %}
+</body>
+</html>
