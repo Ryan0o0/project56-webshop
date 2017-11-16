@@ -210,8 +210,8 @@ body {
 	background-color: #60ac88;
 	display: table;
 	text-align: center;
-	border-left: solid 0.1vh #0000003d;
-	border-right: solid 0.1vh #0000003d;
+	border-left: solid 0.1vh rgba(1, 1, 1, 0.31);
+	border-right: solid 0.1vh rgba(1, 1, 1, 0.31);
 	position: absolute;
 	/* margin-top: 5%; */
 }
@@ -221,7 +221,7 @@ body {
 	height: 50%;
 	text-align: center;
 	display: block;
-	border-bottom: solid 0.1vh #0000003d;
+	border-bottom: solid 0.1vh #4f9373;
 	margin: auto;
 	width: 100%;
 }
@@ -242,7 +242,7 @@ body {
 	width: 49.29%;
 	height: 100%;
 	float: left;
-	border-right: solid 0.1vh #0000003d;
+	border-right: solid 0.1vh #4f9373;
 }
 
 .wishlisthalf{
