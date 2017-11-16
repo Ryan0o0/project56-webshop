@@ -5,8 +5,9 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
 from store.tokens import account_activation_token
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
 from .database.verifyData import verifyProdNum
 from .collections.forms import *
@@ -360,27 +361,53 @@ def checkout(request):
     return redirect('/')
 
 def account(request):
-    return render(request, 'account.html')
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        return render(request, 'account.html')
 
 def accountedit(request):
     if not request.user.is_authenticated:
         return redirect('/')
     else:
+        print(request.user)
         if request.method == 'POST':
-            account_form = AccountForm(request.POST, instance=request.user)
-            accountinfo_form = CustomerInfoForm(request.POST, instance=request.user)
-            if account_form.is_valid() and accountinfo_form.is_valid():
+            accountinfo_form = CustomerInfoForm(request.POST)
+            account_form = AccountForm(request.POST)
+            if accountinfo_form.is_valid() and accountinfo_form.is_valid():
                 updateCustomerInfo(request)
                 saveAddress(request)
                 return redirect('/account/')
             else:
                 print("error")
         else:
-            account_form = AccountForm()
-            accountinfo_form = CustomerInfoForm()
+            Inaddress = Address.objects.get(customerID=request.user.id)
+            AddressData = {'address' : Inaddress.address, 'number' : Inaddress.number, 'city' : Inaddress.city, 'postalcode' : Inaddress.postalcode}
+            account_form = AccountForm(initial=AddressData)
+            Ininfo = Customers.objects.get(customerID=request.user.id)
+            CustomerData = {'name': Ininfo.name, 'surname': Ininfo.surname, 'telephone': Ininfo.telephone}
+            accountinfo_form = CustomerInfoForm(initial=CustomerData)
 
         return render(request, 'accountedit.html', {
             'account_form': account_form, 'accountinfo_form' : accountinfo_form,
-        })
+    })
+
+
+def changepassword(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            password_form = PasswordForm(request.user, request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                return redirect('/account/')
+            else:
+                print("Error")
+        else:
+            password_form = PasswordForm(request.user)
+        return render(request, 'changepassword.html', {'password_form' : password_form})
+
 
 
