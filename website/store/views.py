@@ -354,52 +354,98 @@ def checkout(request):
                     if form.is_valid():
                         print("Placing order... stand by")
 
+                        contact_name = request.POST.get('contact_name', '')
+                        contact_email = request.POST.get('contact_email', '')
+                        contact_content = request.POST.get('content', '')
+                        print("test 1")
+                        template = get_template('mail/order_complete_email.txt')
+                        context = {
+                            'contact_name': contact_name,
+                            'contact_email': contact_email,
+                            'contact_content': contact_content,
+                        }
+
+                        content = template.render(context)
+                        print("test 2")
                         c = request.session['customer_email']
-                        # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
-                        # text_content = 'This is an important message.'
-                        # html_content = '<p>This is an <strong>important</strong> message.</p>'
-                        # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-                        # msg.attach_alternative(html_content, "text/html")
-                        # # msg.attach_file('/images/comicfirelogo2.png')
-                        # msg.send()
-
-                        html_content = render_to_string('order_complete_email.html', context)
-                        text_content = render_to_string('order_complete_email.txt', context)
-                        subject, sender, to_mail = 'Your order details', 'noreply@comicfire.com', c
-
-                        msg = EmailMultiAlternatives(subject, text_content,
-                                                     sender, [to_mail])
-
-                        msg.attach_alternative(html_content, "text/html")
-
-                        msg.mixed_subtype = 'related'
-
-                        # for f in ['img1.png', 'img2.png']:
-                        #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
-                        #     msg_img = MIMEImage(fp.read())
-                        #     fp.close()
-                        #     msg_img.add_header('Content-ID', '<{}>'.format(f))
-                        #     msg.attach(msg_img)
-
-                        msg.send()
-
-                        # user = form.save(commit=False)
-                        # user.is_active = False
-                        # user.save()
-                        # current_site = get_current_site(request)
-                        # message = render_to_string('mail/order_complete_email.html', {
-                        #     'user': user,
-                        #     'domain': current_site.domain,
-                        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                        #     # 'token': account_activation_token.make_token(user),
-                        # })
-                        # mail_subject = 'Your order details'
-                        # to_email = form.cleaned_data.get('email')
-                        # email = EmailMessage(mail_subject, message, to=[to_email])
-                        # email.send()
-
+                        print("test 3")
+                        email = EmailMessage(
+                            "Your order details",
+                            content,
+                            'noreply@comicfire.com',
+                            [c],
+                            headers={'Reply-to': contact_email}
+                        )
+                        print("test 4")
+                        email.send()
+                        print("test 5")
                         createOrder(request)
-                        return render(request, 'completeorder.html')
+                        print("test 6")
+
+                        return redirect('/contact/')
+
+                        #
+                        # content = template.render(context)
+                        #
+                        # email = EmailMessage(
+                        #     "Nieuwe contact aanvraag",
+                        #     content,
+                        #     'noreply@comicfire.com',
+                        #     ['admin@comicfire.com'],
+                        #     headers={'Reply-to': contact_email}
+                        # )
+                        # email.send()
+                        #
+                        #
+                        # c = request.session['customer_email']
+                        # # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
+                        # # text_content = 'This is an important message.'
+                        # # html_content = '<p>This is an <strong>important</strong> message.</p>'
+                        # # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        # # msg.attach_alternative(html_content, "text/html")
+                        # # # msg.attach_file('/images/comicfirelogo2.png')
+                        # # msg.send()
+                        #
+                        # print("WUT WUT IN THE BUTT")
+                        # html_content = render_to_string('mail/order_complete_email.html')
+                        # text_content = render_to_string('mail/order_complete_email.txt')
+                        # print("Test1")
+                        # subject, sender, to_mail = 'Your order details', 'noreply@comicfire.com', c
+                        # print("Test2")
+                        # msg = EmailMultiAlternatives(subject, text_content,
+                        #                              sender, [to_mail])
+                        # print("Test3")
+                        # msg.attach_alternative(html_content, "text/html")
+                        # print("Test4")
+                        # msg.mixed_subtype = 'related'
+                        # print("Test5")
+                        # # for f in ['img1.png', 'img2.png']:
+                        # #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
+                        # #     msg_img = MIMEImage(fp.read())
+                        # #     fp.close()
+                        # #     msg_img.add_header('Content-ID', '<{}>'.format(f))
+                        # #     msg.attach(msg_img)
+                        #
+                        # msg.send()
+                        # print("Test6")
+                        # # user = form.save(commit=False)
+                        # # user.is_active = False
+                        # # user.save()
+                        # # current_site = get_current_site(request)
+                        # # message = render_to_string('mail/order_complete_email.html', {
+                        # #     'user': user,
+                        # #     'domain': current_site.domain,
+                        # #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        # #     # 'token': account_activation_token.make_token(user),
+                        # # })
+                        # # mail_subject = 'Your order details'
+                        # # to_email = form.cleaned_data.get('email')
+                        # # email = EmailMessage(mail_subject, message, to=[to_email])
+                        # # email.send()
+                        #
+
+                        # print("Test7")
+
             else:
                 form = CheckoutForm()
             args['checkoutform'] = form
@@ -408,6 +454,7 @@ def checkout(request):
             return redirect('/')
     print("Doing this one...")
     return redirect('/')
+
 
 def account(request):
     if not request.user.is_authenticated:
