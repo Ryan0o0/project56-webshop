@@ -399,7 +399,7 @@ def checkout(request):
                         email.send()
                         createOrder(request)
 
-                        return redirect('/contact/')
+                        return render(request, 'completeorder.html')
 
 
                         # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
