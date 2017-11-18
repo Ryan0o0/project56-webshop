@@ -68,8 +68,8 @@ def listloop(userAuth):
     return txt
 
 @register.simple_tag()
-def searchList(query, userAuth):
-    object = getSearchResults(str(query), userAuth)
+def searchList(query, userAuth, filter=""):
+    object = getSearchResults(str(query), userAuth, filter)
     return object
 
 @register.simple_tag()
@@ -121,3 +121,6 @@ def suggesteditems(prod, type):
         txt += "<li><a href='/product/"+ str(linkarr[cnt]) +"'><img src='" + str(imgarr[cnt]) + "'></a><p>" + str(titlearr[cnt]) + "</p><p>€ " + str(pricearr[cnt]) + "</p></li>"
         cnt += 1
     return txt
+
+def getFilter():
+	return "DESCENDING"

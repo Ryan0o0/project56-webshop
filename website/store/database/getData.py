@@ -71,10 +71,28 @@ def getResult(query):
   return object
 
 
-def getSearchResults(query, userAuth):
-    object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%'")
+def getSearchResults(query, userAuth, filter=""):
+    # filter = request.POST.get('filter')
+    selected = ""
+    print(filter)
+    if filter == "asc":
+        filter = "ORDER BY \"prodName\" ASC"
+        selected = "asc"
+    elif filter == "desc":
+        filter = "ORDER BY \"prodName\" DESC"	
+        selected = "desc"
+    elif filter == "priceasc":
+        filter = "ORDER BY \"prodPrice\" ASC"
+        selected = "priceasc"
+    elif filter == "pricedesc":
+        filter = "ORDER BY \"prodPrice\" DESC"
+        selected = "pricedesc"
+    else:
+        filter = ""
+    qrytxt = "SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter
+    object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter)
     counter = len(list(object))
-
+    print("The following ", qrytxt)
   # txt = "" + str(counter)
   # cnt = 0
     authorlist = []
@@ -92,7 +110,26 @@ def getSearchResults(query, userAuth):
         pricelist.append(i.prodPrice)
         stocklist.append(i.prodStock)
     cnt = 0
-    txt = ""
+    txt = """<div class='sorton commoncolor' style='border-radius: 3px'>
+         <p>Totale Resultaten: </p>
+         <p id='fifteen'>{0}</p>
+         <p></p>
+         <select name='filter' onchange='this.form.submit()'>""".format(str(counter))
+		 
+    if selected == "asc":
+        txt += "<option>Relevantie</option><option value='asc' selected>Naam: A - Z</option><option value='desc'>Naam: Z - A</option><option value='priceasc' name='filterasc'>Prijs: Oplopend</option><option value='pricedesc' name='filterdesc'>Prijs: Aflopend</option>"
+    elif selected == "desc":
+        txt += "<option>Relevantie</option><option value='asc' name='filterasc'>Naam: A - Z</option><option value='desc' name='filterdesc' selected>Naam: Z - A</option><option value='priceasc' name='filterasc'>Prijs: Oplopend</option><option value='pricedesc' name='filterdesc'>Prijs: Aflopend</option>"
+    elif selected == "priceasc":
+        txt += "<option>Relevantie</option><option value='asc'>Naam: A - Z</option><option value='desc'>Naam: Z - A</option><option value='priceasc' name='filterasc' selected>Prijs: Oplopend</option><option value='pricedesc' name='filterdesc'>Prijs: Aflopend</option>"
+    elif selected == "pricedesc":
+        txt += "<option>Relevantie</option><option value='asc'>Naam: A - Z</option><option value='desc'>Naam: Z - A</option><option value='priceasc' name='filterasc'>Prijs: Oplopend</option><option value='pricedesc' name='filterdesc' selected>Prijs: Aflopend</option>"
+    else:
+        txt += "<option selected>Relevantie</option><option value='asc'>Naam: A - Z</option><option value='desc'>Naam: Z - A</option><option value='priceasc' name='filterasc'>Prijs: Oplopend</option><option value='pricedesc' name='filterdesc'>Prijs: Aflopend</option>"
+    txt += """</select>
+	 <p id='sortp'>Sorteren op: </p>
+	 </div>"""
+
     if counter < 4:
         rowscounter = 1
         columncounter = counter
@@ -178,3 +215,12 @@ def getPriceBox(priceMin, priceMax):
 def getProdData(prNum):
   object = ProductDetails.objects.get(prodNum = prNum)
   return object.pubDatum[0:10]
+
+def getCustomerFName():
+	pass
+
+def getCustomerLName():
+	pass
+
+def getCustomerAddress():
+	pass

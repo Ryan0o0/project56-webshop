@@ -2434,8 +2434,8 @@ button{
 }
 
 .addtocart:hover {
-	width: 7vh;
-	font-size: 25px;
+	/* width: 12vh; */
+	font-size: 24px;
 	opacity: 1;
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
 	transition: 0.5s;
@@ -2528,7 +2528,7 @@ button{
 }
 
 .wishlist:hover {
-	width: 7vh;
+	/* width: 9vh; */
 	opacity: 1;
 	font-size: 25px;
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);

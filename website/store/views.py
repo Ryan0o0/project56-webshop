@@ -176,8 +176,12 @@ def product(request, item):
         'prodDate' : prodDate,
     })
 
-def search(request, query):
+def search(request, query, filter=""):
+    print(request.POST)
+    print(query)
+    print(filter)
     if request.method == 'POST':
+        print(request.POST)
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
@@ -188,10 +192,16 @@ def search(request, query):
         elif 'moveToWishListItemBoxButton' in request.POST:
             addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
             return redirect('/verlanglijst/')
+        elif 'filter' in request.POST:
+            return searchPost(request)
+    # filt = "{}".format(request.POST.get('filter'))
+    # print(filt)
     thequery = query
+    thefilter = filter
     return render(request, 'searchresults.html', {
-        'query' : thequery,
+        'query' : thequery, 'filt' : thefilter,
     })
+
 
 def logoutview(request):
     if request.user.is_authenticated:
