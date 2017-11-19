@@ -113,6 +113,10 @@ class CheckoutForm(forms.Form):
         self.fields['card_CVC'].label = "Controlenummer:"
 
 class AccountForm(forms.ModelForm):
+    address = forms.CharField(required=True, max_length=100)
+    number = forms.CharField(required=True, max_length=10)
+    city = forms.CharField(required=True, max_length=25)
+    postalcode = forms.CharField(min_length=6, max_length=6)
 
     class Meta:
         model = Address
@@ -132,9 +136,9 @@ class AccountForm(forms.ModelForm):
 
 class CustomerInfoForm(forms.Form):
 
-    name = forms.CharField(required=True)
-    surname = forms.CharField(required=True)
-    telephone = forms.CharField(required=True)
+    name = forms.CharField(required=True, max_length=50)
+    surname = forms.CharField(required=True, max_length=50)
+    telephone = forms.CharField(required=False, max_length=12)
 
     class Meta:
         model = Customers
