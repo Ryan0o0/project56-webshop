@@ -1637,7 +1637,7 @@ table{
 	margin-right: -1px;
 }
 
-.aboutmid .profiledesc table, .orderform table{
+.table1 table{
 	font-family:Arial, Helvetica, sans-serif;
 	color:#666;
 	width: 100%;
@@ -1655,7 +1655,7 @@ table{
 	-webkit-box-shadow: 0 1px 2px #d1d1d1;
 	box-shadow: 0 1px 2px #d1d1d1;
 }
-.profiledesc  table th, .orderform table th {
+.table1  table th {
 	padding: 21px 10px 22px 10px;
 	border-top: solid 0.8px rgba(0, 0, 0, 0.11);
 	border: solid 0.8px rgba(0, 0, 0, 0.11);
@@ -1664,30 +1664,39 @@ table{
 	text-shadow: none;
 	color: white;
 }
-.profiledesc table th:first-child, .orderform table th:first-child {
+.table1 table th:first-child {
 	text-align: center;
 	/* padding-left:20px; */
 }
-.profiledesc table tr:first-child th:first-child, .orderform  table tr:first-child th:first-child {
+.table1 table tr:first-child th:first-child {
 	-moz-border-radius-topleft:3px;
 	/* -webkit-border-top-left-radius:3px; */
 	/* border-top-left-radius:3px; */
 }
-.profiledesc table tr:first-child th:last-child, .orderform  table tr:first-child th:last-child{
+.table1 table tr:first-child th:last-child {
 	-moz-border-radius-topright:3px;
 	/* -webkit-border-top-right-radius:3px; */
 	/* border-top-right-radius:3px; */
 }
-.profiledesc table tr, .orderform table tr {
+
+.table1 table tr {
 	text-align: center;
 	/* padding-left:20px; */
 }
-.profiledesc table td:first-child, .orderform table td:first-child {
+
+.table1 td i{
+	float: left;
+	font-size: 18px;
+	line-height: 14px;
+}
+
+.table1 table td:first-child {
 	text-align: center;
 	padding-left:20px;
 	border-left: 0;
 }
-.profiledesc table td, .orderform table td {
+
+.table1 table td {
 	padding:18px;
 	border-top: 1px solid #ffffff;
 	border-bottom:1px solid #e0e0e0;
@@ -1697,7 +1706,18 @@ table{
 	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
 
-.profiledesc table tr.even td, .orderform table tr.even td {
+.table1 table td img{
+	width: 80px;
+	display: inline-block;
+	float: left;
+}
+
+.table1 table td p{
+	text-align: center;
+	line-height: 130px;
+}
+
+.table1 table tr.even td {
 	background: #f6f6f6;
 	background: -webkit-gradient(linear, left top, left bottom, from(#eeeded), to(#e5e3e3));
 	background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
@@ -1707,23 +1727,23 @@ table{
 	background-color: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
 }
 
-.profiledesc table tr:last-child td, .orderform table tr:last-child td {
+.table1 table tr:last-child td {
 	border-bottom:0;
 }
 
-.profiledesc table tr:last-child td:first-child, .orderform  table tr:last-child td:first-child {
+.table1 table tr:last-child td:first-child {
 	-moz-border-radius-bottomleft:3px;
 	-webkit-border-bottom-left-radius:3px;
 	border-bottom-left-radius:3px;
 }
 
-.profiledesc table tr:last-child td:last-child, .orderform table tr:last-child td:last-child {
+.table1 table tr:last-child td:last-child {
 	-moz-border-radius-bottomright:3px;
 	-webkit-border-bottom-right-radius:3px;
 	border-bottom-right-radius:3px;
 }
 
-.profiledesc table tr:hover td, .orderform table tr:hover td {
+.table1 table tr:hover td {
 	background: #f2f2f2;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
 	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
