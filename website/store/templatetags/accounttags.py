@@ -1,4 +1,6 @@
 from django import template
+
+from store.models import OrderDetails
 from ..database.AccountOps import *
 
 register = template.Library()
@@ -24,3 +26,16 @@ def displayuser(request):
 	html += "<tr><th>Voornaam</th><td>{0}</td></tr><tr><th>Achternaam</th><td>{1}</td></tr><tr><th>Email</th><td>{2}</td></tr><tr><th style='border-bottom-left-radius: 5px;'>Adres</th><td>{3} {4} {5} {6}</td></tr>".format(object.name, object.surname, object.email, object2.address, str(object2.number), object2.city, str(object2.postalcode))
 	html += "</tbody></table>"
 	return html
+
+@register.simple_tag()
+def displayorderdetails(ordernum):
+    ordernum = int(ordernum)
+    object = Orders.objects.get(orderNum=ordernum)
+    html = "<b> Status: " + object.orderStatus + "</b> | Datum: " + str(object.orderDate)
+    for e in OrderDetails.objects.all().filter(orderNum=ordernum):
+        html = html + addProductDetail(e)
+    return html
+
+def addProductDetail(e):
+    html = "</br> productnummer: " + str(e.productNum) + " Aantal: " + str(e.amount)
+    return html
