@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -22,11 +23,11 @@ from .database.WishListOps import addToWishList, removeFromWishList
 from .collections.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
-
 import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from email.mime.image import MIMEImage
+from .collections.tools import *
 
 
 from .database.CartOps import setAmount
@@ -516,4 +517,20 @@ def changepassword(request):
         return render(request, 'changepassword.html', {'password_form' : password_form})
 
 
+def orderDetails(request):
+    ordernum = request.GET.get('ordernum', '')
 
+    if not RepresentInt(ordernum):
+        raise Http404
+    ordernum = int(ordernum)
+    if not request.user.is_authenticated or not checkOrder(request, ordernum):
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
+
+    return render(request, 'orderdetails.html', {
+        'ordernum' : ordernum
+    })
