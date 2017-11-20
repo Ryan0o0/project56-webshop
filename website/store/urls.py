@@ -27,6 +27,6 @@ urlpatterns = [
     url(r'^checkout/$', views.checkout, name="checkout"),
     url(r'^account/$', views.account, name="account"),
     url(r'^account/accountedit/$', views.accountedit, name="accountedit"),
-    url(r'^account/changepassword/$', views.changepassword, name="changepassword")
-
+    url(r'^account/changepassword/$', views.changepassword, name="changepassword"),
+    url(r'^account/bestelling$', views.orderDetails, name='orderdetails'), #
 ]
