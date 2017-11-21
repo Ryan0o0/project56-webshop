@@ -36,10 +36,8 @@ def displayorderdetails(ordernum):
     html = "<div class='table1'><table><tbody><tr><th>Ordernummer</th><td>" + str(ordernum) +"</td></tr><tr><th>Status</th><td>" + object.orderStatus + "</td></tr><tr><th style='border-bottom-left-radius: 5px; border: none;'>Datum</th><td>" + str(object.orderDate) + "</td></tr></tbody></table></div>"
     html += "</div><div class='aboutsection'><div class='table1'><table><tbody><tr><th style='border-top-left-radius: 5px; border: none;'>Productnummer</th><th>Naam</th><th>Prijs</th><th style='border-top-right-radius: 5px; border: none;'>Aantal</th></tr>"
     for e in OrderDetails.objects.all().filter(orderNum=ordernum):
-        product = Products.objects.get(prodNum = e.getNum())
-        productdetail = ProductDetails.objects.get(prodNum = e.getNum())
-        print(type(e.getNum()))
-        print("productnum:" + str(e.getNum()))
-        html = html + "<tr><td>" + str(e.productNum) + "</td><td><a href='/product/" + str(e.productNum) + "'>" + "<img src='" + str(productdetail.imageLink) +"'></a><p>" + str(product.prodName) + "</p></td><td>€ " + str(product.prodPrice) + "</td><td>" + str(e.amount) + "</td></tr>"
+        productEnt = Products.objects.get(prodNum=e.productNum.prodNum)
+        productdetailEnt = ProductDetails.objects.get(prodNum=e.productNum.prodNum)
+        html = html + "<tr><td>" + str(e.productNum) + "</td><td><a href='/product/" + str(productEnt.prodNum) + "'>" + "<img src='" + str(productdetailEnt.imageLink) +"'></a><p>" + str(productEnt.prodName) + "</p></td><td>€ " + str(productEnt.prodPrice) + "</td><td>" + str(e.amount) + "</td></tr>"
     html += "</tr></tbody></table></div>"
     return html
