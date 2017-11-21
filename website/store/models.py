@@ -88,10 +88,6 @@ class OrderDetails(models.Model):
 
     def __str__(self):
         return (str(self.orderNum))
-	
-    def getNum(self):
-        x = str(self.productNum)
-        return int(x)
 
 class ShoppingCart(models.Model):
     session_key = models.CharField(max_length=40)
