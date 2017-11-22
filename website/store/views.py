@@ -366,19 +366,8 @@ def checkout(request):
                     if form.is_valid():
                         print("Placing order... stand by")
 
-                        c = request.session['customer_email']
-
-
-                        contact_name = request.POST.get('contact_name', '')
-                        contact_email = request.POST.get('contact_email', '')
-                        contact_content = request.POST.get('content', '')
-                        html_content = render_to_string('mail/order_complete_email.html')
-                        text_content = render_to_string('mail/order_complete_email.txt')
-
-                        email = EmailMultiAlternatives("Your order details", text_content, 'noreply@comicfire.com', [c])
-                        email.attach_alternative(html_content, "text/html")
-                        # email.attach_file('static/images/comicfirelogo2.png')
-                        email.mixed_subtype = 'related'
+                        createOrder(request)
+                        return render(request, 'completeorder.html')
 
                         # for f in ['img1.png', 'img2.png']:
                         #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
@@ -407,10 +396,7 @@ def checkout(request):
                         #     headers={'Reply-to': contact_email}
                         # )
 
-                        email.send()
-                        createOrder(request)
 
-                        return render(request, 'completeorder.html')
 
 
                         # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
