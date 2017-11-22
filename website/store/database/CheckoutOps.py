@@ -3,6 +3,7 @@ from django.db.models import Max
 from ..models import Orders, OrderDetails, ShoppingCart, Customers, Address
 from django.utils import timezone
 from .CartOps import clearCart
+from django.template.loader import render_to_string
 
 def createOrder(request):
     date = timezone.now().date()
