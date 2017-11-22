@@ -7,15 +7,11 @@
     </div>
     <div class="mid">
         <div class="qrs">
-            <div class="sorton commoncolor">
-                <h1>Resultaten</h1>
-            </div>
-            <div class="contactsection commontextbox">
                 <form role='form' method='post' name='productactions'>
+				<input type='hidden' name='searchtext' value={{ query }}>
                     {% csrf_token %}
-                    {% autoescape off %}{% searchList query user.is_authenticated %}{% endautoescape %}
+                    {% autoescape off %}{% searchList query user.is_authenticated filt %}{% endautoescape %}
                 </form>
-            </div>
         </div>
     </div>
     <div class="right sidecolors">

@@ -40,5 +40,9 @@ def getOrders(request):
         objects = Orders.objects.all().filter(customerID=Customers(request.user.id))
         return objects
 
+def checkOrder(request, prodnum):
+    if Orders.objects.filter(customerID=Customers(request.user.id), orderNum=prodnum).exists():
+        return True
+    return False
 
 

@@ -146,6 +146,7 @@ body {
 	cursor: pointer;
 	transition: 0.3s;
 	/* top: 0; */
+	margin-right: 10px;
 	/* bottom: 0; */
 	/* margin: auto; */
 }
@@ -203,21 +204,83 @@ body {
 	float: left;
 }
 .user {
-	width:50%;
+	width: 49.86%;
 	height: 100%;
 	/* top: 30%; */
+	background-color: #60ac88;
 	display: table;
 	text-align: center;
+	border-left: solid 0.1vh rgba(1, 1, 1, 0.31);
+	border-right: solid 0.1vh rgba(1, 1, 1, 0.31);
 	position: absolute;
 	/* margin-top: 5%; */
+}
+
+.userann{
+	position: relative;
+	height: 50%;
+	text-align: center;
+	display: block;
+	border-bottom: solid 0.1vh #4f9373;
+	margin: auto;
+	width: 100%;
+}
+
+.userann p{
+	position: relative;
+	/* width: 80px; */
+	margin: auto;
+	padding-top: 5px;
+}
+
+.userlinks{
+	position: relative;
+	height: 50%;
+}
+
+.userhalf{
+	width: 49.29%;
+	height: 100%;
+	float: left;
+	border-right: solid 0.1vh #4f9373;
+}
+
+.wishlisthalf{
+	width: 50%;
+	float: left;
+	height: 100%;
+}
+
+.user i{
+	color: #f3d995;
+	font-size: 3.3vh;
+	padding-left: 10px;
+	text-shadow: 0.3px 0.1px black;
+	padding-right: 10px;
+	padding-top: 7px;
+	transition: 0.1s;
 }
 
 .usersection p{
 	color: white;
 	/* float: left; */
-	display: table-cell;
+	/* display: table-cell; */
 	vertical-align: middle;
 	font-size: 2vh;
+}
+
+.userhalf:hover, .wishlisthalf:hover{
+	background-color: #584f4f;
+}
+
+.userhalf:hover > i{
+	font-size: 3.9vh;
+	transition: 0.1s;
+}
+
+.wishlisthalf:hover > i{
+	font-size: 3.9vh;
+	transition: 0.1s;
 }
 
 .forlogin1 {
@@ -801,11 +864,11 @@ input[type=submit], .logindiv button{
 
 .sorton{
 	width: 100%;
-	margin-left: -1;
+	/* margin-left: -1; */
 	display: block;
 	left: 0;
 	height: 50px;
-	border: solid 0.8px rgba(0, 0, 0, 0.11);
+	border: solid 0.1vh rgba(0, 0, 0, 0.11);
 	position: relative;
 	border-top-left-radius: 5px;
 	border-bottom: solid 1px rgba(0, 0, 0, 0.21);
@@ -1041,6 +1104,7 @@ input[type=submit], .logindiv button{
     float: left;
     /* border-right: solid 1px rgb(204, 204, 204); */
     position: relative;
+    padding-bottom: 50px;
 }
 
 .contactmid {
@@ -1083,7 +1147,7 @@ input[type=submit], .logindiv button{
 	position: relative;
 	/* max-width: 80%; */
 	margin-top: 3%;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 	/* width: 75%; */
 }
 
@@ -1470,9 +1534,9 @@ label{
 	background-color: rgba(213, 209, 209, 0.39);
 	position: relative;
 	width: 100%;
-	margin: 0;
+	/* margin: auto; */
 	display: block;
-	border: solid 1px rgba(0, 0, 0, 0.15);
+	border: solid 0.1vh rgba(0, 0, 0, 0.15);
 	border-radius: 5px;
 	margin-top: -5px;
 	z-index: 0;
@@ -1482,6 +1546,207 @@ label{
 
 .aboutwrap form{
 	margin-bottom: 0;
+}
+
+
+.profilesection {
+	width: 100%;
+	height: 278px;
+	overflow: hidden;
+}
+
+.profilebuttonsection{
+	position: relative;
+	width: 49.86%;
+	float: left;
+	height: 100%;
+	/* margin: 0 auto; */
+	/* padding-top: 25px; */
+}
+
+.profilemenu{
+	text-align: center;
+	background-color: #b8ccc2;
+	color: #4b4544;
+	border-bottom: solid 0.5px #80808073;
+	margin-top: 0;
+	height: 18%;
+	width: 100%;
+	/* text-shadow: 0.5px 0.5px black; */
+}
+
+.profilemenu h1{
+	margin-top: 0px;
+	padding-top: 18px;
+	font-size: 2.8vh;
+	color: #03030385;
+	width: 100%;
+}
+
+.profilebuttons{
+	margin: auto;
+	padding-top: 20px;
+	height: 82%;
+	width: 69%;
+}
+
+.profiledesc{
+	width: 50%;
+	border-right: solid 0.1vh #80808073;
+	float: left;
+	height: 100%;
+	text-align: center;
+}
+
+.profiletable{
+	height: 82%;
+}
+
+.profiledesc h1{
+	text-align: center;
+	background-color: #b8ccc2;
+	/* border-right: solid 0.5px #80808073; */
+	margin-top: 0;
+	width: 100%;
+}
+
+table{
+	border: none;
+	border-collapse: collapse;
+}
+
+.orderform table a:link {
+	color: #666;
+	font-weight: bold;
+	text-decoration:none;
+}
+.orderform table a:visited {
+	color: #999999;
+	font-weight:bold;
+	text-decoration:none;
+}
+.orderform table a:active,
+.orderform table a:hover {
+	color: #bd5a35;
+	text-decoration:underline;
+}
+
+.orderform {
+	margin-top: 4px;
+	margin-left 0px;
+	margin-right: -1px;
+}
+
+.table1 table{
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+	width: 100%;
+	border-top: black solid 1px;
+	font-size:12px;
+	text-shadow: 1px 1px 0px #fff;
+	background:#eaebec;
+	margin: 0px;
+	border: none;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	height: 100%;
+	/* border-radius:3px; */
+	-moz-box-shadow: 0 1px 2px #d1d1d1;
+	-webkit-box-shadow: 0 1px 2px #d1d1d1;
+	box-shadow: 0 1px 2px #d1d1d1;
+}
+.table1  table th {
+	padding: 21px 10px 22px 10px;
+	border-top: solid 0.8px rgba(0, 0, 0, 0.11);
+	border: solid 0.8px rgba(0, 0, 0, 0.11);
+	/* background: #ededed; */
+	background: #457960;
+	text-shadow: none;
+	color: white;
+}
+.table1 table th:first-child {
+	text-align: center;
+	/* padding-left:20px; */
+}
+.table1 table tr:first-child th:first-child {
+	-moz-border-radius-topleft:3px;
+	/* -webkit-border-top-left-radius:3px; */
+	/* border-top-left-radius:3px; */
+}
+.table1 table tr:first-child th:last-child {
+	-moz-border-radius-topright:3px;
+	/* -webkit-border-top-right-radius:3px; */
+	/* border-top-right-radius:3px; */
+}
+
+.table1 table tr {
+	text-align: center;
+	/* padding-left:20px; */
+}
+
+.table1 td i{
+	float: left;
+	font-size: 18px;
+	line-height: 14px;
+}
+
+.table1 table td:first-child {
+	text-align: center;
+	padding-left:20px;
+	border-left: 0;
+}
+
+.table1 table td {
+	padding:18px;
+	border-top: 1px solid #ffffff;
+	border-bottom:1px solid #e0e0e0;
+	border-left: 1px solid #e0e0e0;
+	background: #fafafa;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+}
+
+.table1 table td img{
+	width: 80px;
+	display: inline-block;
+	float: left;
+}
+
+.table1 table td p{
+	text-align: center;
+	line-height: 130px;
+}
+
+.table1 table tr.even td {
+	background: #f6f6f6;
+	background: -webkit-gradient(linear, left top, left bottom, from(#eeeded), to(#e5e3e3));
+	background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+}
+
+.table .even{
+	background-color: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+}
+
+.table1 table tr:last-child td {
+	border-bottom:0;
+}
+
+.table1 table tr:last-child td:first-child {
+	-moz-border-radius-bottomleft:3px;
+	-webkit-border-bottom-left-radius:3px;
+	border-bottom-left-radius:3px;
+}
+
+.table1 table tr:last-child td:last-child {
+	-moz-border-radius-bottomright:3px;
+	-webkit-border-bottom-right-radius:3px;
+	border-bottom-right-radius:3px;
+}
+
+.table1 table tr:hover td {
+	background: #f2f2f2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
 }
 
 .cartwrap {list-style-type: none;list-style-position: inside;padding: 0;margin: 0;-webkit-padding-start: 0;-webkit-padding-end: 0;-webkit-margin-before: 0;-webkit-margin-after: 0;display: block;width: 100%;}
@@ -1717,17 +1982,31 @@ label{
 	border-radius: 5px;
 }
 
+button{
+	cursor: pointer;
+}
+
+
+
 .loginbutton{
 	margin-top: 16px;
 	background-color: rgb(243, 217, 149);
 	color: #4f4a4a;
 	border-radius: 3px;
-	border: solid 1px rgba(0, 0, 0, 0.41);
+	border: solid 0.1vh rgba(0, 0, 0, 0.41);
 	margin-top: 10px;
 	padding: 10 45 10 40;
 	text-align: center;
 	width: 100%;
 	float: right;
+	font-size: 2vh;
+	transition: 0.1s;
+}
+
+.loginbutton:hover{
+	transition: 0.1s;
+	color: #f3d995;
+	background-color: #6b6161;
 }
 
 .loginwrap {
@@ -1751,7 +2030,7 @@ label{
 .loginwrap2 {
 	background-color: rgba(213, 209, 209, 0.39);
 	position: relative;
-	height: 500px;
+	/* height: 500px; */
 	overflow: hidden;
 	/* width: 100%; */
 	overflow: hidden;
@@ -1762,7 +2041,7 @@ label{
 	margin-top: -5px;
 	z-index: 0;
 	position: relative;
-	padding: 5px 50px 50px 50px;
+	padding: 5px 50px 20px 50px;
 }
 
 .loginwrap2 {
@@ -1853,7 +2132,7 @@ label{
 	margin: 0 auto;
 }
 
-.adresform input[type=text]{
+.adresform input[type=text], .adresform input[type=password]{
 	height: 30px;
 	width: 100%;
 	-webkit-border-radius: 3px;
@@ -2175,8 +2454,8 @@ label{
 }
 
 .addtocart:hover {
-	width: 7vh;
-	font-size: 25px;
+	/* width: 12vh; */
+	font-size: 24px;
 	opacity: 1;
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);
 	transition: 0.5s;
@@ -2269,7 +2548,7 @@ label{
 }
 
 .wishlist:hover {
-	width: 7vh;
+	/* width: 9vh; */
 	opacity: 1;
 	font-size: 25px;
 	box-shadow: 0 0 2px 1px rgba(161, 161, 161, 0.5);

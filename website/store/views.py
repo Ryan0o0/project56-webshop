@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -22,11 +23,11 @@ from .database.WishListOps import addToWishList, removeFromWishList
 from .collections.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
-
 import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from email.mime.image import MIMEImage
+from .collections.tools import *
 
 
 from .database.CartOps import setAmount
@@ -176,8 +177,12 @@ def product(request, item):
         'prodDate' : prodDate,
     })
 
-def search(request, query):
+def search(request, query, filter=""):
+    print(request.POST)
+    print(query)
+    print(filter)
     if request.method == 'POST':
+        print(request.POST)
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
@@ -188,10 +193,16 @@ def search(request, query):
         elif 'moveToWishListItemBoxButton' in request.POST:
             addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
             return redirect('/verlanglijst/')
+        elif 'filter' in request.POST:
+            return searchPost(request)
+    # filt = "{}".format(request.POST.get('filter'))
+    # print(filt)
     thequery = query
+    thefilter = filter
     return render(request, 'searchresults.html', {
-        'query' : thequery,
+        'query' : thequery, 'filt' : thefilter,
     })
+
 
 def logoutview(request):
     if request.user.is_authenticated:
@@ -356,7 +367,7 @@ def checkout(request):
                         print("Placing order... stand by")
 
                         createOrder(request)
-                        return redirect('/contact/')
+                        return render(request, 'completeorder.html')
 
                         # for f in ['img1.png', 'img2.png']:
                         #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
@@ -384,6 +395,7 @@ def checkout(request):
                         #     [c],
                         #     headers={'Reply-to': contact_email}
                         # )
+
 
 
 
@@ -455,7 +467,8 @@ def accountedit(request):
         if request.method == 'POST':
             accountinfo_form = CustomerInfoForm(request.POST)
             account_form = AccountForm(request.POST)
-            if accountinfo_form.is_valid() and accountinfo_form.is_valid():
+            if accountinfo_form.is_valid() and account_form.is_valid():
+                print("HierInView")
                 updateCustomerInfo(request)
                 saveAddress(request)
                 return redirect('/account/')
@@ -491,4 +504,20 @@ def changepassword(request):
         return render(request, 'changepassword.html', {'password_form' : password_form})
 
 
+def orderDetails(request):
+    ordernum = request.GET.get('ordernum', '')
 
+    if not RepresentInt(ordernum):
+        raise Http404
+    ordernum = int(ordernum)
+    if not request.user.is_authenticated or not checkOrder(request, ordernum):
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
+
+    return render(request, 'orderdetails.html', {
+        'ordernum' : ordernum
+    })

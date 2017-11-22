@@ -113,6 +113,24 @@ class CheckoutForm(forms.Form):
         self.fields['card_CVC'].label = "Controlenummer:"
 
 class AccountForm(forms.ModelForm):
+    address = forms.CharField(required=True, max_length=100)
+    number = forms.CharField(required=True, max_length=10)
+    city = forms.CharField(required=True, max_length=25)
+    postalcode = forms.CharField(required=True)
+
+    def clean_postalcode(self):
+        print("HIER Ben ik")
+        postalCodeIn = self.cleaned_data['postalcode']
+        if len(postalCodeIn) != 6: #<--- ZET HIER CONDITIE VOOR POSTCODE
+            raise forms.ValidationError('Lengte van de postcode moet gelijk zijn aan 6 characters.')
+        else:
+            for i in range(0, 4):
+                if not (str(postalCodeIn[i]).isdigit()):
+                    raise forms.ValidationError('eerste 4 characters moeten cijfers zijn.')
+            for i in range(4, 5):
+                if not (str(postalCodeIn[i]).isalpha()):
+                    raise forms.ValidationError('laatste 2 characters moeten hoofdletters zijn')
+            return self.cleaned_data['postalcode']
 
     class Meta:
         model = Address
@@ -132,9 +150,9 @@ class AccountForm(forms.ModelForm):
 
 class CustomerInfoForm(forms.Form):
 
-    name = forms.CharField(required=True)
-    surname = forms.CharField(required=True)
-    telephone = forms.CharField(required=True)
+    name = forms.CharField(required=True, max_length=50)
+    surname = forms.CharField(required=True, max_length=50)
+    telephone = forms.CharField(required=False, max_length=12)
 
     class Meta:
         model = Customers
