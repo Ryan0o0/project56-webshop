@@ -116,7 +116,14 @@ class AccountForm(forms.ModelForm):
     address = forms.CharField(required=True, max_length=100)
     number = forms.CharField(required=True, max_length=10)
     city = forms.CharField(required=True, max_length=25)
-    postalcode = forms.CharField(min_length=6, max_length=6)
+    postalcode = forms.CharField(required=True)
+
+    def clean_postalcode(self):
+        print("HIER Ben ik")
+        postalCodeIn = self.cleaned_data['postalcode']
+        if True: #<--- ZET HIER CONDITIE VOOR POSTCODE
+            raise forms.ValidationError('Vul geldige postcode in')
+        return self.cleaned_data['postalcode']
 
     class Meta:
         model = Address
