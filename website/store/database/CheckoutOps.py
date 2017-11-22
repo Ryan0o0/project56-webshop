@@ -27,8 +27,8 @@ def createOrder(request):
     # contact_name = request.POST.get('contact_name', '')
     # contact_email = request.POST.get('contact_email', '')
     # contact_content = request.POST.get('content', '')
-    html_content = render_to_string('templates/mail/order_complete_email.html')
-    text_content = render_to_string('templates/mail/order_complete_email.txt')
+    html_content = render_to_string('mail/order_complete_email.html')
+    text_content = render_to_string('mail/order_complete_email.txt')
 
     email = EmailMultiAlternatives("Your order details", text_content, 'noreply@comicfire.com', [c])
     email.attach_alternative(html_content, "text/html")
