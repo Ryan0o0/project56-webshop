@@ -84,7 +84,20 @@ class CustomerDetails(forms.Form):
     customer_address = forms.CharField(required=True, max_length=100)
     customer_adressnum = forms.CharField(required=True, max_length=10)
     customer_city = forms.CharField(required=True, max_length=25)
-    customer_postalcode = forms.CharField(required=True, max_length=6)
+    customer_postalcode = forms.CharField(required=True)
+
+    def clean_customer_postalcode(self):
+        CustomerpostalCodeIn = self.cleaned_data['customer_postalcode']
+        if len(CustomerpostalCodeIn) != 6:
+            raise forms.ValidationError('Lengte van de postcode moet gelijk zijn aan 6 characters.')
+        else:
+            for i in range(0, 4):
+                if not (str(CustomerpostalCodeIn[i]).isdigit()):
+                    raise forms.ValidationError('eerste 4 characters moeten cijfers zijn.')
+            for i in range(4, 5):
+                if not (str(CustomerpostalCodeIn[i]).isalpha()):
+                    raise forms.ValidationError('laatste 2 characters moeten hoofdletters zijn')
+            return self.cleaned_data['customer_postalcode']
 
     def __init__(self, *args, **kwargs):
         super(CustomerDetails, self).__init__(*args, **kwargs)
