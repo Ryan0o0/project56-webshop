@@ -121,9 +121,16 @@ class AccountForm(forms.ModelForm):
     def clean_postalcode(self):
         print("HIER Ben ik")
         postalCodeIn = self.cleaned_data['postalcode']
-        if True: #<--- ZET HIER CONDITIE VOOR POSTCODE
-            raise forms.ValidationError('Vul geldige postcode in')
-        return self.cleaned_data['postalcode']
+        if len(postalCodeIn) != 6: #<--- ZET HIER CONDITIE VOOR POSTCODE
+            raise forms.ValidationError('Lengte van de postcode moet gelijk zijn aan 6 characters.')
+        else:
+            for i in range(0, 4):
+                if not (str(postalCodeIn[i]).isdigit()):
+                    raise forms.ValidationError('eerste 4 characters moeten cijfers zijn.')
+            for i in range(4, 5):
+                if not (str(postalCodeIn[i]).isalpha()):
+                    raise forms.ValidationError('laatste 2 characters moeten hoofdletters zijn')
+            return self.cleaned_data['postalcode']
 
     class Meta:
         model = Address
