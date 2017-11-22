@@ -481,7 +481,8 @@ def accountedit(request):
         if request.method == 'POST':
             accountinfo_form = CustomerInfoForm(request.POST)
             account_form = AccountForm(request.POST)
-            if accountinfo_form.is_valid() and accountinfo_form.is_valid():
+            if accountinfo_form.is_valid() and account_form.is_valid():
+                print("HierInView")
                 updateCustomerInfo(request)
                 saveAddress(request)
                 return redirect('/account/')
