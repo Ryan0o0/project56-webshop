@@ -26,7 +26,7 @@ def createOrder(request):
 
     c = request.session['customer_email']
 
-    order =  orderDetailsEntry
+    order = orderEntry
     # contact_name = request.POST.get('contact_name', '')
     # contact_email = request.POST.get('contact_email', '')
     # contact_content = request.POST.get('content', '')
