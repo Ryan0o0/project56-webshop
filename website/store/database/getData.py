@@ -206,6 +206,12 @@ def queryVerbeterFunctie(query):
   #   j += 1
   print(query)
   return query
+
+def removeUnwanted(query):
+  # Resolves empty query errors
+  if query == "" or len(query) == 0:
+    query = "No query found"
+  return query
  
 def getPublisherBox(publisherQuery):
   object = ProductDetails.objects.get(publisher = publisherQuery)
