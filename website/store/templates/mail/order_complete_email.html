@@ -1,4 +1,6 @@
 <!--This order email-->
+<html>
+<body>
 {% load custom_tags %}
 {% load shoppingcart_tags %}
 {% block extrastyle %}
@@ -14,7 +16,6 @@ body.login {background-color: palegreen;}
 
 {% block purchases %}
 {% for orderDetails in order %}
-    <h1>{{ orderDetails.orderNum }}</h1>
     <h1>{{ orderDetails.productNum }}</h1>
     <h1>{{ orderDetails.amount }}</h1>
     {% endfor %}
