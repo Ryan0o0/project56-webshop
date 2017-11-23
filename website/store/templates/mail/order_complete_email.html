@@ -17,24 +17,6 @@ body.login {background-color: palegreen;}
     <h1>{{ orderDetails.orderNum }}</h1>
     <h1>{{ orderDetails.productNum }}</h1>
     <h1>{{ orderDetails.amount }}</h1>
-{#    {% endautoescape %}#}
-
-{#    {% for e in ShoppingCart.objects.all() %}#}
-{#    {% displayShoppingCart = OrderDetails(amount=e.amount, orderNum=Orders(orderNum=orderEntry.orderNum), productNum=e.prodNum) %}#}
-{#    {% displayShoppingCart %}#}
-
-
-{#    {% cartItems request.session.session_key as cartItems %}#}
-{#    {% for e in cartItems %}#}
-{#        <form role='form' method='post' name='itemForm' value="{{e.prodNum}}">#}
-{#            {% csrf_token %}#}
-{#            &lt;!&ndash;<input type="hidden" name="cartItemProdNum" value="{{e.prodNum}}">&ndash;&gt;#}
-{#            {% autoescape off %}{% displayCartItem e user.is_authenticated %}{% endautoescape %}-->#}
-{#        </form>#}
-{#    {% endfor %}#}
-{#    &lt;!&ndash;{% autoescape off %}{% getTotal cartItems %}{% endautoescape %}&ndash;&gt;#}
-
-{#  {% autoescape off %}#}
     {% endfor %}
 {% endblock %}
 

@@ -26,10 +26,7 @@ def createOrder(request):
 
     c = request.session['customer_email']
 
-    order = OrderDetails.objects.filter(amount=e.amount, orderNum=Orders(orderNum=orderEntry.orderNum), productNum=e.prodNum)
-    # contact_name = request.POST.get('contact_name', '')
-    # contact_email = request.POST.get('contact_email', '')
-    # contact_content = request.POST.get('content', '')
+    order = OrderDetails.objects.all().filter(orderNum=Orders(orderNum=orderEntry.orderNum))
     html_content = render_to_string('mail/order_complete_email.html', { "order" : order })
     text_content = render_to_string('mail/order_complete_email.txt')
 
