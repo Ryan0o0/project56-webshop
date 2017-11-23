@@ -16,7 +16,7 @@ body.login {background-color: palegreen;}
     <p>U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:</p>
 
     <strong>Hoi!</strong>
-        {% for e in cartItems %}
+        {% for e in order %}
             {{ e.productNum }}
         {% endfor %}
 
