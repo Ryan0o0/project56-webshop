@@ -19,14 +19,14 @@ def createOrder(request):
     orderEntry = Orders(orderNum=getNewOrderNum(), orderDate=date, orderStatus=status, customerID=Customers(customerID=custID))
     orderEntry.save()
     for e in ShoppingCart.objects.all().filter(session_key=request.session.session_key):
-        orderDetailsEntry = OrderDetails(amount=e.amount, orderNum=Orders(orderNum=orderEntry.orderNum), productNum=e.prodNum)
+        orderDetailsEntry = OrderDetails.objects.get(amount=e.amount, orderNum=Orders(orderNum=orderEntry.orderNum), productNum=e.prodNum)
         orderDetailsEntry.save()
 
     createAddress(request, custID) #Sla het adres op, of update deze indien nodig
 
     c = request.session['customer_email']
 
-    order = orderEntry
+    order =  orderDetailsEntry
     # contact_name = request.POST.get('contact_name', '')
     # contact_email = request.POST.get('contact_email', '')
     # contact_content = request.POST.get('content', '')
