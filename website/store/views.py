@@ -339,7 +339,7 @@ def customerdetails(request):
         if '/processorder/' in request.META.get('HTTP_REFERER') or '/customerdetails/' in request.META.get('HTTP_REFERER') or ('/winkelwagentje/' in request.META.get('HTTP_REFERER') and request.user.is_authenticated):
             if request.method =='POST':
                 if 'searchtext' in request.POST:
-                return searchPost(request)
+                    return searchPost(request)
                 elif 'customerdetailssubmitbutton' in request.POST:
                     form = CustomerDetails(data=request.POST)
 
@@ -371,7 +371,7 @@ def checkout(request):
             print("Getting stuck here for some fucked reason")
             if request.method =='POST':
                 if 'searchtext' in request.POST:
-                return searchPost(request)
+                    return searchPost(request)
                 elif 'checkoutsubmitbutton' in request.POST:
                     form = CheckoutForm(data=request.POST)
 
