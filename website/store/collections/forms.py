@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.db.models import Max
-
+from ..validators.formvalidators import *
 from ..models import Customers, Address
 
 
@@ -93,16 +93,8 @@ class CustomerDetails(forms.Form):
 
     def clean_customer_postalcode(self):
         CustomerpostalCodeIn = self.cleaned_data['customer_postalcode']
-        if len(CustomerpostalCodeIn) != 6:
-            raise forms.ValidationError('Lengte van de postcode moet gelijk zijn aan 6 characters.')
-        else:
-            for i in range(0, 4):
-                if not (str(CustomerpostalCodeIn[i]).isdigit()):
-                    raise forms.ValidationError('eerste 4 characters moeten cijfers zijn.')
-            for i in range(4, 5):
-                if not (str(CustomerpostalCodeIn[i]).isalpha()):
-                    raise forms.ValidationError('laatste 2 characters moeten hoofdletters zijn')
-            return self.cleaned_data['customer_postalcode']
+        postalcode_validator(CustomerpostalCodeIn)
+        return self.cleaned_data['customer_postalcode']
 
     def __init__(self, *args, **kwargs):
         super(CustomerDetails, self).__init__(*args, **kwargs)
@@ -136,19 +128,11 @@ class AccountForm(forms.ModelForm):
     city = forms.CharField(required=True, max_length=25)
     postalcode = forms.CharField(required=True)
 
+
     def clean_postalcode(self):
-        print("HIER Ben ik")
         postalCodeIn = self.cleaned_data['postalcode']
-        if len(postalCodeIn) != 6: #<--- ZET HIER CONDITIE VOOR POSTCODE
-            raise forms.ValidationError('Lengte van de postcode moet gelijk zijn aan 6 characters.')
-        else:
-            for i in range(0, 4):
-                if not (str(postalCodeIn[i]).isdigit()):
-                    raise forms.ValidationError('eerste 4 characters moeten cijfers zijn.')
-            for i in range(4, 5):
-                if not (str(postalCodeIn[i]).isalpha()):
-                    raise forms.ValidationError('laatste 2 characters moeten hoofdletters zijn')
-            return self.cleaned_data['postalcode']
+        postalcode_validator(postalCodeIn)
+        return self.cleaned_data['postalcode']
 
     class Meta:
         model = Address
@@ -170,7 +154,7 @@ class CustomerInfoForm(forms.Form):
 
     name = forms.CharField(required=True, max_length=50)
     surname = forms.CharField(required=True, max_length=50)
-    telephone = forms.CharField(required=False, max_length=12)
+    telephone = forms.CharField(required=False)
 
     class Meta:
         model = Customers
@@ -179,6 +163,13 @@ class CustomerInfoForm(forms.Form):
             'surname',
             'telephone',
         )
+
+    def clean_telephone(self):
+        telephoneIn = self.cleaned_data['telephone']
+        telephone_validator(telephoneIn)
+        return self.cleaned_data['telephone']
+
+
 
     def __init__(self, *args, **kwargs):
         super(CustomerInfoForm, self).__init__(*args, **kwargs)
