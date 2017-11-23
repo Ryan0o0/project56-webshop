@@ -205,6 +205,9 @@ def search(request, query, filter=""):
 
 
 def logoutview(request):
+    if request.method == 'POST':
+            if 'searchtext' in request.POST:
+                return searchPost(request)
     if request.user.is_authenticated:
         logout(request)
         return redirect('/')
@@ -238,6 +241,9 @@ def registrationcomplete(request):
     return render(request, 'completeregistration.html')
 
 def activate(request, uidb64, token):
+    if request.method == 'POST':
+            if 'searchtext' in request.POST:
+                return searchPost(request)
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -307,7 +313,9 @@ def processOrder(request):
             else:
                 args = {}
                 if request.method == 'POST':
-                    if 'loginbutton' in request.POST:
+                    if 'searchtext' in request.POST:
+                        return searchPost(request)
+                    elif 'loginbutton' in request.POST:
                         form = LogginginForm(request.POST)
                         username = request.POST['username']
                         password = request.POST['password']
@@ -330,7 +338,9 @@ def customerdetails(request):
     if not request.META.get('HTTP_REFERER') is None:
         if '/processorder/' in request.META.get('HTTP_REFERER') or '/customerdetails/' in request.META.get('HTTP_REFERER') or ('/winkelwagentje/' in request.META.get('HTTP_REFERER') and request.user.is_authenticated):
             if request.method =='POST':
-                if 'customerdetailssubmitbutton' in request.POST:
+                if 'searchtext' in request.POST:
+                return searchPost(request)
+                elif 'customerdetailssubmitbutton' in request.POST:
                     form = CustomerDetails(data=request.POST)
 
                     if form.is_valid():
@@ -360,7 +370,9 @@ def checkout(request):
         if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
             print("Getting stuck here for some fucked reason")
             if request.method =='POST':
-                if 'checkoutsubmitbutton' in request.POST:
+                if 'searchtext' in request.POST:
+                return searchPost(request)
+                elif 'checkoutsubmitbutton' in request.POST:
                     form = CheckoutForm(data=request.POST)
 
                     if form.is_valid():
@@ -455,6 +467,9 @@ def checkout(request):
 
 
 def account(request):
+    if request.method == 'POST':
+            if 'searchtext' in request.POST:
+                return searchPost(request)
     if not request.user.is_authenticated:
         return redirect('/')
     else:
@@ -466,6 +481,8 @@ def accountedit(request):
     else:
         print(request.user)
         if request.method == 'POST':
+            if 'searchtext' in request.POST:
+                return searchPost(request)
             accountinfo_form = CustomerInfoForm(request.POST)
             account_form = AccountForm(request.POST)
             if accountinfo_form.is_valid() and account_form.is_valid():
@@ -493,6 +510,8 @@ def changepassword(request):
         return redirect('/')
     else:
         if request.method == 'POST':
+            if 'searchtext' in request.POST:
+                return searchPost(request)
             password_form = PasswordForm(request.user, request.POST)
             if password_form.is_valid():
                 user = password_form.save()
