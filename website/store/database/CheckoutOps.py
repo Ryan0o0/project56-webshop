@@ -26,7 +26,7 @@ def createOrder(request):
 
     c = request.session['customer_email']
 
-    order =  orderDetailsEntry
+    order = OrderDetails.objects.filter(amount=e.amount, orderNum=Orders(orderNum=orderEntry.orderNum), productNum=e.prodNum)
     # contact_name = request.POST.get('contact_name', '')
     # contact_email = request.POST.get('contact_email', '')
     # contact_content = request.POST.get('content', '')
