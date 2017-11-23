@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template
 from django.contrib.auth import login, logout, update_session_auth_hash
-from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData
+from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData, getStreet, getHouseNumber, getCity, getPostalcode, getCustomerFName, getCustomerLName, getCustomerPhone
 from .database.verifyData import verifyProdNum
 from .collections.forms import *
 from django.http import *
@@ -355,7 +355,7 @@ def customerdetails(request):
                         return redirect('/checkout/')
             else:
                 if request.user.is_authenticated:
-                    form = CustomerDetails(initial={'customer_fname': request.user.first_name, 'customer_lname': request.user.last_name, 'customer_email':request.user.email})
+                    form = CustomerDetails(initial={'customer_phone':getCustomerPhone(request.user.id), 'customer_fname':getCustomerFName(request.user.id), 'customer_lname':getCustomerLName(request.user.id), 'customer_email':request.user.email, 'customer_address':getStreet(request.user.id), 'customer_adressnum':getHouseNumber(request.user.id), 'customer_city':getCity(request.user.id), 'customer_postalcode':getPostalcode(request.user.id)})
                 else:
                     form = CustomerDetails()
             args['customerdetailsform'] = form
@@ -368,7 +368,6 @@ def checkout(request):
     args = {}
     if not request.META.get('HTTP_REFERER') is None:
         if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
-            print("Getting stuck here for some fucked reason")
             if request.method =='POST':
                 if 'searchtext' in request.POST:
                     return searchPost(request)
