@@ -1,4 +1,5 @@
 <!--This order email-->
+<!DOCTYPE html>
 <html>
 <body>
 {% load custom_tags %}
@@ -14,12 +15,10 @@ body.login {background-color: palegreen;}
         <p></p>
     <p>U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:</p>
 
-{% block purchases %}
-{% for orderDetails in order %}
-    <h1>{{ orderDetails.productNum }}</h1>
-    <h1>{{ orderDetails.amount }}</h1>
-    {% endfor %}
-{% endblock %}
+    <strong>Hoi!</strong>
+        {% for e in cartItems %}
+            {% e.productNum %}
+        {% endfor %}
 
     <p>Wij streven ernaar uw bestelling binnen 2 dagen tijd bij u te leveren.</p>
     <p>Als u nog enige vragen heeft, wees dan niet bang ons te contacteren via onze online contact forum</p>

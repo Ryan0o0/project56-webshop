@@ -358,7 +358,6 @@ def checkout(request):
     args = {}
     if not request.META.get('HTTP_REFERER') is None:
         if '/customerdetails/' in request.META.get('HTTP_REFERER') or '/checkout/' in request.META.get('HTTP_REFERER'):
-            print("Getting stuck here for some fucked reason")
             if request.method =='POST':
                 if 'checkoutsubmitbutton' in request.POST:
                     form = CheckoutForm(data=request.POST)
