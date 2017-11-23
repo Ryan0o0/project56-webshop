@@ -19,14 +19,14 @@ def createOrder(request):
     orderEntry = Orders(orderNum=getNewOrderNum(), orderDate=date, orderStatus=status, customerID=Customers(customerID=custID))
     orderEntry.save()
     for e in ShoppingCart.objects.all().filter(session_key=request.session.session_key):
-        orderDetailsEntry = OrderDetails.objects.get(amount=e.amount, orderNum=Orders(orderNum=orderEntry.orderNum), productNum=e.prodNum)
+        orderDetailsEntry = OrderDetails(amount=e.amount, orderNum=Orders(orderNum=orderEntry.orderNum), productNum=e.prodNum)
         orderDetailsEntry.save()
 
     createAddress(request, custID) #Sla het adres op, of update deze indien nodig
 
     c = request.session['customer_email']
 
-    order = OrderDetails.objects.all().filter(orderNum=Orders(orderNum=orderEntry.orderNum))
+    order = OrderDetails.objects.all().filter(orderNum=Orders(orderNum=orderEntry.orderNum)) #Returnt een Array van alle Items die besteld zijn
     html_content = render_to_string('mail/order_complete_email.html', { "order" : order })
     text_content = render_to_string('mail/order_complete_email.txt')
 
