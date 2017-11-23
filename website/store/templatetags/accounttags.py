@@ -11,7 +11,7 @@ register = template.Library()
 def displayorders(request):
     print(getOrderAmount(request))
     if getOrderAmount(request) == 0:
-        html = "Je hebt nog geen orders geplaatst bij ons."
+        html = "<center>Je hebt nog geen orders geplaatst bij ons.</center>"
     else:
         html = "<div class='table1'><table><tbody><tr><th>Order Nummer</th><th>Datum Geplaatst</th><th>Status</th></tr>"
         for e in Orders.objects.all().filter(customerID=Customers(request.user.id)):

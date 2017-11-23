@@ -1,4 +1,4 @@
-from ..models import Products, ProductDetails
+from ..models import Products, ProductDetails, Address, Customers
 import math
 
 def getProdNum(prNum):
@@ -79,7 +79,7 @@ def getSearchResults(query, userAuth, filter=""):
         filter = "ORDER BY \"prodName\" ASC"
         selected = "asc"
     elif filter == "desc":
-        filter = "ORDER BY \"prodName\" DESC"	
+        filter = "ORDER BY \"prodName\" DESC"
         selected = "desc"
     elif filter == "priceasc":
         filter = "ORDER BY \"prodPrice\" ASC"
@@ -115,7 +115,7 @@ def getSearchResults(query, userAuth, filter=""):
          <p id='fifteen'>{0}</p>
          <p></p>
          <select name='filter' onchange='this.form.submit()'>""".format(str(counter))
-		 
+
     if selected == "asc":
         txt += "<option>Relevantie</option><option value='asc' selected>Naam: A - Z</option><option value='desc'>Naam: Z - A</option><option value='priceasc' name='filterasc'>Prijs: Oplopend</option><option value='pricedesc' name='filterdesc'>Prijs: Aflopend</option>"
     elif selected == "desc":
@@ -216,11 +216,45 @@ def getProdData(prNum):
   object = ProductDetails.objects.get(prodNum = prNum)
   return object.pubDatum[0:10]
 
-def getCustomerFName():
-	pass
+def getCustomer(id):
+    object = Customers.objects.get(customerID=id)
+    return object
 
-def getCustomerLName():
-	pass
+def getCustomerFName(id):
+    customer = getCustomer(id)
+    object = customer.name
+    return object
 
-def getCustomerAddress():
-	pass
+def getCustomerLName(id):
+    customer = getCustomer(id)
+    object = customer.surname
+    return object
+
+def getCustomerPhone(id):
+    customer = getCustomer(id)
+    object = customer.telephone
+    return object
+
+def getCustomerAddress(id):
+    object = Address.objects.get(customerID=Customers(customerID=id))
+    return object
+
+def getStreet(id):
+    address = getCustomerAddress(id)
+    object = address.address
+    return object
+
+def getHouseNumber(id):
+    address = getCustomerAddress(id)
+    object = address.number
+    return object
+
+def getCity(id):
+    address = getCustomerAddress(id)
+    object = address.city
+    return object
+
+def getPostalcode(id):
+    address = getCustomerAddress(id)
+    object = address.postalcode
+    return object
