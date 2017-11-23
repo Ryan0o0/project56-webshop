@@ -13,7 +13,7 @@ body.login {background-color: #c5eabb;}
     <p>U heeft zojuist een bestelling geplaatst op onze website voor de volgende producten:</p>
 
 {% block purchases %}
-{% for orderDetails in order %}
+{% for createOrder in order %}
     <h1>{{ orderDetails.orderNum }}</h1>
     <h1>{{ orderDetails.productNum }}</h1>
     <h1>{{ orderDetails.amount }}</h1>
