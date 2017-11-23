@@ -71,6 +71,11 @@ class RegistrationForm(UserCreationForm):
         customerEntry = Customers(customerID=user.id, email=user.email, name=user.first_name, surname=user.last_name, telephone='nvt', isRegistered=True)
         customerEntry.save()
 
+        #Maak voor elke Customer ook een default address
+        customerAddress = Address(customerID=Customers(customerID=user.id))
+        customerAddress.save()
+
+
         if commit:
             user.save()
 
