@@ -178,11 +178,7 @@ def product(request, item):
     })
 
 def search(request, query, filter=""):
-    print(request.POST)
-    print(query)
-    print(filter)
     if request.method == 'POST':
-        print(request.POST)
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'addToCartItemBoxButton' in request.POST:
@@ -276,7 +272,6 @@ def contactRequestHandeld(request):
 
 def shoppingcart(request):
     if request.method == 'POST':
-        print(request.POST)
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'removeFromCartButton' in request.POST:
@@ -375,7 +370,6 @@ def checkout(request):
                     form = CheckoutForm(data=request.POST)
 
                     if form.is_valid():
-                        print("Placing order... stand by")
 
                         createOrder(request)
                         return render(request, 'completeorder.html')
@@ -461,7 +455,6 @@ def checkout(request):
             return render(request, 'checkout.html', args)
         else:
             return redirect('/')
-    print("Doing this one...")
     return redirect('/')
 
 
@@ -478,19 +471,15 @@ def accountedit(request):
     if not request.user.is_authenticated:
         return redirect('/')
     else:
-        print(request.user)
         if request.method == 'POST':
             if 'searchtext' in request.POST:
                 return searchPost(request)
             accountinfo_form = CustomerInfoForm(request.POST)
             account_form = AccountForm(request.POST)
             if accountinfo_form.is_valid() and account_form.is_valid():
-                print("HierInView")
                 updateCustomerInfo(request)
                 saveAddress(request)
                 return redirect('/account/')
-            else:
-                print("error")
         else:
             Inaddress = Address.objects.get(customerID=request.user.id)
             AddressData = {'address' : Inaddress.address, 'number' : Inaddress.number, 'city' : Inaddress.city, 'postalcode' : Inaddress.postalcode}
@@ -516,8 +505,6 @@ def changepassword(request):
                 user = password_form.save()
                 update_session_auth_hash(request, user)
                 return redirect('/account/')
-            else:
-                print("Error")
         else:
             password_form = PasswordForm(request.user)
         return render(request, 'changepassword.html', {'password_form' : password_form})
