@@ -1,5 +1,6 @@
 from ..models import Products, ProductDetails, Address, Customers
 import math
+from django.db.models import Q
 
 def getProdNum(prNum):
     object = Products.objects.get(prodNum = prNum)
@@ -54,23 +55,6 @@ def getProdImage(prNum):
     #print(object)
     return object.imageLink
 
-
-def getResult(query):
-  object = ProductDetails.objects.raw("SELECT DISTINCT * FROM store_productdetails d, store_products p " +
-                                        "WHERE d.\"prodNum\" = p.\"prodNum\" AND " +
-                                        "(" +
-                                        " prodName LIKE '%" + query + "%'" +
-                                        " OR d.genre LIKE '%" + query + "%'" +
-                                        " OR d.type LIKE '%" + query + "%'" +
-                                        " OR d.publisher LIKE '%" + query + "%'" +
-                                        " OR d.language LIKE '%" + query + "%'" +
-                                        " OR d.author LIKE '%" + query + "%'" +
-                                        " OR p.\"desc\" LIKE '%" + query + "%')" +
-                                        " ORDER BY d.\"prodNum\";" +
-                                        " LIMIT 1")
-  return object
-
-
 def getSearchResults(query, userAuth, filter=""):
     # filter = request.POST.get('filter')
     selected = ""
@@ -89,32 +73,18 @@ def getSearchResults(query, userAuth, filter=""):
         selected = "pricedesc"
     else:
         filter = ""
-    qrytxt = "SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter
-    object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter)
-    counter = len(list(object))
-    print("The following ", qrytxt)
-  # txt = "" + str(counter)
-  # cnt = 0
-    authorlist = []
-    namelist = []
-    urllist = []
-    imglist = []
-    pricelist = []
-    stocklist = []
 
-    for i in object:
-        authorlist.append(i.author)
-        namelist.append(i.prodName)
-        urllist.append(i.prodNum)
-        imglist.append(i.imageLink)
-        pricelist.append(i.prodPrice)
-        stocklist.append(i.prodStock)
-    cnt = 0
+    #TODO: Hall of Shame Code right here
+    #qrytxt = "SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter
+    #object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter)
+
+    results = ProductDetails.objects.filter(Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(pubDatum__icontains=query))
+
     txt = """<div class='sorton commoncolor' style='border-radius: 3px'>
          <p>Totale Resultaten: </p>
          <p id='fifteen'>{0}</p>
          <p></p>
-         <select name='filter' onchange='this.form.submit()'>""".format(str(counter))
+         <select name='filter' onchange='this.form.submit()'>""".format(str(len(list(results))))
 
     if selected == "asc":
         txt += "<option>Relevantie</option><option value='asc' selected>Naam: A - Z</option><option value='desc'>Naam: Z - A</option><option value='priceasc' name='filterasc'>Prijs: Oplopend</option><option value='pricedesc' name='filterdesc'>Prijs: Aflopend</option>"
@@ -130,27 +100,19 @@ def getSearchResults(query, userAuth, filter=""):
 	 <p id='sortp'>Sorteren op: </p>
 	 </div>"""
 
-    if counter < 4:
-        rowscounter = 1
-        columncounter = counter
-    else:
-        if counter % 3 != 0:
-            rowscounter = math.ceil(counter / 3)
+    counter = 0
+    for e in results:
+        if counter == 0:
+            txt += "<ul class='list'>"
+        txt = txt + "<li><div class='productwrap'><a href='/product/" + str(e.prodNum.prodNum) + "'><img src='" + e.imageLink + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + e.author + "</p><p class='name'>" + getProdName(e.prodNum.prodNum) + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(e.prodNum.prodPrice) + "</p><button name='addToCartItemBoxButton' value='" + str(e.prodNum.prodNum) + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
+        if userAuth:
+            txt = txt + "<button name='moveToWishListItemBoxButton' value='" + str(e.prodNum.prodNum) + "' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
+        txt = txt + "<p class='stock'>Voorraad: " + str(e.prodNum.prodStock) + "</p></div></li>"
+        if counter == 2:
+            txt += "</ul>"
+            counter = 0
         else:
-            rowscounter = int(counter / 3)
-        columncounter = 3
-
-    for i in range(rowscounter):
-        txt += "<ul class='list'>"
-        if counter % 3 != 0 and i == (rowscounter - 1):
-            columncounter = counter % 3
-        for x in range(columncounter):
-            txt = txt + "<li><div class='productwrap'><a href='/product/" + str(urllist[cnt]) + "'><img src='" + str(imglist[cnt]) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + str(authorlist[cnt]) + "</p><p class='name'>" + str(namelist[cnt]) + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(pricelist[cnt]) + "</p><button name='addToCartItemBoxButton' value='" + str(urllist[cnt]) + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
-            if userAuth:
-                txt = txt + "<button name='moveToWishListItemBoxButton' value='" + str(urllist[cnt]) +"' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
-            txt = txt + "<p class='stock'>Voorraad: " + str(stocklist[cnt]) + "</p></div></li>"
-            cnt += 1
-        txt += "</ul>"
+            counter = counter + 1
     return txt
 
 def queryVerbeterFunctie(query):
