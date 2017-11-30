@@ -234,7 +234,7 @@ def registrationcomplete(request):
     if request.method == "POST":
         if 'searchtext' in request.POST:
             return searchPost(request)
-    return render(request, 'completeregistration.html')
+    return render(request, 'accountconfirmed.html')
 
 def activate(request, uidb64, token):
     if request.method == 'POST':
