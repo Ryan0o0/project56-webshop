@@ -19,7 +19,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
-from .database.WishListOps import addToWishList, removeFromWishList
+from .database.WishListOps import removeFromWishList
 from .collections.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
@@ -43,9 +43,8 @@ def index(request):
                 request.session.create()
             addToCart(request, int(request.POST.get('addToCartItemBoxButton')))
             return redirect('/winkelwagentje/')
-        elif 'moveToWishListItemBoxButton' in request.POST:
-            addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
-            return redirect('/verlanglijst/')
+        elif 'moveToWishListButton' in request.POST:
+            return addToWishListPost(request)
 
     return render(request, 'index.html')
 
@@ -179,18 +178,19 @@ def product(request, item):
 
 def search(request, query, filter=""):
     if request.method == 'POST':
-        if 'searchtext' in request.POST:
-            return searchPost(request)
-        elif 'addToCartItemBoxButton' in request.POST:
+        print(request.POST)
+        if 'addToCartItemBoxButton' in request.POST:
             if not request.session.exists(request.session.session_key):
                 request.session.create()
             addToCart(request, int(request.POST.get('addToCartItemBoxButton')))
             return redirect('/winkelwagentje/')
-        elif 'moveToWishListItemBoxButton' in request.POST:
-            addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
-            return redirect('/verlanglijst/')
+        elif "moveToWishListButton" in request.POST:
+            return addToWishListPost(request)
         elif 'filter' in request.POST:
             return searchPost(request)
+        elif 'searchtext' in request.POST:
+            return searchPost(request)
+
     # filt = "{}".format(request.POST.get('filter'))
     # print(filt)
     thequery = query
@@ -278,8 +278,7 @@ def shoppingcart(request):
             removeFromCart(request, int(request.POST.get('removeFromCartButton')))
             return redirect('/winkelwagentje/')
         elif "moveToWishListButton" in request.POST:
-            addToWishList(request, int(request.POST.get('moveToWishListButton')))
-            return redirect('/verlanglijst/')
+            return addToWishListPost(request)
         elif 'placeorderbutton' in request.POST:
             return redirect('/processorder/')
         elif 'amount' in request.POST:
