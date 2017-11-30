@@ -297,6 +297,9 @@ def wishlist(request):
         elif 'removeFromWishListButton' in request.POST:
             removeFromWishList(request, int(request.POST.get('removeFromWishListButton')))
             return redirect('/verlanglijst/')
+        elif 'addToCartButton' in request.POST:
+            addToCart(request, int(request.POST.get('addToCartButton')))
+            return redirect('/winkelwagentje/')
     return render(request, 'wishlist.html')
 
 def processOrder(request):
