@@ -110,8 +110,8 @@ class CustomerDetails(forms.Form):
 class CheckoutForm(forms.Form):
     card_name = forms.CharField(required=True)
     card_number = forms.IntegerField(required=True, max_value=9999999999999999, min_value=1000000000000000)
-    card_edm = forms.IntegerField(required=True, max_value=12, min_value=1)
-    card_edy = forms.IntegerField(required=True, max_value=9999, min_value=1000)
+    card_edm = forms.IntegerField(required=True, max_value=2018, min_value=1800)
+    card_edy = forms.IntegerField(required=True, max_value=12, min_value=1)
     card_CVC = forms.IntegerField(required=True, max_value=999, min_value=100)
 
     def __init__(self, *args, **kwargs):
