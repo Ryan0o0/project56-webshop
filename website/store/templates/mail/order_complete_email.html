@@ -13,7 +13,196 @@
 <html>
 <body bgcolor="#f6f8f1" style="background-color: #3a3a3a; margin: 0;">
 <style type="text/css">
-.table1 table tr:hover td { background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0) !important; }
+body {
+	margin: 0;
+	background-color: #3a3a3a;
+}
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #393a39;
+}
+
+.mailwrap {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.logo {
+	position: relative;
+	/* margin:0 auto; */
+	width: 300px;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.logo img {
+	position: relative;
+	width: 300px;
+	margin: 0 auto;
+}
+
+.mail {
+	margin-top: 50px;
+	width: 60%;
+	height; 150px
+	position: relative;
+	display: block;
+	margin-left: auto;
+	/* text-align: center; */
+	margin-right: auto;
+	background-color: wheat;
+	border-radius: 5px;
+	/* border: solid 1px #0000006e; */
+	margin-bottom: 30px;
+}
+
+.mailcontent {
+	padding: 10px;
+}
+
+table{
+	border: none;
+	border-collapse: collapse;
+}
+
+.table1 table{
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+	width: 100%;
+	border-top: black solid 1px;
+	font-size:12px;
+	text-shadow: 1px 1px 0px #fff;
+	background:#eaebec;
+	margin: 0px;
+	border: none;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	height: 100%;
+	/* border-radius:3px; */
+	-moz-box-shadow: 0 1px 2px #d1d1d1;
+	-webkit-box-shadow: 0 1px 2px #d1d1d1;
+	box-shadow: 0 1px 2px #d1d1d1;
+}
+.table1  table th {
+	padding: 21px 10px 22px 10px;
+	/* border-top: solid 0.8px rgba(0, 0, 0, 0.11); */
+	/* border: solid 0.8px rgba(0, 0, 0, 0.11); */
+	/* background: #ededed; */
+	background: #457960;
+	text-shadow: none;
+	color: white;
+}
+.table1 table th:first-child {
+	text-align: center;
+	/* padding-left:20px; */
+}
+.table1 table tr:first-child th:first-child {
+	-moz-border-radius-topleft:3px;
+	/* -webkit-border-top-left-radius:3px; */
+	/* border-top-left-radius:3px; */
+}
+.table1 table tr:first-child th:last-child {
+	-moz-border-radius-topright:3px;
+	/* -webkit-border-top-right-radius:3px; */
+	/* border-top-right-radius:3px; */
+}
+
+.table1 table tr {
+	text-align: center;
+	/* padding-left:20px; */
+}
+
+.table1 td i{
+	float: left;
+	font-size: 18px;
+	line-height: 14px;
+}
+
+.table1 table td:first-child {
+	text-align: center;
+	padding-left:20px;
+	border-left: 0;
+}
+
+.table1 table td {
+	padding:18px;
+	border-top: 1px solid #ffffff;
+	border-bottom:1px solid #e0e0e0;
+	border-left: 1px solid #e0e0e0;
+	background: #fafafa;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+}
+
+.table1 table td img{
+	width: 80px;
+	display: inline-block;
+	float: left;
+}
+
+.table1 table td p{
+	text-align: center;
+	line-height: 130px;
+}
+
+.table1 table tr.even td {
+	background: #f6f6f6;
+	background: -webkit-gradient(linear, left top, left bottom, from(#eeeded), to(#e5e3e3));
+	background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+}
+
+.table .even{
+	background-color: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+}
+
+.table1 table tr:last-child td {
+	border-bottom:0;
+}
+
+.table1 table tr:last-child td:first-child {
+	-moz-border-radius-bottomleft:3px;
+	-webkit-border-bottom-left-radius:3px;
+	border-bottom-left-radius:3px;
+}
+
+.table1 table tr:last-child td:last-child {
+	-moz-border-radius-bottomright:3px;
+	-webkit-border-bottom-right-radius:3px;
+	border-bottom-right-radius:3px;
+}
+
+.table1 table tr:hover td {
+	background: #f2f2f2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+}
+
+.mailbar {
+	width: 100%;
+	margin: 0;
+	line-height: 50px;
+	height: 50px;
+	text-align: center;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #457960;
+}
+
+.mailtext {
+	width: 70%;
+	margin: auto;
+	display: block;
+	padding: 10px;
+}
+
+.mailwrap .mail .mailbar p{
+	margin-top: 0;
+	color:  white;
+}
 </style>
 
 
@@ -40,9 +229,8 @@
 <div>
 		<table style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; color: #666; width: 100%; border-top-color: black; border-top-width: 1px; font-size: 12px; text-shadow: 1px 1px 0px #fff; -moz-border-radius: 3px; -webkit-border-radius: 3px; height: 100%; -moz-box-shadow: 0 1px 2px #d1d1d1; -webkit-box-shadow: 0 1px 2px #d1d1d1; box-shadow: 0 1px 2px #d1d1d1; background-color: #eaebec; margin: 0px; border: none;" bgcolor="#eaebec">
 		<tbody>
-		{% for e in order %}
-            <tr><td>{{ e.productNum }}</td><td>{{ e.amount }}</td></tr>
-        {% endfor %}
+		<th>Product</th><th>Aantal</th>
+		<td>bla</td><td>20</td>
 		</tbody>
 		</table>
 </div>
