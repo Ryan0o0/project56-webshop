@@ -44,7 +44,7 @@ def contactRequestCustomerMail(contact_name, contact_email, contact_content):
     content = template.render(context)
 
     email = EmailMessage(
-        "UW bericht aan Comicfire",
+        "Uw bericht aan Comicfire",
         content,
         'noreply@comicfire.com',
         [contact_email]
