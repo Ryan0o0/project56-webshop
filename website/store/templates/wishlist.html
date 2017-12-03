@@ -2,26 +2,39 @@
 {% load wishlist_tags %}
 {% block content %}
 <div class="content">
-   <div class="bars sidecolors">
-      {% include 'includes/nieuwproduct.html' %}
-   </div>
-   <div class="aboutmid">
-      <div class="qrs">
-         <div class="aboutsection commontextbox">
-            <div class="sorton commoncolor">
-               <h1> Uw verlanglijst: </h1>
+    <div class="bars sidecolors">
+        {% include 'includes/nieuwproduct.html' %}
+    </div>
+    <div class="aboutmid">
+        <div class="qrs">
+            <div class="aboutsection commontextbox">
+                <div class="sorton commoncolor">
+                    <h1> Uw verlanglijst: </h1>
+                </div>
+                <div class="aboutwrap">
+                    {% wishListItems request.user.id as wishListItems %}
+                    <ul class='cartwrap'>
+                        {% wishListEmpty request.user.id as wishListEmptyBool %}
+                        {% if wishListEmptyBool %}
+                            <p class='title'>Momenteel zit er nog niks in uw verlanglijst.</p>
+                        {% else %}
+                            {% for e in wishListItems %}
+                            <li class='cartitem'>
+                                <form role='form' method='post' name='removeButtonForm' value="{{e.productNum.prodNum}}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="wishListItemProdNum" value="{{e.productNum.prodNum}}">
+                                    {% autoescape off %}{% displayWishListItem e %}{% endautoescape %}
+                                </form>
+                            </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-            <div class="aboutwrap">
-               <form role='form' method='post' name='removeButtonForm'>
-                   {% csrf_token %}
-                   {% autoescape off %}{% displayList request.user.id %}{% endautoescape %}
-               </form>
-               </div>
-         </div>
-      </div>
-   </div>
-   <div class="right sidecolors">
-      {% include 'includes/aanbieding.html' %}
-   </div>
+        </div>
+    </div>
+    <div class="right sidecolors">
+        {% include 'includes/aanbieding.html' %}
+    </div>
 </div>
 {% endblock%}

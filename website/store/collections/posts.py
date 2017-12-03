@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 
+from store.database.WishListOps import addToWishList
 from ..database.getData import queryVerbeterFunctie
 
 def searchPost(request):
@@ -8,3 +9,7 @@ def searchPost(request):
         return redirect("/search/" + queryVerbeterFunctie(str(request.POST.get('searchtext'))) + "/" + filter)
     else:
         return redirect("/search/" + queryVerbeterFunctie(str(request.POST.get('searchtext'))) + "/items")
+
+def addToWishListPost(request):
+    addToWishList(request, int(request.POST.get('moveToWishListButton')))
+    return redirect('/verlanglijst/')

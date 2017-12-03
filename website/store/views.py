@@ -4,9 +4,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from store.tokens import account_activation_token
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordChangeForm
-from django.template.loader import get_template
+from .collections.mails import *
 from django.contrib.auth import login, logout, update_session_auth_hash
 from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData, getStreet, getHouseNumber, getCity, getPostalcode, getCustomerFName, getCustomerLName, getCustomerPhone
 from .database.verifyData import verifyProdNum
@@ -19,7 +17,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
-from .database.WishListOps import addToWishList, removeFromWishList
+from .database.WishListOps import removeFromWishList
 from .collections.posts import *
 from .database.CheckoutOps import *
 from .database.AccountOps import *
@@ -43,9 +41,8 @@ def index(request):
                 request.session.create()
             addToCart(request, int(request.POST.get('addToCartItemBoxButton')))
             return redirect('/winkelwagentje/')
-        elif 'moveToWishListItemBoxButton' in request.POST:
-            addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
-            return redirect('/verlanglijst/')
+        elif 'moveToWishListButton' in request.POST:
+            return addToWishListPost(request)
 
     return render(request, 'index.html')
 
@@ -62,27 +59,7 @@ def contact(request):
             form = ContactForm(data=request.POST)
 
             if form.is_valid():
-                contact_name = request.POST.get('contact_name', '')
-                contact_email = request.POST.get('contact_email', '')
-                contact_content = request.POST.get('content', '')
-
-                template = get_template('mail/contact_template.txt')
-                context = {
-                        'contact_name' : contact_name,
-                        'contact_email' : contact_email,
-                        'contact_content' : contact_content,
-                    }
-
-                content = template.render(context)
-
-                email = EmailMessage(
-                    "Nieuwe contact aanvraag",
-                    content,
-                    'noreply@comicfire.com',
-                    ['admin@comicfire.com'],
-                    headers = {'Reply-to': contact_email}
-                )
-                email.send()
+                contactRequestMail(request)
                 return redirect('messagesend')
 
     return render(request, 'contact.html', {'contact_form':formClass, })
@@ -179,18 +156,19 @@ def product(request, item):
 
 def search(request, query, filter=""):
     if request.method == 'POST':
-        if 'searchtext' in request.POST:
-            return searchPost(request)
-        elif 'addToCartItemBoxButton' in request.POST:
+        print(request.POST)
+        if 'addToCartItemBoxButton' in request.POST:
             if not request.session.exists(request.session.session_key):
                 request.session.create()
             addToCart(request, int(request.POST.get('addToCartItemBoxButton')))
             return redirect('/winkelwagentje/')
-        elif 'moveToWishListItemBoxButton' in request.POST:
-            addToWishList(request, int(request.POST.get('moveToWishListItemBoxButton')))
-            return redirect('/verlanglijst/')
+        elif "moveToWishListButton" in request.POST:
+            return addToWishListPost(request)
         elif 'filter' in request.POST:
             return searchPost(request)
+        elif 'searchtext' in request.POST:
+            return searchPost(request)
+
     # filt = "{}".format(request.POST.get('filter'))
     # print(filt)
     thequery = query
@@ -234,7 +212,7 @@ def registrationcomplete(request):
     if request.method == "POST":
         if 'searchtext' in request.POST:
             return searchPost(request)
-    return render(request, 'completeregistration.html')
+    return render(request, 'accountconfirmed.html')
 
 def activate(request, uidb64, token):
     if request.method == 'POST':
@@ -278,8 +256,7 @@ def shoppingcart(request):
             removeFromCart(request, int(request.POST.get('removeFromCartButton')))
             return redirect('/winkelwagentje/')
         elif "moveToWishListButton" in request.POST:
-            addToWishList(request, int(request.POST.get('moveToWishListButton')))
-            return redirect('/verlanglijst/')
+            return addToWishListPost(request)
         elif 'placeorderbutton' in request.POST:
             return redirect('/processorder/')
         elif 'amount' in request.POST:
@@ -298,6 +275,9 @@ def wishlist(request):
         elif 'removeFromWishListButton' in request.POST:
             removeFromWishList(request, int(request.POST.get('removeFromWishListButton')))
             return redirect('/verlanglijst/')
+        elif 'addToCartButton' in request.POST:
+            addToCart(request, int(request.POST.get('addToCartButton')))
+            return redirect('/winkelwagentje/')
     return render(request, 'wishlist.html')
 
 def processOrder(request):
