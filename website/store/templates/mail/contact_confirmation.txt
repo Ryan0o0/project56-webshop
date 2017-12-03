@@ -1,0 +1,13 @@
+Beste {{ contact_name }},
+
+Zojuist heeft u een bericht gestuurd aan onze klantenservice.
+
+Uw bericht:
+{{ contact_content|safe|striptags }}
+
+Een medewerker zal binnen 48 uur reageren op uw bericht.
+
+Met vriendelijke groet,
+
+Comicfire
+

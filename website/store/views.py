@@ -4,9 +4,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from store.tokens import account_activation_token
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordChangeForm
-from django.template.loader import get_template
+from .collections.mails import *
 from django.contrib.auth import login, logout, update_session_auth_hash
 from .database.getData import getProdName, getProdPrice, getProdStock, getProdGenre, getProdType, getProdAuthor, getProdDesc, getProdImage, getProdLanguage, getProdPublish, getProdRating, getProdTotalPages, getProdData, getStreet, getHouseNumber, getCity, getPostalcode, getCustomerFName, getCustomerLName, getCustomerPhone
 from .database.verifyData import verifyProdNum
@@ -61,27 +59,7 @@ def contact(request):
             form = ContactForm(data=request.POST)
 
             if form.is_valid():
-                contact_name = request.POST.get('contact_name', '')
-                contact_email = request.POST.get('contact_email', '')
-                contact_content = request.POST.get('content', '')
-
-                template = get_template('mail/contact_template.txt')
-                context = {
-                        'contact_name' : contact_name,
-                        'contact_email' : contact_email,
-                        'contact_content' : contact_content,
-                    }
-
-                content = template.render(context)
-
-                email = EmailMessage(
-                    "Nieuwe contact aanvraag",
-                    content,
-                    'noreply@comicfire.com',
-                    ['admin@comicfire.com'],
-                    headers = {'Reply-to': contact_email}
-                )
-                email.send()
+                contactRequestMail(request)
                 return redirect('messagesend')
 
     return render(request, 'contact.html', {'contact_form':formClass, })
