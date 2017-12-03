@@ -49,6 +49,10 @@ def index(request):
 
     return render(request, 'index.html')
 
+def emailstyle(request):
+    return render(request, 'emailstyle.html')
+
+	
 def contact(request):
     if request.user.is_authenticated:
         formClass = ContactForm(initial={'contact_name': str(request.user.first_name + " " + request.user.last_name), 'contact_email': request.user.email})
