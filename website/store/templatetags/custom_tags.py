@@ -21,6 +21,9 @@ def any_function():
 def getRows(getal):
     return (int(getal / 3))
 
+@register.simple_tag()
+def prodName(prodNum):
+    return getProdName(prodNum)
 
 @register.simple_tag()
 def prodImageTag(prodNum):
