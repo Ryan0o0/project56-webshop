@@ -125,9 +125,7 @@ def suggesteditems(prod, type):
         cnt += 1
     return txt
 
-def getFilter():
-	return "DESCENDING"
-
+@register.simple_tag()
 def getOrder(order):
 	html = ""
 	for e in order:
