@@ -30,16 +30,18 @@
         
 
 		<div style="width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px; margin: 0;">
-<table style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; color: #666; width: 100%; border-top-color: black; border-top-width: 1px; font-size: 12px; text-shadow: 1px 1px 0px #fff; -moz-border-radius: 3px; -webkit-border-radius: 3px; height: 100%; -moz-box-shadow: 0 1px 2px #d1d1d1; -webkit-box-shadow: 0 1px 2px #d1d1d1; box-shadow: 0 1px 2px #d1d1d1; background-color: #eaebec; margin: 0px; border: none;" bgcolor="#eaebec">
+<table style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; color: #666; width: 100%; border-top-color: black; border-top-width: 1px; font-size: 12px; text-shadow: 1px 1px 0px #fff; -moz-border-radius: 3px; -webkit-border-radius: 3px; height: 100%; -moz-box-shadow: 0 1px 2px #d1d1d1; -webkit-box-shadow: 0 1px 2px #d1d1d1; box-shadow: 0 1px 2px #d1d1d1; background-color: #eaebec; margin: 0px; border: none; border-radius: 3px;" bgcolor="#eaebec">
 		<tbody>
 		<tr style="text-align: center; border-radius: 3px;" align="center">
-<th style="text-shadow: none; color: white; text-align: center; -moz-border-radius-topleft: 3px; background-color: #457960; padding: 21px 10px 22px;" align="center" bgcolor="#457960">Product</th>
-<th style="text-shadow: none; color: white; -moz-border-radius-topright: 3px; background-color: #457960; padding: 21px 10px 22px;" bgcolor="#457960">Aantal</th>
+<th style="text-shadow: none; color: white; text-align: center; -moz-border-radius-topleft: 3px; background-color: #457960; padding: 21px 10px 22px; border-top-left-radius: 3px;" align="center" bgcolor="#457960">Product</th>
+<th style="text-shadow: none; color: white; -moz-border-radius-topright: 3px; background-color: #457960; padding: 21px 10px 22px; border-top-right-radius: 3px;" bgcolor="#457960">Aantal</th>
 </tr>
+	{% for e in order %}
 		<tr style="text-align: center;" align="center">
-<td style="text-align: center; border-left-width: 0; border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px 18px 18px 20px;" align="center">bla</td>
-<td style="border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-width: 1px; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomright: 3px; -webkit-border-bottom-right-radius: 3px; border-bottom-right-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px;">20</td>
+<td style="text-align: center; border-left-width: 0; border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px 18px 18px 20px;" align="center">{{ e.productNum }}/td>
+<td style="border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-width: 1px; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomright: 3px; -webkit-border-bottom-right-radius: 3px; border-bottom-right-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px;">{{ e.amount }}</td>
 </tr>
+	{% endfor %}
 		</tbody>
 		</table>
 		</div>
