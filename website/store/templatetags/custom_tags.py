@@ -133,5 +133,5 @@ def getOrder(order):
     return html
 
 def getOrderNum(order):
-    string = str(order[0].orderNum.orderNum)
+    string = str(order.first().orderNum.orderNum)
     return string
