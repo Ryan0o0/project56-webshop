@@ -119,19 +119,33 @@ class CustomerDetails(forms.Form):
         self.fields['customer_postalcode'].label = "Postcode:"
 
 class CheckoutForm(forms.Form):
+
     card_name = forms.CharField(required=True)
-    card_number = forms.IntegerField(required=True, max_value=9999999999999999, min_value=1000000000000000)
+    card_number = forms.IntegerField(required=True, min_value=1000000000000000)
     card_edm = forms.IntegerField(required=True, max_value=12, min_value=1)
-    card_edy = forms.IntegerField(required=True, max_value=9999, min_value=1000)
-    card_CVC = forms.IntegerField(required=True, max_value=999, min_value=100)
+    card_edy = forms.IntegerField(required=True, max_value=2030, min_value=2017)
+    card_CVC = forms.IntegerField(required=True, min_value=0)
 
     def __init__(self, *args, **kwargs):
         super(CheckoutForm, self).__init__(*args, **kwargs)
-        self.fields['card_name'].label = "Volledige naam op kaart:"
-        self.fields['card_number'].label = "Creditcardnummer:"
+        self.fields['card_name'].label = "naam op de kaart:"
+        self.fields['card_number'].label = "Kaartnummer:"
+        self.fields['card_number'].help_text = "De cijfers op de voorzijde van uw kaart."
         self.fields['card_edm'].label = "Verval datum (mm-jj):"
         self.fields['card_edy'].label = ""
-        self.fields['card_CVC'].label = "Controlenummer:"
+        self.fields['card_CVC'].label = "CVC/CID:"
+
+    def clean_card_number(self):
+        card_numberIn = self.cleaned_data['card_number']
+        creditcard_validator(card_numberIn, 16)
+        return self.cleaned_data['card_number']
+
+    def clean_card_CVC(self):
+        card_cvcIn = self.cleaned_data['card_CVC']
+        creditcard_validator(card_cvcIn, 3)
+        return self.cleaned_data['card_CVC']
+
+
 
 class AccountForm(forms.ModelForm):
     address = forms.CharField(required=True, max_length=100)
