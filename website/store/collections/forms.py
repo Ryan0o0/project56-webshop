@@ -23,13 +23,24 @@ class ContactForm(forms.Form):
         self.fields['content'].label = "Toelichting"
 
 
-class LogginginForm(AuthenticationForm):
+class LogginginForm(forms.Form):
     username = forms.CharField(required=True, label="E-mail")
-    # password = forms.CharField(required=True, label="Wachtwoord")
+    password = forms.CharField(required=True, label="Wachtwoord", widget=forms.PasswordInput(render_value=False))
 
     def __init__(self, *args, **kwargs):
         super(LogginginForm, self).__init__(*args, **kwargs)
         self.fields['password'].label = "Wachtwoord:"
+
+    def clean(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        try:
+            User.objects.get(username=username, password=password)
+        except User.DoesNotExist:
+            raise forms.ValidationError("Het email en wachtwoord komen niet overeen")
+        return self.cleaned_data
+
+
 
 class RegistrationForm(UserCreationForm):
     firstname = forms.CharField(required=True, label="Voornaam:")

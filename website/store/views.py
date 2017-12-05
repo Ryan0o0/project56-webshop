@@ -203,6 +203,8 @@ def loginview(request):
             if user is not None:
                 login(request, user)
                 return redirect('/')
+
+
     else:
         form = LogginginForm()
     args['form'] = form
