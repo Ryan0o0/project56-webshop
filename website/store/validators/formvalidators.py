@@ -20,3 +20,17 @@ def telephone_validator(telephone):
         if not(str(telephone)).isdigit():
             raise ValidationError(_('telefoonnummer is niet geldig'))
 
+def creditcard_validator(cardnumber, length):
+    if (len(str(cardnumber))) != length:
+        raise ValidationError(_('kaarnummer is niet geldig!'))
+    # else:
+    #     for i in range(len(cardnumber)):
+    #         if not str(cardnumber[i]).isdigit():
+    #             raise ValidationError(_('kaarnummer is niet geldig!'))
+
+
+
+
+
+
+
