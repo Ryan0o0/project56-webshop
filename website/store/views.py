@@ -32,6 +32,9 @@ from .database.CartOps import setAmount
 
 # Create your views here.
 
+def admin(request):
+	return render(request, 'admin.html')
+
 def index(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
