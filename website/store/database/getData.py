@@ -78,7 +78,7 @@ def getSearchResults(query, userAuth, filter=""):
     #qrytxt = "SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter
     #object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter)
 
-    resultsProductName = Products.objects.filter(prodName__icontains=query).order_by("prodPrice")
+    resultsProductName = Products.objects.filter(prodName__icontains=query).all()
     results = ProductDetails.objects.filter(Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(pubDatum__icontains=query) | Q(prodNum__in=resultsProductName))
 
     txt = """<div class='sorton commoncolor' style='border-radius: 3px'>

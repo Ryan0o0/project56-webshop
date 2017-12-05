@@ -30,7 +30,7 @@ def createOrder(request):
     html_content = render_to_string('mail/order_complete_email.html', { "order" : order })
     text_content = render_to_string('mail/order_complete_email.txt')
 
-    email = EmailMultiAlternatives("Orderbevestiging", text_content, 'noreply@comicfire.com', [c])
+    email = EmailMultiAlternatives("Your order details", text_content, 'noreply@comicfire.com', [c])
     email.attach_alternative(html_content, "text/html")
     # email.attach_file('static/images/comicfirelogo2.png')
     email.mixed_subtype = 'related'
