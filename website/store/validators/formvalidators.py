@@ -23,7 +23,9 @@ def telephone_validator(telephone):
 def creditcard_validator(cardnumber, length):
     if (len(str(cardnumber))) != length:
         raise ValidationError(_('Kaartnummer is niet geldig!'))
-    # else:
+    else:
+        if cardnumber <= 0:
+            raise ValidationError(_('Kaartnummer is niet geldig!'))
     #     for i in range(len(cardnumber)):
     #         if not str(cardnumber[i]).isdigit():
     #             raise ValidationError(_('kaarnummer is niet geldig!'))
