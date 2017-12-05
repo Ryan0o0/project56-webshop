@@ -21,6 +21,9 @@ def any_function():
 def getRows(getal):
     return (int(getal / 3))
 
+@register.simple_tag()
+def prodName(prodNum):
+    return getProdName(prodNum)
 
 @register.simple_tag()
 def prodImageTag(prodNum):
@@ -122,5 +125,14 @@ def suggesteditems(prod, type):
         cnt += 1
     return txt
 
-def getFilter():
-	return "DESCENDING"
+@register.simple_tag()
+def getOrder(order):
+    html = ""
+    for e in order:
+        html += "<tr style='text-align: center;' align='center'><td style='text-align: center; border-left-width: 0; border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px 18px 18px 20px;' align='center'>{0}</td><td style='text-align: center; border-left-width: 0; border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px 18px 18px 20px;' align='center'>{1}</td><td style='border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-width: 1px; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomright: 3px; -webkit-border-bottom-right-radius: 3px; border-bottom-right-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px;'>{2}</td></tr>".format(e.productNum.prodNum, prodName(e.productNum.prodNum), e.amount)
+    return html
+
+@register.simple_tag()
+def getOrderNum(order):
+    string = str(order.first().orderNum.orderNum)
+    return string

@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^account/accountedit/$', views.accountedit, name="accountedit"),
     url(r'^account/changepassword/$', views.changepassword, name="changepassword"),
     url(r'^account/bestelling$', views.orderDetails, name='orderdetails'), #
+	url(r'^emailstyle/$', views.emailstyle, name="emailstyle"),
 ]
