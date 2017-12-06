@@ -17,7 +17,7 @@ from django.conf.urls import url, include, static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admindjango/', admin.site.urls),
     url(r'', include('store.urls')),
 
 ]

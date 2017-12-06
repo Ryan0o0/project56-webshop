@@ -1,0 +1,24 @@
+<!--This is the base frame-->
+
+{% load custom_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'includes/admin/head.html' %}
+    </head>
+    <body>
+	<div class="main"> 
+        {% include 'includes/admin/headerdiv.html' %}
+        {% include 'includes/admin/navbar.html' %}
+        <div class="content">
+		{% block content %}
+		
+        {% endblock %}
+		<div class="right"></div>
+		</div>
+		</div>
+	<footer>
+        {% include 'includes/admin/footer.html' %}
+    </footer>
+    </body>
+</html>
