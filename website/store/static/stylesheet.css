@@ -219,12 +219,37 @@ body {
 	vertical-align: middle;
 }
 
-.usersection {
-	position: relative;
-	height: 100%;
+.usersection{
+	right: 0;
 	width: 20%;
-	float: left;
+	/* float: left; */
+	position: absolute;
+	height: 100%;
+	vertical-align: middle;
+	z-index: 50000;
 }
+
+.usersection ul{
+	list-style-type: none;
+	display: table;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.usersection ul li{
+	display: table;
+	float: left;
+	height: 100%;
+	width: 50%;
+	margin-top: 0;
+	text-align: center;
+	vertical-align: middle;
+}
+
 .user {
 	width: 49.86%;
 	height: 100%;
@@ -265,6 +290,37 @@ body {
 	height: 100%;
 	float: left;
 	border-right: solid 0.1vh #4f9373;
+}
+
+.logout{
+	right: 0;
+	width: 100%%;
+	/* float: left; */
+	position: absolute;
+	height: 100%;
+	vertical-align: middle;
+	z-index: 50000;
+}
+
+.logout ul{
+	list-style-type: none;
+	display: table;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.logout ul li{
+	display: table;
+	float: left;
+	height: 100%;
+	width: 50%;
+	margin-top: 0;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .wishlisthalf{
@@ -326,6 +382,21 @@ body {
 .logout{
 	text-decoration: none;
 	color: white;
+}
+
+.logout ul{
+	list-style-type: none;
+}
+
+.logout ul li{
+	display: table;
+	vertical-align: middle;
+}
+
+.logout ul li p{
+	width: 100%;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .lgntext {
