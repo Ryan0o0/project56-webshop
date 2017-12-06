@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views #from currect package import...
+from . import views, adminviews #from currect package import...
 from django.contrib.auth.views import login
 urlpatterns = [
 
@@ -30,5 +30,5 @@ urlpatterns = [
     url(r'^account/changepassword/$', views.changepassword, name="changepassword"),
     url(r'^account/bestelling$', views.orderDetails, name='orderdetails'),
     url(r'^emailstyle/$', views.emailstyle, name="emailstyle"),
-    url(r'^admin/$', views.admin, name="admin"),
+    url(r'^admin/$', adminviews.admin, name="admin"),
 ]
