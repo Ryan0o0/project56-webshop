@@ -23,13 +23,24 @@ class ContactForm(forms.Form):
         self.fields['content'].label = "Toelichting"
 
 
-class LogginginForm(AuthenticationForm):
+class LogginginForm(forms.Form):
     username = forms.CharField(required=True, label="E-mail")
-    # password = forms.CharField(required=True, label="Wachtwoord")
+    password = forms.CharField(required=True, label="Wachtwoord", widget=forms.PasswordInput(render_value=False))
 
     def __init__(self, *args, **kwargs):
         super(LogginginForm, self).__init__(*args, **kwargs)
         self.fields['password'].label = "Wachtwoord:"
+
+    def clean(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        try:
+            User.objects.get(username=username, password=password)
+        except User.DoesNotExist:
+            raise forms.ValidationError("Het email en wachtwoord komen niet overeen")
+        return self.cleaned_data
+
+
 
 class RegistrationForm(UserCreationForm):
     firstname = forms.CharField(required=True, label="Voornaam:")
@@ -108,19 +119,39 @@ class CustomerDetails(forms.Form):
         self.fields['customer_postalcode'].label = "Postcode:"
 
 class CheckoutForm(forms.Form):
+
     card_name = forms.CharField(required=True)
     card_number = forms.IntegerField(required=True, max_value=9999999999999999, min_value=1000000000000000)
     card_edm = forms.IntegerField(required=True, max_value=2018, min_value=1800)
     card_edy = forms.IntegerField(required=True, max_value=12, min_value=1)
     card_CVC = forms.IntegerField(required=True, max_value=999, min_value=100)
 
+    card_number = forms.IntegerField(required=True)
+    card_edm = forms.IntegerField(required=True, max_value=12, min_value=1)
+    card_edy = forms.IntegerField(required=True, max_value=2030, min_value=2017)
+    card_CVC = forms.IntegerField(required=True)
+
+
     def __init__(self, *args, **kwargs):
         super(CheckoutForm, self).__init__(*args, **kwargs)
-        self.fields['card_name'].label = "Volledige naam op kaart:"
-        self.fields['card_number'].label = "Creditcardnummer:"
+        self.fields['card_name'].label = "naam op de kaart:"
+        self.fields['card_number'].label = "Kaartnummer:"
+        self.fields['card_number'].help_text = "De cijfers op de voorzijde van uw kaart."
         self.fields['card_edm'].label = "Verval datum (mm-jj):"
         self.fields['card_edy'].label = ""
-        self.fields['card_CVC'].label = "Controlenummer:"
+        self.fields['card_CVC'].label = "CVC/CID:"
+
+    def clean_card_number(self):
+        card_numberIn = self.cleaned_data['card_number']
+        creditcard_validator(card_numberIn, 16)
+        return self.cleaned_data['card_number']
+
+    def clean_card_CVC(self):
+        card_cvcIn = self.cleaned_data['card_CVC']
+        creditcard_validator(card_cvcIn, 3)
+        return self.cleaned_data['card_CVC']
+
+
 
 class AccountForm(forms.ModelForm):
     address = forms.CharField(required=True, max_length=100)

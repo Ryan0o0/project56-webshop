@@ -21,6 +21,9 @@ def any_function():
 def getRows(getal):
     return (int(getal / 3))
 
+@register.simple_tag()
+def prodName(prodNum):
+    return getProdName(prodNum)
 
 @register.simple_tag()
 def prodImageTag(prodNum):
@@ -61,7 +64,7 @@ def listloop(userAuth):
             txt = txt + "<li><div class='productwrap'><a href='" + prodUrlTag(cnt) + "'><img src='" + prodImageTag(cnt) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + prodAuthorTag(cnt) + "</p><p class='name'>" + prodTitleTag(cnt) + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(prodPriceTag(cnt)) + "</p>" \
                        "<button name='addToCartItemBoxButton' value='" + str(cnt) + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
             if userAuth:
-                txt = txt + "<button name='moveToWishListItemBoxButton' value='" + str(cnt) +"' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
+                txt = txt + "<button name='moveToWishListButton' value='" + str(cnt) +"' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
             txt = txt + "<p class='stock'>Voorraad: " + str(prodStockTag(cnt)) + "</p></div></li>"
             cnt += 1
         txt += "</ul>"
@@ -122,5 +125,14 @@ def suggesteditems(prod, type):
         cnt += 1
     return txt
 
-def getFilter():
-	return "DESCENDING"
+@register.simple_tag()
+def getOrder(order):
+    html = ""
+    for e in order:
+        html += "<tr style='text-align: center;' align='center'><td style='text-align: center; border-left-width: 0; border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px 18px 18px 20px;' align='center'>{0}</td><td style='text-align: center; border-left-width: 0; border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px 18px 18px 20px;' align='center'>{1}</td><td style='border-top-color: #ffffff; border-top-width: 1px; border-top-style: solid; border-bottom-width: 0; border-bottom-style: solid; border-bottom-color: #e0e0e0; border-left-width: 1px; border-left-style: solid; border-left-color: #e0e0e0; -moz-border-radius-bottomright: 3px; -webkit-border-bottom-right-radius: 3px; border-bottom-right-radius: 3px; background-image: -moz-linear-gradient(top,  #fbfbfb,  #fafafa); padding: 18px;'>{2}</td></tr>".format(e.productNum.prodNum, prodName(e.productNum.prodNum), e.amount)
+    return html
+
+@register.simple_tag()
+def getOrderNum(order):
+    string = str(order.first().orderNum.orderNum)
+    return string
