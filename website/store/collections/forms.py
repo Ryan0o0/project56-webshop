@@ -42,17 +42,17 @@ class RegistrationForm(UserCreationForm):
 
     def clean_email(self):
         if User.objects.filter(username=self.cleaned_data['email']).exists():
-            raise forms.ValidationError('Dit e-mailadres is al ingebruik, vul een ander e-mailadres in')
+            raise forms.ValidationError('Dit e-mailadres is al ingebruik, vul alstublieft een ander e-mailadres in')
         return self.cleaned_data['email']
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.fields['password1'].label = "Wachtwoord:"
         self.fields['password2'].label = "Herhaling wachtwoord:"
-        self.fields['password1'].help_text = "Je wachtwoord moet 8 karakters of langer zijn. Gebruik niet alleen cijfers."
-        self.fields['password2'].help_text = "Herhaal het wachtwoord"
+        self.fields['password1'].help_text = "Het wachtwoord moet om veiligheidsredenen 8 karakters of langer zijn. Gebruik niet alleen cijfers."
+        self.fields['password2'].help_text = "Herhaal het wachtwoord."
         self.error_messages = {
-            'password_mismatch': ("Oeps! De twee opgegeven wachtwoorden kwamen niet overeen! Probeer het opnieuw!"),
+            'password_mismatch': ("De twee opgegeven wachtwoorden kwamen niet overeen! Probeer het opnieuw."),
         }
 
     def save(self, commit=True):
@@ -186,8 +186,8 @@ class PasswordForm(PasswordChangeForm):
         self.fields['new_password1'].label = "Nieuw wachtwoord:"
         self.fields['new_password2'].label = "Herhaal nieuw wachtwoord:"
         self.fields[
-            'new_password1'].help_text = "Je wachtwoord moet 8 karakters of langer zijn. Gebruik niet alleen cijfers."
-        self.fields['new_password2'].help_text = "Herhaal het wachtwoord"
+            'new_password1'].help_text = "Het wachtwoord moet om veiligheidsredenen 8 karakters of langer zijn. Gebruik niet alleen cijfers."
+        self.fields['new_password2'].help_text = "Herhaal het wachtwoord."
         self.error_messages = {
-            'password_mismatch': ("Oeps! De twee opgegeven wachtwoorden kwamen niet overeen! Probeer het opnieuw!"),
+            'password_mismatch': ("Oeps! De twee opgegeven wachtwoorden kwamen niet overeen! Probeer het opnieuw."),
         }

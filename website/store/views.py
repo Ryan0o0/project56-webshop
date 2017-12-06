@@ -507,3 +507,11 @@ def orderDetails(request):
     return render(request, 'orderdetails.html', {
         'ordernum' : ordernum
     })
+
+def tos(request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
+    return render(request, 'tos.html')
+
