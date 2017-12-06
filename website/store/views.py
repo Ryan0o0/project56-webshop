@@ -82,7 +82,7 @@ def register(request):
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
                 })
-                mail_subject = 'Activate your account!'
+                mail_subject = 'Activeer uw account!'
                 to_email = form.cleaned_data.get('email')
                 email = EmailMessage(mail_subject, message, to=[to_email])
                 email.send()
