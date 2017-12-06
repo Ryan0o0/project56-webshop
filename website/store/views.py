@@ -86,7 +86,7 @@ def register(request):
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
                 })
-                mail_subject = 'Activate your account!'
+                mail_subject = 'Activeer uw account!'
                 to_email = form.cleaned_data.get('email')
                 email = EmailMessage(mail_subject, message, to=[to_email])
                 email.send()
@@ -110,6 +110,34 @@ def about(request):
             return searchPost(request)
 
     return render(request, 'about.html')
+
+def servicevoorwaarden (request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
+    return render(request, 'servicevoorwaarden.html')
+
+def retourneren (request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
+    return render(request, 'retourneren.html')
+
+def privacy(request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
+    return render(request, 'privacy.html')
+
+def betaling(request):
+    if request.method == 'POST':
+        if 'searchtext' in request.POST:
+            return searchPost(request)
+
+    return render(request, 'betaling.html')
 
 def product(request, item):
     if request.method == 'POST':
