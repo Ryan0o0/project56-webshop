@@ -1632,13 +1632,22 @@ label{
 	width: 90%;
 }
 
-strong, b, .servicetext i{
+strong, b, .servicetext t{
 	color: #363232;
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
 }
 
+.servicetext t{
+	font-size: 14px;
+}
+
+strong, b, .servicetext i{
+	color: #363232;
+	font-family: "Gabriola",Arial,Helvetica,sans-serif;
+}
+
 .servicetext i{
-	font-size: 12px;
+	font-size: 21px;
 }
 
 .profilesection {
@@ -3035,6 +3044,7 @@ h1{
 p{
 	font-family: "Open Sans",Arial,Helvetica,sans-serif;
 	font-size: 13px;
+	margin-left: 13px;
 	line-height: 25px;
 }
 
