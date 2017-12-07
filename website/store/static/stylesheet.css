@@ -2278,7 +2278,10 @@ button{
 .list img{
 	max-width: 81%;
 	height: 250px;
-	border: solid 1px #686363;
+	border: solid 1px #00000014;
+	border-radius: 5px;
+	padding: 1px;
+	background-color: #c1c1c15c;
 }
 
 .list li:first-child{
