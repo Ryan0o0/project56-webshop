@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 
 
 def postalcode_validator(postalcode):
+    postalcode = postalcode_reformer(postalcode)
     if len(postalcode) != 6:  # <--- ZET HIER CONDITIE VOOR POSTCODE
         raise ValidationError(_('Lengte van de postcode moet gelijk zijn aan 6 characters.'))
     else:
@@ -12,6 +13,12 @@ def postalcode_validator(postalcode):
         for i in range(4, 5):
             if not (str(postalcode[i]).isalpha()):
                 raise ValidationError(_('Laatste 2 characters moeten hoofdletters zijn'))
+
+def postalcode_reformer(postalcode):
+    if postalcode[4].isspace():
+        postalcode = postalcode[:3] + postalcode[5:]
+    postalcode = postalcode[:3] + postalcode[4:].upper()
+    return postalcode
 
 def telephone_validator(telephone):
     list = [8, 10]
