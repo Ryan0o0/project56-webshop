@@ -35,4 +35,7 @@ urlpatterns = [
     url(r'^account/bestelling$', views.orderDetails, name='orderdetails'),
     url(r'^emailstyle/$', views.emailstyle, name="emailstyle"),
     url(r'^admin/$', adminviews.admin, name="admin"),
+    url(r'^admin/searchusers/?/$', adminviews.searchusers, name="searchusers"),
+    url(r'^admin/edit/user/(?P<userid>\d+)/$', adminviews.edituser, name="edituser"),
+
 ]

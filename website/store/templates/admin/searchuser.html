@@ -1,0 +1,46 @@
+{% extends "admin/frames/adminbase.html" %}
+{% load admin.adminusertags %}
+{% load static %}
+{% block content %}
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+    <div class="left commoncolor">
+
+    </div>
+    <div class="middle">
+
+    <form method="GET">
+        Search query: <input type="text" name="query" pattern="[a-zA-Z0-9@.]+" title="Gebruikers ID, e-mail of naam">
+        <input type="submit">
+    </form>
+
+    {% userFound query as usersFoundBool %}
+    {% if usersFoundBool %}
+        <p>Resultaten voor {{ query }}:</p>
+        {% autoescape off %}{% displayResults query %}{% endautoescape %}
+    {% else %}
+        <div>Oeps niets gevonden!</div>
+    {% endif %}
+
+    </div>
+    <div class="right commoncolor">
+
+    </div>
+{% endblock %}

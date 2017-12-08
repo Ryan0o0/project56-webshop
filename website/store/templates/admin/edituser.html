@@ -1,0 +1,45 @@
+{% extends "admin/frames/adminbase.html" %}
+{% load admin.adminusertags %}
+{% load static %}
+{% block content %}
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+    <div class="left commoncolor">
+
+    </div>
+    <div class="middle">
+
+    <form method="GET">
+        Search query: <input type="text" name="query" pattern="[a-zA-Z0-9-@-.-]+" title="Gebruikers ID of gebruikersnaam">
+        <input type="submit">
+    </form>
+
+    {% userFound query as usersFoundBool %}
+    {% if usersFoundBool %}
+        <p>Editten van --id--:</p>
+    {% else %}
+        <div>Er is geen gebruiker gevonden met dit id.</div>
+    {% endif %}
+
+    </div>
+    <div class="right commoncolor">
+
+    </div>
+{% endblock %}
