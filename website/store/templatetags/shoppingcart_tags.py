@@ -17,13 +17,11 @@ def displayCartItem(e, userAuth):
     amounttxt += "</select><input type='text' id='meer' value='" + str(e.amount) + "' style='display: none;' class='amountinput' />"
 
         # IMG - NAAM - AANTAL - PRIJS
-    html += "<li class='cartitem'><div class='productcartimg'><a href='/product/" + str(e.prodNum) + "'><img src='" + getProdImage(e.prodNum) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a></div>"
+    html += "<li class='cartitem' style='background-color: #e4d594;'><div class='productcartimg'><a href='/product/" + str(e.prodNum) + "'><img src='" + getProdImage(e.prodNum) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a></div>"
     if userAuth:
-        html += "<div class='textplace'><button name='removeFromCartButton' value='" + str(e.prodNum) + "' class='remove'><i class='fa fa-trash' aria-hidden='true'></i><p>verwijderen</p></button><button name='moveToWishListButton' value='" + str(e.prodNum) + "' class='movetowishlist'><i class='fa fa-heart' aria-hidden='true'></i><p>Voeg toe aan verlanglijstje</p></button><p class='title'>" + e.prodNum.prodName + "</p>"
+        html += "<div class='textplace' style='background-color: #e4d594; vertical-align: top;'><ul><li style='width: 100%;'><p class='title'>" + e.prodNum.prodName + "</p></li><li style='width: 50%;'><p>Prijs: €" + str(e.amount * e.prodNum.prodPrice) + "</p></li><li style='width: 50%;'><p>Aantal: " + amounttxt + "</p></li>" + "<li style='width: 40%;'><button name='removeFromCartButton' value='" + str(e.prodNum) + "' class='remove'><i class='fa fa-trash' aria-hidden='true'></i><p>Verwijderen</p></button></li><li style='width: 60%;'><button name='moveToWishListButton' value='" + str(e.prodNum) + "' class='movetowishlist'><i class='fa fa-heart' aria-hidden='true'></i><p>Toevoegen verlanglijstje</p></button></li></ul>"
     else:
-        html += "<div class='textplace'><button name='removeFromCartButton' value='" + str(e.prodNum) + "' class='remove'><i class='fa fa-trash' aria-hidden='true'></i><p>Verwijderen</p></button><p class='title'>" + e.prodNum.prodName + "</p>"
-    html += "<p>Aantal: " + amounttxt + "</p>"
-    html += "<p>Prijs: €" + str(e.amount * e.prodNum.prodPrice) + "</p>"
+        html += "<div class='textplace' style='background-color: #e4d594; vertical-align: top;'><ul><li style='width: 100%;'><p class='title'>" + e.prodNum.prodName + "</p></li><li style='width: 50%;'><p>Prijs: €" + str(e.amount * e.prodNum.prodPrice) + "</p></li><li style='width: 50%;'><p>Aantal: " + amounttxt + "</p></li>" + "<li style='width: 100%;'><button name='removeFromCartButton' value='" + str(e.prodNum) + "' class='remove'><i class='fa fa-trash' aria-hidden='true'></i><p>Verwijderen</p></button></li></ul>"
     html += "</div></li>"
     html += "</ul>"
     return html
