@@ -142,6 +142,9 @@ def queryVerbeterFunctie(query):
           query = queryVerbeterFunctie(query[1:])
         else:
           query = "Empty Query"
+      ## Replace spider-man with Spiderman
+      if query[i-1:i+6].lower() == "spiderman":
+          query = "Spider-man"
       ## Replace ironman with Iron Man
       if query[i-1:i+6].lower() == "ironman":
         query = "Iron Man"
