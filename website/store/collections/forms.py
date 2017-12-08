@@ -6,6 +6,7 @@ from django.db.models import Max
 from ..validators.formvalidators import *
 from ..models import Customers, Address
 
+#All forms are called in the views
 
 # our new form
 class ContactForm(forms.Form):
@@ -16,6 +17,7 @@ class ContactForm(forms.Form):
         widget=forms.Textarea
     )
 
+    #Hernoemen van de velden naar nederlands
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         self.fields['contact_name'].label = "Voor- en achternaam:"
@@ -31,6 +33,7 @@ class LogginginForm(forms.Form):
         super(LogginginForm, self).__init__(*args, **kwargs)
         self.fields['password'].label = "Wachtwoord:"
 
+    #Geef een error wanneer inloggegevens niet overeen komen
     def clean(self):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
@@ -41,12 +44,13 @@ class LogginginForm(forms.Form):
         return self.cleaned_data
 
 
-
+#Regestratie form, we geven een django UserCreationForm mee als attribuut die we dan kunnen aanpassen
 class RegistrationForm(UserCreationForm):
     firstname = forms.CharField(required=True, label="Voornaam:")
     lastname = forms.CharField(required=True, label="Achternaam:")
     email = forms.EmailField(required=True, label="E-mail:")
 
+    #Welke velden de form moet hebben
     class Meta:
         model = User
         fields = ("firstname", "lastname", "email", "password1", "password2")
@@ -102,10 +106,18 @@ class CustomerDetails(forms.Form):
     customer_city = forms.CharField(required=True, max_length=25)
     customer_postalcode = forms.CharField(required=True)
 
+    #Nakijken of de postcode uit 4 cijfers en 2 leters bestaat
     def clean_customer_postalcode(self):
         CustomerpostalCodeIn = self.cleaned_data['customer_postalcode']
         postalcode_validator(CustomerpostalCodeIn)
         return self.cleaned_data['customer_postalcode']
+
+    #Nakijken of het telefoonnummer bestaat uit 8 of 10 cijfers
+    def clean_customer_phone(self):
+        CustomertelephoneIn = self.cleaned_data['customer_phone']
+        telephone_validator(CustomertelephoneIn)
+        return self.cleaned_data['customer_phone']
+
 
     def __init__(self, *args, **kwargs):
         super(CustomerDetails, self).__init__(*args, **kwargs)
@@ -135,6 +147,7 @@ class CheckoutForm(forms.Form):
         self.fields['card_edy'].label = ""
         self.fields['card_CVC'].label = "CVC/CID:"
 
+    #Nakijken van kaart gegevens
     def clean_card_number(self):
         card_numberIn = self.cleaned_data['card_number']
         creditcard_validator(card_numberIn, 16)

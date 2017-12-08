@@ -14,11 +14,14 @@ def postalcode_validator(postalcode):
                 raise ValidationError(_('Laatste 2 characters moeten hoofdletters zijn'))
 
 def telephone_validator(telephone):
-    if len(telephone) != 8 and len(telephone) != 10:
+    list = [8, 10]
+    if telephone == "nvt" or len(telephone) == 0:
+        return telephone
+    elif len(str(telephone)) not in list:
         raise ValidationError(_('Telefoonnummer is niet geldig!'))
     else:
         if not(str(telephone)).isdigit():
-            raise ValidationError(_('Telefoonnummer is niet geldig'))
+            raise ValidationError(_('Telefoonnummer is niet geldig!'))
 
 def creditcard_validator(cardnumber, length):
     if (len(str(cardnumber))) != length:
