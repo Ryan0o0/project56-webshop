@@ -82,6 +82,7 @@ class RegistrationForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         user.username = self.cleaned_data['email']
 
+
         #Maak voor elke AUTH ook een customer aan met het zelfde ID
         customerEntry = Customers(customerID=user.id, email=user.email, name=user.first_name, surname=user.last_name, telephone='nvt', isRegistered=True)
         customerEntry.save()
@@ -133,11 +134,6 @@ class CustomerDetails(forms.Form):
 class CheckoutForm(forms.Form):
 
     card_name = forms.CharField(required=True)
-    card_number = forms.IntegerField(required=True, max_value=9999999999999999, min_value=1000000000000000)
-    card_edm = forms.IntegerField(required=True, max_value=2018, min_value=1800)
-    card_edy = forms.IntegerField(required=True, max_value=12, min_value=1)
-    card_CVC = forms.IntegerField(required=True, max_value=999, min_value=100)
-
     card_number = forms.IntegerField(required=True)
     card_edm = forms.IntegerField(required=True, max_value=12, min_value=1)
     card_edy = forms.IntegerField(required=True, max_value=2030, min_value=2017)
@@ -235,3 +231,56 @@ class PasswordForm(PasswordChangeForm):
         self.error_messages = {
             'password_mismatch': ("Oeps! De twee opgegeven wachtwoorden kwamen niet overeen! Probeer het opnieuw!"),
         }
+
+
+class AdminRegistrationForm(UserCreationForm):
+    firstname = forms.CharField(required=True, label="Voornaam:")
+    lastname = forms.CharField(required=True, label="Achternaam:")
+    email = forms.EmailField(required=True, label="E-mail:")
+
+    class Meta:
+        model = User
+        fields = ("firstname", "lastname", "email", "password1", "password2")
+
+    def clean_email(self):
+        usernameEmail = self.cleaned_data['email']
+        if User.objects.filter(username=usernameEmail).exists():
+            raise forms.ValidationError('Dit e-mailadres is al ingebruik, vul een ander e-mailadres in')
+        return self.cleaned_data['email']
+
+    def __init__(self, *args, **kwargs):
+        super(AdminRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].label = "Wachtwoord:"
+        self.fields['password2'].label = "Herhaling wachtwoord:"
+
+    # def create_superuser(self):
+    #     user = User.objects.get(username=self.cleaned_data['email'])
+    #     user.is_superuser = True
+    #     user.is_staff = True
+    #     user.user_permissions = True
+    #     user.save()
+
+    def save(self, commit=True):
+        user = super(AdminRegistrationForm, self).save(commit=False)
+        maxID = Customers.objects.all().aggregate(Max('customerID'))
+        if maxID.get('customerID__max') == None:
+            user.id = 1
+        else:
+            user.id = maxID.get('customerID__max') + 1
+
+        user.first_name = self.cleaned_data['firstname']
+        user.last_name = self.cleaned_data['lastname']
+        user.email = self.cleaned_data['email']
+        user.username = self.cleaned_data['email']
+
+        AdminEntry = Customers(customerID=user.id, email=user.email, name=user.first_name, surname=user.last_name,
+                                  telephone='nvt', isRegistered=True)
+        AdminEntry.save()
+
+        AdminAddress = Address(customerID=Customers(customerID=user.id))
+        AdminAddress.save()
+
+        if commit:
+            user.save()
+
+        return user

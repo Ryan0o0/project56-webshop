@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from store.collections.forms import AdminRegistrationForm
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 #Admin index - comicfire.com/admin/
 from store.database.adminGetData import ifUserExists
@@ -26,3 +29,16 @@ def edituser(request, userid):
     return render(request, 'admin/edituser.html', {
 
     })
+
+def createuser(request):
+    if request.method == 'POST':
+        form = AdminRegistrationForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(id=request.user.id)
+            user.is_staff = True
+            user.save()
+            form.save()
+            return HttpResponse("Nope")
+    else:
+        form = AdminRegistrationForm()
+    return render(request, 'admin/createuser.html', {'form' :  form})

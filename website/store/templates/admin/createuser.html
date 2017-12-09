@@ -1,0 +1,9 @@
+{% extends "admin/frames/adminbase.html" %}
+{% block content %}
+  <h2>Maak een admin account</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Opslaan</button>
+  </form>
+{% endblock %}
