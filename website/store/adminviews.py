@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from store.collections.forms import AdminRegistrationForm
+from store.collections.adminforms import AdminRegistrationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
