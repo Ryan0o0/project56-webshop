@@ -1,9 +1,14 @@
 <div class="navwrap"><div class="navbar">
-    <ul>
-        <a href="#"><li><p>Home</p></li></a>
-        <a href="/admin/searchusers/"><li><p>Klanten</p></li></a>
-        <a href="#"><li><p>Pagina 3</p></li></a>
-        <a href="#"><li><p>Pagina 4</p></li></a>
+	<ul>
+	{% if user.is_authenticated %}
+		{% if user.is_staff %}
+        <a href="/admin/"><li><p><i class="fa fa-home" aria-hidden="true"></i>Home</p></li></a>
+        <a href="/admin/searchusers/"><li><p><i class="fa fa-users" aria-hidden="true"></i>Klanten</p></li></a>
+        <a href="#"><li><p><i class="fa fa-history" aria-hidden="true"></i>Bestellingen</p></li></a>
+        <a href="#"><li><p><i class="fa fa-cog" aria-hidden="true"></i>Instellingen</p></li></a>
+		{% endif %}
+	{% else %}
+	{% endif %}
     </ul>
 </div>
 </div>
