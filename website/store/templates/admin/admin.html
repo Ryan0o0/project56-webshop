@@ -3,17 +3,24 @@
 {% load static %}
 {% block content %}
     <div class="left commoncolor"></div>
-    <div class="middle">
+    <div class="middle" style="background-color: #ebe9e9; border: none;">
 	{% if user.is_authenticated %}
+	<div class="welcome">
 		{% if user.is_staff %}
 				<p>Welkom {{ user.first_name }} !</p>
 				<p>Op dit paneel kunt u admin handelingen verrichten zoals gebruikers en orders aanpassen en/of verwijderen.</p>
 				<p>Klik op het menu-optie "Klanten" om te beginnen, of klik <b><a href='/admin/searchusers/'>hier</a></b></p>
 		{% else %}
-				<p>Helaas ben u niet bevoegd.</p>
+				<p>Helaas bent u niet bevoegd.</p>
 		{% endif %}
+	</div>
 	{% else %}
-	<div class="sectionwrap"><div class="sectionbar"><h1>Inloggen</h1></div><div class="section"><div class="sectioninput"><p>Email</p><input type="text" placeholder="thelegend27@gmail.com"><p>Wachtwoord</p><input type="password" placeholder="**********"><input type="submit"></div></div></div>
+	<div class="sectionwrap"><div class="sectionbar">
+	<h1>Inloggen</h1>
+	<form method="POST">
+		{% csrf_token %}
+		</div><div class="section"><div class="sectioninput">{{ form.as_p }}<button type="submit" name="loginbutton">Login</button></div></div></div>
+	</form>
 	{% endif %}
 	</div>
 		<div class="right commoncolor"></div>

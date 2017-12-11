@@ -24,27 +24,27 @@
     <div class="left commoncolor">
 
     </div>
-    <div class="middle">
 	{% if user.is_authenticated %}
 		{% if user.is_staff %}
-				<form method="GET">
-					Search query: <input type="text" name="query" pattern="[a-zA-Z0-9@.]+" title="Gebruikers ID, e-mail of naam">
-					<input type="submit">
-				</form>
-
+		<div class="middle">
 				{% userFound query as usersFoundBool %}
 				{% if usersFoundBool %}
-				<p>Resultaten voor {{ query }}:</p>
 				{% autoescape off %}{% displayResults query %}{% endautoescape %}
 				{% else %}
 				<div>Oeps niets gevonden!</div>
 				{% endif %}
 		{% else %}
-				<p>Helaas ben u niet bevoegd.</p>
+		<div class="middle" style="background-color: #ebe9e9; border: none;">
+				<div class="welcome">
+				<p>Helaas bent u niet bevoegd.</p>
+				</div>
 		{% endif %}
 	{% else %}
-	<div class="sectionwrap"><div class="sectionbar"><h1>Inloggen</h1></div><div class="section"><div class="sectioninput"><p>Email</p><input type="text" placeholder="thelegend27@gmail.com"><p>Wachtwoord</p><input type="password" placeholder="**********"><input type="submit"></div></div></div>
-	
+	<div class="middle" style="background-color: #ebe9e9; border: none;">
+	<p style="margin-left: 50px;">Redirecting...</p>
+	<script>
+		$(location).attr('href', '/admin/');
+	</script>
 	{% endif %}
     </div>
     <div class="right commoncolor">
