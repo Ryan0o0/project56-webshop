@@ -196,6 +196,7 @@ class AccountForm(forms.ModelForm):
         self.fields['city'].label = "Stad:"
         self.fields['postalcode'].label = "Postcode:"
 
+
 class CustomerInfoForm(forms.Form):
 
     name = forms.CharField(required=True, max_length=50)
@@ -237,3 +238,46 @@ class PasswordForm(PasswordChangeForm):
         self.error_messages = {
             'password_mismatch': ("Oeps! De twee opgegeven wachtwoorden kwamen niet overeen! Probeer het opnieuw!"),
         }
+
+
+class EditUserForm(forms.Form):
+
+    name = forms.CharField(required=False, max_length=50)
+    surname = forms.CharField(required=False, max_length=50)
+    telephone = forms.CharField(required=False)
+    address = forms.CharField(required=False, max_length=100)
+    number = forms.CharField(required=False, max_length=10)
+    city = forms.CharField(required=False, max_length=25)
+    postalcode = forms.CharField(required=False)
+
+    class Meta:
+        model = Customers
+        fields = (
+            'name',
+            'surname',
+            'telephone',
+            'address',
+            'number',
+            'city',
+            'postalcode',
+        )
+
+    def clean_telephone(self):
+        telephoneIn = self.cleaned_data['telephone']
+        telephone_validator(telephoneIn)
+        return self.cleaned_data['telephone']
+
+    def clean_postalcode(self):
+        postalCodeIn = self.cleaned_data['postalcode']
+        postalcode_validator(postalCodeIn)
+        return self.cleaned_data['postalcode']
+
+    def __init__(self, *args, **kwargs):
+        super(EditUserForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = "Voornaam:"
+        self.fields['surname'].label = "Achternaam:"
+        self.fields['telephone'].label = "Telefoonnummer:"
+        self.fields['address'].label = "Adres:"
+        self.fields['number'].label = "Huisnummer:"
+        self.fields['city'].label = "Stad:"
+        self.fields['postalcode'].label = "Postcode:"

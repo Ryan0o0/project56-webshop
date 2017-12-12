@@ -23,13 +23,28 @@ def updateAddress(request):
     updateEntry.postalcode= request.POST.get('postalcode', '')
     updateEntry.save()
 
+
 def updateCustomerInfo(request):
     updateInfo = Customers.objects.get(customerID=request.user.id)
     updateInfo.name = request.POST.get('name', '')
     updateInfo.surname = request.POST.get('surname', '')
     updateInfo.telephone = request.POST.get('telephone', '')
+    print(updateInfo.telephone)
     updateInfo.save()
 
+
+def editUser(request, userid):
+    updateUser = Customers.objects.get(customerID=userid)
+    updateAddress = Address.objects.get(customerID=Customers(userid))
+    print(updateUser)
+    updateUser.name = request.POST.get('name', '')
+    updateUser.surname = request.POST.get('surname', '')
+    updateUser.telephone = request.POST.get('telephone', '')
+    updateAddress.address= request.POST.get('address', '')
+    updateAddress.number= request.POST.get('number', '')
+    updateAddress.city= request.POST.get('city', '')
+    updateAddress.postalcode= request.POST.get('postalcode', '')
+    updateUser.save()
 
 
 def getOrderAmount(request):
@@ -55,11 +70,8 @@ def checkIfAuthUserExist(userid):
 def deleteUser(request):
     userId = int(request.POST['deleteuser'])
     if checkIfCustomerExist(userId):
-
         #We do not have to delete the orders or address associated with this user, Django does this automatically :D
         Customers.objects.filter(customerID=userId).delete()
 
     if checkIfAuthUserExist(userId):
         User.objects.filter(id=userId).delete()
-
-

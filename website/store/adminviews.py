@@ -42,15 +42,27 @@ def searchusersresults(request):
         'query' : getUserPar,
     })
 
+
 #Class based view instead of Function based view
 class EditUser(View):
     def get(self, request, userid):
         return render(request, 'admin/edituser.html', {
             'userid': userid,
         })
+
     def post(self, request, userid):
         if 'deleteuser' in request.POST:
             deleteUser(request)
             return render(request, 'admin/userdeleted.html', {
                 'userid': userid,
             })
+
+        if 'edituser' in request.POST:
+            print("edituser")
+            user_form = EditUserForm(request.POST)
+            print(user_form)
+            if user_form.is_valid():
+                print("Succes!")
+                editUser(request, userid)
+                return redirect('/admin/')
+            return render(request, 'admin/edituser.html', {'userid': userid, 'user_form': user_form})
