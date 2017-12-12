@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from store.collections.adminforms import AdminRegistrationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -34,11 +34,8 @@ def createuser(request):
     if request.method == 'POST':
         form = AdminRegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.get(id=request.user.id)
-            user.is_staff = True
-            user.save()
             form.save()
-            return HttpResponse("Nope")
+            return redirect('/admin/')
     else:
         form = AdminRegistrationForm()
     return render(request, 'admin/createuser.html', {'form' :  form})
