@@ -1847,7 +1847,7 @@ table{
 .table1 table tr:hover td {
 	background: #f2f2f2;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
-	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
 }
 
 .cartwrap {list-style-type: none;list-style-position: inside;padding: 0;margin: 0;-webkit-padding-start: 0;-webkit-padding-end: 0;-webkit-margin-before: 0;-webkit-margin-after: 0;display: block;width: 100%;}
@@ -2263,6 +2263,18 @@ button{
 	margin: 0 auto;
 	width: 80%;
 	position: relative;
+	font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font: 18px Helvetica, Arial, sans-serif;
+}
+
+#contacttext {
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font: 18px Helvetica, Arial, sans-serif;
+}
+
+.contacttext {
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font: 18px Helvetica, Arial, sans-serif;
 }
 
 .about {
@@ -2322,7 +2334,7 @@ button{
 }
 
 .adresform input[type=text]{
-	
+
 }
 
 .loginsection2 {
@@ -3414,8 +3426,8 @@ p{
   bottom: -20px;
   right: 50px;
   border: 0;
-  border-right-width:53px; 
-  border-bottom-width:40px; 
+  border-right-width:53px;
+  border-bottom-width:40px;
   border-style:solid;
   border-color:transparent #79c083;
   /* reduce the damage in FF3.0 */
