@@ -46,8 +46,13 @@ def searchusersresults(request):
 #Class based view instead of Function based view
 class EditUser(View):
     def get(self, request, userid):
+        AddressData = Address.objects.get(customerID=userid)
+        UserData = Customers.objects.get(customerID=userid)
+        Data = {'address' : AddressData.address, 'number' : AddressData.number, 'city' : AddressData.city, 'postalcode' : AddressData.postalcode, 'name': UserData.name, 'surname': UserData.surname, 'telephone': UserData.telephone}
+        user_form = EditUserForm(initial=Data)
         return render(request, 'admin/edituser.html', {
             'userid': userid,
+            'user_form': user_form,
         })
 
     def post(self, request, userid):
@@ -58,11 +63,9 @@ class EditUser(View):
             })
 
         if 'edituser' in request.POST:
-            print("edituser")
             user_form = EditUserForm(request.POST)
             print(user_form)
             if user_form.is_valid():
-                print("Succes!")
                 editUser(request, userid)
-                return redirect('/admin/')
+                return redirect('/admin/searchusers/')
             return render(request, 'admin/edituser.html', {'userid': userid, 'user_form': user_form})
