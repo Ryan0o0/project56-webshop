@@ -1,7 +1,7 @@
 from django import template
 from django.db.models import QuerySet
 from ...collections.tools import *
-
+from django.contrib.auth.models import User
 from ...database.adminGetData import *
 from django.shortcuts import *
 
@@ -11,6 +11,14 @@ register = template.Library()
 def userFound(query):
     #Deze functie checkt simpelweg of er wel een user is die overeenkomt met de ID of Naam
     return ifUserExists(query)
+
+@register.simple_tag()
+def getUserRole(userid):
+    userid = int(userid)
+    if User.objects.get(id=userid).is_superuser == True:
+        return "Sysop"
+    else:
+        return "Medewerker"
 
 @register.simple_tag()
 def displayResults(query):
@@ -38,9 +46,9 @@ def displayResults(query):
             "<td><form action='/admin/edit/user/" + str(e.customerID) +"'><button type='submit' value='Bewerken'/>Bewerken</button></form></td></tr>"
     resulthtml += "</table></div>"
     if query != "":
-	    counthtml += "<div class='aantal'><p>Aantal zoekresultaten voor '{0}': {1}</p></div>".format(query, str(rowcount))
+        counthtml += "<div class='aantal'><p>Aantal zoekresultaten voor '{0}': {1}</p></div>".format(query, str(rowcount))
     else:
-	    counthtml = "<div class='aantal'><p>Totaal aantal zoekresultaten: {}</p></div>".format(str(rowcount))
+        counthtml = "<div class='aantal'><p>Totaal aantal zoekresultaten: {}</p></div>".format(str(rowcount))
     html = searchhtml + counthtml + resulthtml
     return html
 

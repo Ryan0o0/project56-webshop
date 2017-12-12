@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 #Admin index - comicfire.com/admin/
+from django.views import View
+
 from store.database.adminGetData import ifUserExists
 from django.contrib.auth import login, logout, update_session_auth_hash
 from .collections.tools import *
@@ -40,8 +42,15 @@ def searchusersresults(request):
         'query' : getUserPar,
     })
 
-#De edituser functie
-def edituser(request, userid):
-    return render(request, 'admin/edituser.html', {
-
-    })
+#Class based view instead of Function based view
+class EditUser(View):
+    def get(self, request, userid):
+        return render(request, 'admin/edituser.html', {
+            'userid': userid,
+        })
+    def post(self, request, userid):
+        if 'deleteuser' in request.POST:
+            deleteUser(request)
+            return render(request, 'admin/userdeleted.html', {
+                'userid': userid,
+            })
