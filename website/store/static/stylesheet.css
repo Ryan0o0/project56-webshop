@@ -286,7 +286,7 @@ body {
 }
 
 .userhalf{
-	width: 49.29%;
+	width: 48.6%;
 	height: 100%;
 	float: left;
 	border-right: solid 0.1vh #4f9373;
@@ -327,6 +327,13 @@ body {
 	width: 50%;
 	float: left;
 	height: 100%;
+	/* border-right: solid 0.1vh #4f9373; */
+}
+
+.admin{
+	width: 33%;
+	float: left;
+	height: 100%;
 }
 
 .user i{
@@ -347,11 +354,11 @@ body {
 	font-size: 2vh;
 }
 
-.userhalf:hover, .wishlisthalf:hover{
+.userhalf:hover, .wishlisthalf:hover, .admin:hover{
 	background-color: #584f4f;
 }
 
-.userhalf:hover > i{
+.userhalf:hover > i, .wishlisthalf:hover > i, .admin:hover > i{
 	font-size: 3.9vh;
 	transition: 0.1s;
 }

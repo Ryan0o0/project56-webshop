@@ -20,19 +20,33 @@
             </a>
         </div>
     </div>
+	{% if not user.is_staff %}
 <div class="usersection">
     <ul>
         <li><div class="user">
 		<div class="userann">
-            <p>Welkom Selim</p></div>
+            <p>Welkom {{ user.first_name }}</p></div>
 			<div class="userlinks"><a href="/account/"><div class="userhalf"><i class="fa fa-user" aria-hidden="true"></i></div></a><a href="/verlanglijst/"><div class="wishlisthalf"><i class="fa fa-heart" aria-hidden="true"></i></div></a></div>
             </div></li>
               <a href="/logout"><li>
             <p class="lgntext commoncolor"> <i class="fa fa-sign-out" aria-hidden="true"></i>Uitloggen</p>
         </li>
 		</a>
-        
     </ul></div>
+	{% else %}
+	<div class="usersection">
+    <ul>
+        <li><div class="user">
+		<div class="userann">
+            <p>Welkom {{ user.first_name }}</p></div>
+			<div class="userlinks"><a href="/account/"><div class="userhalf" style="width: 33%;"><i class="fa fa-user" aria-hidden="true"></i></div></a><a href="/verlanglijst/"><div class="wishlisthalf" style="width: 33%; border-right: solid 0.1vh #4f9373"><i class="fa fa-heart" aria-hidden="true"></i></div></a><a href="/admin"><div class="admin" style="width: 33%;"><i class="fa fa-area-chart" aria-hidden="true"></i></div></a></div>
+            </div></li>
+              <a href="/logout"><li>
+            <p class="lgntext commoncolor"> <i class="fa fa-sign-out" aria-hidden="true"></i>Uitloggen</p>
+        </li>
+		</a>
+    </ul></div>
+	{% endif %}
     {% else %}
     <div class="logowrap commoncolor">
         <div class="logo">

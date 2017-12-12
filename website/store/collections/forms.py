@@ -32,6 +32,8 @@ class LogginginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(LogginginForm, self).__init__(*args, **kwargs)
         self.fields['password'].label = "Wachtwoord:"
+        self.fields['password'].widget.attrs.update({'placeholder': '**********'})
+        self.fields['username'].widget.attrs.update({'placeholder': 'deadpool@comicfire.com'})
 
     #Geef een error wanneer inloggegevens niet overeen komen
     def clean(self):

@@ -1,6 +1,22 @@
+{% load admin.adminusertags %}
+
 <div class="header">
-<div class="searchdiv">
-<div class="searchbox">
-<input type="text" placeholder="Je zoek query"></div></div>
+{% if user.is_authenticated %}
+<div class="userdiv">
+	{% if user.is_staff %}
+	<div class="userbox">
+		<ul>
+			<a href='/account/'><li><p><i class="fa fa-user" aria-hidden="true"></i>{{ user.first_name }}</p><p id="status">{% getUserRole user.id %}</p></li></a>
+			<a href='/logout'><li><p><i class="fa fa-sign-out" aria-hidden="true"></i>Uitloggen</p></li></a>
+		</ul>
+	{% else %}
+	<div class="userbox" style="width: 12vh;">
+		<ul>
+			<a href='/account/' style="width: 100%; cursor: pointer;"><li style="width: 100%;"><p><i class="fa fa-user" aria-hidden="true"></i>{{ user.first_name }}</p><p id="status">Klant</p></li></a>
+		</ul>
+	{% endif %}
+	</div>
+</div>
+{% endif %}
 <div class="logodiv"><span><h1>Comicfire Admin Paneel</h1></span></div>
 </div>

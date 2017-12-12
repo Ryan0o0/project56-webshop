@@ -1,4 +1,5 @@
 from ..models import Address, Customers, Orders
+from django.contrib.auth.models import User
 
 
 def saveAddress(request):
@@ -44,5 +45,21 @@ def checkOrder(request, prodnum):
     if Orders.objects.filter(customerID=Customers(request.user.id), orderNum=prodnum).exists():
         return True
     return False
+
+def checkIfCustomerExist(userid):
+    return Customers.objects.filter(customerID=userid).exists()
+
+def checkIfAuthUserExist(userid):
+    return User.objects.filter(id=userid).exists()
+
+def deleteUser(request):
+    userId = int(request.POST['deleteuser'])
+    if checkIfCustomerExist(userId):
+
+        #We do not have to delete the orders or address associated with this user, Django does this automatically :D
+        Customers.objects.filter(customerID=userId).delete()
+
+    if checkIfAuthUserExist(userId):
+        User.objects.filter(id=userId).delete()
 
 

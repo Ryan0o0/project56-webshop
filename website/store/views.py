@@ -225,6 +225,7 @@ def logoutview(request):
 def loginview(request):
     args = {}
     if request.method == "POST":
+        print(request.POST)
         if 'searchtext' in request.POST:
             return searchPost(request)
         elif 'loginbutton' in request.POST:
