@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.db.models import Max
 
-from store.models import Customers, Address
+from store.models import Customers, Address, Products, ProductDetails
 
 
 class AdminRegistrationForm(UserCreationForm):
@@ -49,8 +50,7 @@ class AdminRegistrationForm(UserCreationForm):
         user.is_staff = self.cleaned_data['isstaff']
 
         #Every new User in the Auth table also requires a Customer entity
-        newEntryCustomer = Customers(customerID=user.id, email=user.email, name=user.first_name, surname=user.last_name,
-                                  telephone='nvt', isRegistered=True)
+        newEntryCustomer = Customers(customerID=user.id, email=user.email, name=user.first_name, surname=user.last_name, telephone='nvt', isRegistered=True)
         newEntryCustomer.save()
 
         #Every Customer requires an Address entity
@@ -61,3 +61,57 @@ class AdminRegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+class ProductsRegistrationForm(ModelForm):
+    prodName = forms.CharField(required=True, label="Titel:")
+    prodPrice = forms.DecimalField(required=True, label="Prijs:")
+    prodStock = forms.IntegerField(required=True, label="Quantiteit:")
+    genre = forms.CharField(required=False, label='Genre:')
+    type = forms.CharField(required=False, label='Type:')
+    publisher = forms.CharField(required=True, label='Uitgever:')
+    totalPages = forms.IntegerField(required=True, label='Bladzijden:')
+    language = forms.CharField(required=False, label='Taal:')
+    rating = forms.IntegerField(required=False, label='Score:')
+    author = forms.CharField(required=True, label='Schrijver:')
+    desc = forms.CharField(required=True, label='Beschrijving:')
+    imageLink = forms.CharField(required=False, label='Foto:')
+    pubDatum = forms.CharField(required=False, label='Uitgeefdatum:')
+
+    class Meta:
+        model = Products
+        fields = ("prodNum", "prodName", "prodPrice", "prodStock")
+
+    def save(self, commit=True):
+        products = super(ProductsRegistrationForm, self).save(commit=False)
+        maxID = Products.objects.all().aggregate(Max('prodNum'))
+        if maxID.get('prodNum__max') == None:
+            products.id = 1
+        else:
+            products.id = maxID.get('prodNum__max') + 1
+
+        products.prodName = self.cleaned_data['prodName']
+        products.prodPrice = self.cleaned_data['prodPrice']
+        products.prodStock = self.cleaned_data['prodStock']
+        products.genre = self.cleaned_data['genre']
+        products.type = self.cleaned_data['type']
+        products.publisher = self.cleaned_data['publisher']
+        products.totalPages = self.cleaned_data['totalPages']
+        products.language = self.cleaned_data['language']
+        products.rating = self.cleaned_data['rating']
+        products.author = self.cleaned_data['author']
+        products.desc = self.cleaned_data['desc']
+        products.imageLink = self.cleaned_data['imageLink']
+        products.pubDatum = self.cleaned_data['pubDatum']
+
+        # Data wordt ingevoerd voor het product
+        newEntryProducts = Products(prodNum=products.id, prodName=products.prodName, prodPrice=products.prodPrice, prodStock=products.prodStock)
+        newEntryProducts.save()
+
+        # Extra data wordt ingevoerd voor het product
+        newEntryProductDetails = ProductDetails(prodNum=Products(prodNum=products.id), genre=products.genre, type=products.type, publisher=products.publisher, totalPages=products.totalPages, language=products.language, rating=products.rating, author=products.author, desc=products.desc, imageLink=products.imageLink, pubDatum=products.pubDatum)
+        newEntryProductDetails.save()
+
+        if commit:
+            products.save()
+
+        return products

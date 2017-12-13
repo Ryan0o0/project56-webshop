@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from store.collections.adminforms import AdminRegistrationForm
+from store.collections.adminforms import AdminRegistrationForm, ProductsRegistrationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
@@ -68,3 +68,12 @@ class EditUser(View):
                 'userid': userid,
             })
 
+def createproduct(request):
+    if request.method == 'POST':
+        form = ProductsRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin/')
+    else:
+        form = ProductsRegistrationForm()
+    return render(request, 'admin/createproduct.html', {'form' :  form})

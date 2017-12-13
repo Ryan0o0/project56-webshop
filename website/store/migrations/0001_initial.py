@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
                 ('language', models.CharField(max_length=25)),
                 ('rating', models.IntegerField()),
                 ('author', models.CharField(max_length=50)),
-                ('desc', models.TextField()),
+                ('desc', models.CharField()),
                 ('imageLink', models.CharField(max_length=100)),
             ],
         ),

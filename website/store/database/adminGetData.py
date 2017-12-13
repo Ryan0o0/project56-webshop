@@ -1,6 +1,6 @@
 from django.db.models import Q
 
-from store.models import Customers
+from store.models import Customers, Products
 
 
 def ifUserExists(query):

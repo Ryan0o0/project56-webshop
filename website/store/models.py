@@ -33,7 +33,7 @@ class Products(models.Model):
 
     prodNum = models.IntegerField(primary_key=True)
     prodName = models.CharField(max_length=200)
-    prodPrice = models.DecimalField(max_digits=999, decimal_places=2)
+    prodPrice = models.DecimalField(max_digits=5, decimal_places=2)
     prodStock = models.IntegerField()
 
     def __str__(self):
@@ -44,16 +44,16 @@ class ProductDetails(models.Model):
         verbose_name_plural = "Product details"
 
     prodNum = models.ForeignKey(Products, db_column='prodNum')
-    genre = models.CharField(max_length=50)
-    type = models.CharField(max_length=50)
-    publisher = models.CharField(max_length=50)
+    genre = models.CharField(max_length=15)
+    type = models.CharField(max_length=15, default="Comic")
+    publisher = models.CharField(max_length=30)
     totalPages = models.IntegerField()
-    language = models.CharField(max_length=25)
+    language = models.CharField(max_length=25, default="Engels")
     rating = models.IntegerField()
-    author = models.CharField(max_length=50)
-    desc = models.TextField()
-    imageLink = models.CharField(max_length=100)
-    pubDatum = models.CharField(max_length=30, default="1 januari, 1990")
+    author = models.CharField(max_length=30)
+    desc = models.CharField(max_length=2000)
+    imageLink = models.CharField(max_length=300)
+    pubDatum = models.CharField(max_length=200, default="19-07-1999")
 
     def __str__(self):
         return (str(self.prodNum))

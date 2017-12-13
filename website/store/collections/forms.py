@@ -2,9 +2,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.forms import ModelForm
 from django.db.models import Max
 from ..validators.formvalidators import *
-from ..models import Customers, Address
+from ..models import Customers, Address, Products
 
 #All forms are called in the views
 
@@ -79,6 +80,7 @@ class RegistrationForm(UserCreationForm):
             user.id = 1
         else:
             user.id = maxID.get('customerID__max') + 1
+
         user.first_name = self.cleaned_data['firstname']
         user.last_name = self.cleaned_data['lastname']
         user.email = self.cleaned_data['email']
@@ -86,7 +88,8 @@ class RegistrationForm(UserCreationForm):
 
 
         #Maak voor elke AUTH ook een customer aan met het zelfde ID
-        customerEntry = Customers(customerID=user.id, email=user.email, name=user.first_name, surname=user.last_name, telephone='nvt', isRegistered=True)
+        customerEntry = Customers(customerID=user.id, email=user.email, name=user.first_name, surname=user.last_name,
+                                  telephone='nvt', isRegistered=True)
         customerEntry.save()
 
         #Maak voor elke Customer ook een default address
@@ -98,6 +101,67 @@ class RegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+
+#Regestratie form voor producten, we geven een django ModelForm mee als attribuut die we dan kunnen aanpassen
+class PRegistrationForm(ModelForm):
+    prodName = forms.CharField(required=True, label="Titel:")
+    prodPrice = forms.DecimalField(required=True, label="Prijs:")
+    prodStock = forms.IntegerField(required=False, label="Quantiteit:")
+    genre = forms.CharField(required=True, label='Genre:')
+    type = forms.CharField(required=True, label='Type:')
+    publisher = forms.CharField(required=True, label='Uitgever:')
+    totalPages = forms.IntegerField(required=True, label='Bladzijden:')
+    language = forms.CharField(required=False, label='Taal:')
+    rating = forms.IntegerField(required=False, label='Score:')
+    author = forms.CharField(required=True, label='Schrijver:')
+    desc = forms.CharField(required=True, label='Beschrijving:')
+    imageLink = forms.CharField(required=False, label='Foto:')
+    pubDatum = forms.CharField(required=False, label='Uitgeefdatum:')
+
+    class Meta:
+        model = Products
+        fields = ("prodNum", "prodName", "prodPrice", "prodStock")
+
+    def save(self, commit=True):
+        products = super(PRegistrationForm, self).save(commit=False)
+        maxID = products.objects.all().aggregate(Max('prodNum'))
+        if maxID.get('prodNum__max') == None:
+            products.id = 1
+        else:
+            products.id = maxID.get('prodNum__max') + 1
+
+        products.prodName = self.cleaned_data['prodName']
+        products.prodPrice = self.cleaned_data['prodPrice']
+        products.prodStock = self.cleaned_data['prodStock']
+        products.genre = self.cleaned_data['genre']
+        products.type = self.cleaned_data['type']
+        products.publisher = self.cleaned_data['publisher']
+        products.totalPages = self.cleaned_data['totalPages']
+        products.language = self.cleaned_data['language']
+        products.rating = self.cleaned_data['rating']
+        products.author = self.cleaned_data['author']
+        products.desc = self.cleaned_data['desc']
+        products.imageLink = self.cleaned_data['imageLink']
+        products.pubDatum = self.cleaned_data['pubDatum']
+
+        # Data wordt ingevoerd voor het product
+        ProductsEntry = Products(prodNum=products.id, prodName=products.prodName, prodPrice=products.prodPrice,
+                                    prodStock=products.prodStock)
+        ProductsEntry.save()
+
+        # Extra data wordt ingevoerd voor het product
+        ProdData = ProductDetails(prodNum=products(prodNum=products.id), genre=products.genre,
+                                                type=products.type, publisher=products.publisher,
+                                                totalPages=products.totalPages, language=products.language,
+                                                rating=products.rating, author=products.author, desc=products.desc,
+                                                imageLink=products.imageLink, pubDatum=products.pubDatum)
+        ProdData.save()
+
+        if commit:
+            products.save()
+
+        return products
 
 class CustomerDetails(forms.Form):
     customer_fname = forms.CharField(required=True, max_length=50)
@@ -132,6 +196,38 @@ class CustomerDetails(forms.Form):
         self.fields['customer_adressnum'].label = "Huisnummer en eventule toevoeging:"
         self.fields['customer_city'].label = "Stad:"
         self.fields['customer_postalcode'].label = "Postcode:"
+
+class ProductDetails(forms.Form):
+    products_prodName = forms.CharField(required=True, max_length=200)
+    products_prodPrice = forms.DecimalField(required=True, max_digits=5, decimal_places=2)
+    products_prodStock = forms.IntegerField(required=True, max_value=5000, min_value=1)
+    products_genre = forms.CharField(required=False, max_length=15)
+    products_type = forms.CharField(required=False, max_length=15)
+    products_publisher = forms.CharField(required=True, max_length=30)
+    products_totalPages = forms.IntegerField(required=True, max_value=2000, min_value=1)
+    products_language = forms.CharField(required=False, max_length=25)
+    products_rating = forms.IntegerField(required=False, max_value=5, min_value=1)
+    products_author = forms.CharField(required=True, max_length=30)
+    products_desc = forms.CharField(required=True, max_length=2000)
+    products_imageLink = forms.CharField(required=False, max_length=200)
+    products_pubDatum = forms.CharField(required=False, max_length=200)
+
+    def __init__(self, *args, **kwargs):
+        super(ProductDetails, self).__init__(*args, **kwargs)
+        self.fields['products_prodName'].label = "Titel:"
+        self.fields['products_prodPrice'].label = "Prijs:"
+        self.fields['products_prodStock'].label = "Quantiteit:"
+        self.fields['products_genre'].label = "Genre:"
+        self.fields['products_type'].label = "Type:"
+        self.fields['products_publisher'].label = "Uitgever:"
+        self.fields['products_totalPages'].label = "Bladzijden:"
+        self.fields['products_language'].label = "Taal:"
+        self.fields['products_rating'].label = "Score:"
+        self.fields['products_author'].label = "Schrijver:"
+        self.fields['products_desc'].label = "Beschrijving:"
+        self.fields['products_imageLink'].label = "Foto:"
+        self.fields['products_pubDatum'].label = "Uitgeefdatum:"
+
 
 class CheckoutForm(forms.Form):
 
