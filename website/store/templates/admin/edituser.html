@@ -12,7 +12,11 @@
         {% userFound userid as usersFoundBool %}
         {% if usersFoundBool %}
             <p>Editten van gebruiker {{ userid }}:</p>
-
+            <form method="POST">
+                {% csrf_token %}
+                {{user_form.as_p}}
+                <input type="submit" id="editusersubmit" name="edituser">
+            </form>
             <form method="POST">
                 {% csrf_token %}
                 <button type="submit" name="deleteuser" value='{{userid}}' class="remove">
