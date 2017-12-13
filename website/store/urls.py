@@ -36,6 +36,6 @@ urlpatterns = [
     url(r'^emailstyle/$', views.emailstyle, name="emailstyle"),
     url(r'^admin/$', adminviews.admin, name="admin"),
     url(r'^admin/searchusers/?/$', adminviews.searchusers, name="searchusers"),
+    url(r'^admin/createuser$', adminviews.createuser, name="createuser"),
     url(r'^admin/edit/user/(?P<userid>\d+)/$', adminviews.EditUser.as_view(), name="edituser"),
-
 ]

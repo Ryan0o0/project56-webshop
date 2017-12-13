@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from store.collections.adminforms import AdminRegistrationForm
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 #Admin index - comicfire.com/admin/
 from django.views import View
@@ -42,6 +45,15 @@ def searchusersresults(request):
         'query' : getUserPar,
     })
 
+def createuser(request):
+    if request.method == 'POST':
+        form = AdminRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin/')
+    else:
+        form = AdminRegistrationForm()
+    return render(request, 'admin/createuser.html', {'form' :  form})
 
 #Class based view instead of Function based view
 class EditUser(View):
@@ -61,7 +73,6 @@ class EditUser(View):
             return render(request, 'admin/userdeleted.html', {
                 'userid': userid,
             })
-
         if 'edituser' in request.POST:
             user_form = EditUserForm(request.POST)
             print(user_form)
