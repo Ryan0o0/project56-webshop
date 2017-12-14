@@ -7,12 +7,12 @@
     <div class="left commoncolor">
 
     </div>
-    <div class="middle">
-
+    <div class="middle" style="border: none; background-color: #ebe9e9;">
+		<div class="edit">
         {% userFound userid as usersFoundBool %}
         {% if usersFoundBool %}
-            <p>Editten van gebruiker {{ userid }}:</p>
-            <form method="POST">
+            <p id="editp">Editten van gebruiker {{ userid }}:</p>
+            <form method="POST" id="form1">
                 {% csrf_token %}
                 {{user_form.as_p}}
                 <input type="submit" id="editusersubmit" name="edituser">
@@ -29,6 +29,7 @@
         {% endif %}
 
         </div>
+		</div>
     <div class="right commoncolor">
 
     </div>

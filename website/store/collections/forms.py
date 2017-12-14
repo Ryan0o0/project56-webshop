@@ -270,9 +270,16 @@ class EditUserForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(EditUserForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Voornaam:"
+        self.fields['name'].widget.attrs.update({'placeholder': 'Clark'})
         self.fields['surname'].label = "Achternaam:"
+        self.fields['surname'].widget.attrs.update({'placeholder': 'Kent'})
         self.fields['telephone'].label = "Telefoonnummer:"
+        self.fields['telephone'].widget.attrs.update({'placeholder': '0611648394'})
         self.fields['address'].label = "Adres:"
+        self.fields['address'].widget.attrs.update({'placeholder': 'Clinton Street'})
         self.fields['number'].label = "Huisnummer:"
+        self.fields['number'].widget.attrs.update({'placeholder': '344'})
         self.fields['city'].label = "Stad:"
+        self.fields['city'].widget.attrs.update({'placeholder': 'Smallville'})
         self.fields['postalcode'].label = "Postcode:"
+        self.fields['postalcode'].widget.attrs.update({'placeholder': '3069 GG'})
