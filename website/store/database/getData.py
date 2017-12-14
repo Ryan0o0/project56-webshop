@@ -168,14 +168,11 @@ def queryVerbeterFunctie(query):
         else:
           query = (query[:i]) + (query[i+2:])
       i += 1
-    # j = 0
-    # while j < 26:
-    #   print(chr(j + 97))
-    #   j += 1
+
     print(query)
     return query
   except :
-    print("Je moeder Aaron.")
+    print("Stop Jasper.")
     return query
 
 def removeUnwanted(query):

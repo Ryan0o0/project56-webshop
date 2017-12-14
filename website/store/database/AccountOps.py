@@ -32,7 +32,6 @@ def updateCustomerInfo(request):
     print(updateInfo.telephone)
     updateInfo.save()
 
-
 def editUser(request, userid):
     updateUser = Customers.objects.get(customerID=userid)
     updateAddress = Address.objects.get(customerID=Customers(userid))
@@ -45,7 +44,6 @@ def editUser(request, userid):
     updateAddress.postalcode= request.POST.get('postalcode', '')
     updateAddress.save()
     updateUser.save()
-
 
 def getOrderAmount(request):
     object = Orders.objects.filter(customerID=Customers(request.user.id)).count()

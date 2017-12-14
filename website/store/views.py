@@ -10,6 +10,7 @@ from .database.getData import getProdName, getProdPrice, getProdStock, getProdGe
 from .database.verifyData import verifyProdNum
 from .collections.forms import *
 from django.http import *
+from django.forms import ModelForm
 from django.contrib.auth import authenticate
 from .database.CartOps import addToCart, removeFromCart
 from .database.getData import queryVerbeterFunctie
@@ -285,16 +286,7 @@ def contactRequestHandeld(request):
         if 'searchtext' in request.POST:
             return searchPost(request)
     return render(request, 'mailsend.html')
-#
-# def results(request, query):
-#     #returnPage(request.GET.get('searchtext'))
-#     object = getResult2(query)
-#     print(object)
-# #    prodName = getProdName()
-#  #   prodPrice = getProdPrice()
-#   #  prodStock = getProdStock()
-#    # prodAuthor = getProdAuthor()
-#     return render(request, 'searchresults.html')
+
 
 
 def shoppingcart(request):
@@ -406,80 +398,6 @@ def checkout(request):
 
                         createOrder(request)
                         return render(request, 'completeorder.html')
-
-                        # for f in ['img1.png', 'img2.png']:
-                        #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
-                        #     email_img = MIMEImage(fp.read())
-                        #     fp.close()
-                        #     email_img.add_header('Content-ID', '<{}>'.format(f))
-                        #     email.attach(email_img)
-
-
-                        # template = get_template('mail/order_complete_email.txt')
-                        # context = {
-                        #     'contact_name': contact_name,
-                        #     'contact_email': contact_email,
-                        #     'contact_content': contact_content,
-                        # }
-
-                        # content = template.render(context)
-
-
-
-                        # email = EmailMessage(
-                        #     "Your order details",
-                        #     content,
-                        #     'noreply@comicfire.com',
-                        #     [c],
-                        #     headers={'Reply-to': contact_email}
-                        # )
-
-
-
-
-                        # subject, from_email, to = 'Your order details', 'noreply@comicfire.com', c
-                        # text_content = 'This is an important message.'
-                        # html_content = '<p>This is an <strong>important</strong> message.</p>'
-                        # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-                        # msg.attach_alternative(html_content, "text/html")
-                        # # msg.attach_file('/images/comicfirelogo2.png')
-                        # msg.send()
-                        #
-                        # print("WUT WUT IN THE BUTT")
-                        # html_content = render_to_string('mail/order_complete_email.html')
-                        # text_content = render_to_string('mail/order_complete_email.txt')
-                        # print("Test1")
-                        # subject, sender, to_mail = 'Your order details', 'noreply@comicfire.com', c
-                        # print("Test2")
-                        # msg = EmailMultiAlternatives(subject, text_content,
-                        #                              sender, [to_mail])
-                        # print("Test3")
-                        # msg.attach_alternative(html_content, "text/html")
-                        # print("Test4")
-                        # msg.mixed_subtype = 'related'
-                        # print("Test5")
-                        # for f in ['img1.png', 'img2.png']:
-                        #     fp = open(os.path.join(os.path.dirname(__file__), f), 'rb')
-                        #     msg_img = MIMEImage(fp.read())
-                        #     fp.close()
-                        #     msg_img.add_header('Content-ID', '<{}>'.format(f))
-                        #     msg.attach(msg_img)
-
-                        # msg.send()
-                        # user = form.save(commit=False)
-                        # user.is_active = False
-                        # user.save()
-                        # current_site = get_current_site(request)
-                        # message = render_to_string('mail/order_complete_email.html', {
-                        #     'user': user,
-                        #     'domain': current_site.domain,
-                        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                        #     # 'token': account_activation_token.make_token(user),
-                        # })
-                        # mail_subject = 'Your order details'
-                        # to_email = form.cleaned_data.get('email')
-                        # email = EmailMessage(mail_subject, message, to=[to_email])
-                        # email.send()
 
             else:
 

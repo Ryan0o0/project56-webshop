@@ -33,6 +33,10 @@ def creditcard_validator(cardnumber, length):
     #         if not str(cardnumber[i]).isdigit():
     #             raise ValidationError(_('kaarnummer is niet geldig!'))
 
+def product_validator(number):
+    if number <= 0:
+        raise ValidationError(_('Waarde kan niet lager dan 0 zijn!'))
+
 
 
 
