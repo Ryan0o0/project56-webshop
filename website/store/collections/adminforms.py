@@ -74,12 +74,12 @@ class ProductsRegistrationForm(ModelForm):
     rating = forms.IntegerField(required=False, label='Score:')
     author = forms.CharField(required=True, label='Schrijver:')
     desc = forms.CharField(required=True, label='Beschrijving:')
-    imageLink = forms.CharField(required=False, label='Foto:')
-    pubDatum = forms.CharField(required=False, label='Uitgeefdatum:')
+    imageLink = forms.FileField(required=False, label='Foto:')
+    pubDatum = forms.DateField(required=False, label='Uitgeefdatum (Y-M-D):')
 
     class Meta:
         model = Products
-        fields = ("prodNum", "prodName", "prodPrice", "prodStock")
+        fields = ("prodName", "prodPrice", "prodStock")
 
     def save(self, commit=True):
         products = super(ProductsRegistrationForm, self).save(commit=False)

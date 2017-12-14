@@ -7,6 +7,8 @@ from django.db.models import Max
 from ..validators.formvalidators import *
 from ..models import Customers, Address, Products
 
+from django.forms.fields import DateField
+
 #All forms are called in the views
 
 # our new form
@@ -116,12 +118,12 @@ class PRegistrationForm(ModelForm):
     rating = forms.IntegerField(required=False, label='Score:')
     author = forms.CharField(required=True, label='Schrijver:')
     desc = forms.CharField(required=True, label='Beschrijving:')
-    imageLink = forms.CharField(required=False, label='Foto:')
-    pubDatum = forms.CharField(required=False, label='Uitgeefdatum:')
+    imageLink = forms.FileField(required=False, label='Foto:')
+    pubDatum = forms.DateField(required=False, label='Uitgeefdatum:')
 
     class Meta:
         model = Products
-        fields = ("prodNum", "prodName", "prodPrice", "prodStock")
+        fields = ("prodName", "prodPrice", "prodStock")
 
     def save(self, commit=True):
         products = super(PRegistrationForm, self).save(commit=False)
@@ -209,8 +211,8 @@ class ProductDetails(forms.Form):
     products_rating = forms.IntegerField(required=False, max_value=5, min_value=1)
     products_author = forms.CharField(required=True, max_length=30)
     products_desc = forms.CharField(required=True, max_length=2000)
-    products_imageLink = forms.CharField(required=False, max_length=200)
-    products_pubDatum = forms.CharField(required=False, max_length=200)
+    products_imageLink = forms.FileField(null= True, allow_empty_file=True, required=False)
+    products_pubDatum = forms.DateField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(ProductDetails, self).__init__(*args, **kwargs)
