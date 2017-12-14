@@ -211,7 +211,7 @@ class ProductDetails(forms.Form):
     products_rating = forms.IntegerField(required=False, max_value=5, min_value=1)
     products_author = forms.CharField(required=True, max_length=30)
     products_desc = forms.CharField(required=True, max_length=2000)
-    products_imageLink = forms.FileField(null= True, allow_empty_file=True, required=False)
+    #products_imageLink = forms.FileField(null= True, allow_empty_file=True, required=False)
     products_pubDatum = forms.DateField(required=False)
 
     def __init__(self, *args, **kwargs):
@@ -227,7 +227,7 @@ class ProductDetails(forms.Form):
         self.fields['products_rating'].label = "Score:"
         self.fields['products_author'].label = "Schrijver:"
         self.fields['products_desc'].label = "Beschrijving:"
-        self.fields['products_imageLink'].label = "Foto:"
+        #self.fields['products_imageLink'].label = "Foto:"
         self.fields['products_pubDatum'].label = "Uitgeefdatum:"
 
 

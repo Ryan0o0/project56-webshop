@@ -74,7 +74,7 @@ class ProductsRegistrationForm(ModelForm):
     rating = forms.IntegerField(required=False, label='Score:')
     author = forms.CharField(required=True, label='Schrijver:')
     desc = forms.CharField(required=True, label='Beschrijving:')
-    imageLink = forms.FileField(required=False, label='Foto:')
+    imageLink = forms.CharField(required=True, label='Foto link:')
     pubDatum = forms.DateField(required=False, label='Uitgeefdatum (Y-M-D):')
 
     class Meta:
@@ -82,6 +82,7 @@ class ProductsRegistrationForm(ModelForm):
         fields = ("prodName", "prodPrice", "prodStock")
 
     def save(self, commit=True):
+        print("Hello!!!")
         products = super(ProductsRegistrationForm, self).save(commit=False)
         maxID = Products.objects.all().aggregate(Max('prodNum'))
         if maxID.get('prodNum__max') == None:
@@ -108,10 +109,7 @@ class ProductsRegistrationForm(ModelForm):
         newEntryProducts.save()
 
         # Extra data wordt ingevoerd voor het product
-        newEntryProductDetails = ProductDetails(prodNum=Products(prodNum=products.id), genre=products.genre, type=products.type, publisher=products.publisher, totalPages=products.totalPages, language=products.language, rating=products.rating, author=products.author, desc=products.desc, imageLink=products.imageLink, pubDatum=products.pubDatum)
+        newEntryProductDetails = ProductDetails(prodNum=newEntryProducts, genre=products.genre, type=products.type, publisher=products.publisher, totalPages=products.totalPages, language=products.language, rating=products.rating, author=products.author, desc=products.desc, imageLink=products.imageLink, pubDatum=products.pubDatum)
         newEntryProductDetails.save()
-
-        if commit:
-            products.save()
 
         return products
