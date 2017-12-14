@@ -36,7 +36,6 @@ def updateCustomerInfo(request):
 def editUser(request, userid):
     updateUser = Customers.objects.get(customerID=userid)
     updateAddress = Address.objects.get(customerID=Customers(userid))
-    print(updateUser)
     updateUser.name = request.POST.get('name', '')
     updateUser.surname = request.POST.get('surname', '')
     updateUser.telephone = request.POST.get('telephone', '')
@@ -44,6 +43,7 @@ def editUser(request, userid):
     updateAddress.number= request.POST.get('number', '')
     updateAddress.city= request.POST.get('city', '')
     updateAddress.postalcode= request.POST.get('postalcode', '')
+    updateAddress.save()
     updateUser.save()
 
 

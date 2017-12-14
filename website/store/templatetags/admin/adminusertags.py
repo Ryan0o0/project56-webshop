@@ -55,3 +55,9 @@ def displayResults(query):
 @register.simple_tag()
 def redirectTo(destination):
     redirect(destination)
+
+@register.simple_tag()
+def isSameUser(request, id):
+    if request.user.id == int(id):
+        return True
+    return False
