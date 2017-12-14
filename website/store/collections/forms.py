@@ -109,7 +109,7 @@ class RegistrationForm(UserCreationForm):
 class PRegistrationForm(ModelForm):
     prodName = forms.CharField(required=True, label="Titel:")
     prodPrice = forms.DecimalField(required=True, label="Prijs:")
-    prodStock = forms.IntegerField(required=False, label="Quantiteit:")
+    prodStock = forms.IntegerField(required=True, label="Quantiteit:")
     genre = forms.CharField(required=True, label='Genre:')
     type = forms.CharField(required=True, label='Type:')
     publisher = forms.CharField(required=True, label='Uitgever:')
@@ -119,7 +119,7 @@ class PRegistrationForm(ModelForm):
     author = forms.CharField(required=True, label='Schrijver:')
     desc = forms.CharField(required=True, label='Beschrijving:')
     imageLink = forms.FileField(required=False, label='Foto:')
-    pubDatum = forms.DateField(required=False, label='Uitgeefdatum:')
+    pubDatum = forms.DateField(required=True, label='Uitgeefdatum:')
 
     class Meta:
         model = Products
@@ -201,9 +201,9 @@ class CustomerDetails(forms.Form):
 
 class ProductDetails(forms.Form):
     products_prodName = forms.CharField(required=True, max_length=200)
-    products_prodPrice = forms.DecimalField(required=True, max_digits=5, decimal_places=2)
+    products_prodPrice = forms.DecimalField(required=True, max_digits=5, decimal_places=2, min_value=1)
     products_prodStock = forms.IntegerField(required=True, max_value=5000, min_value=1)
-    products_genre = forms.CharField(required=False, max_length=15)
+    products_genre = forms.CharField(required=True, max_length=15)
     products_type = forms.CharField(required=False, max_length=15)
     products_publisher = forms.CharField(required=True, max_length=30)
     products_totalPages = forms.IntegerField(required=True, max_value=2000, min_value=1)
@@ -211,8 +211,8 @@ class ProductDetails(forms.Form):
     products_rating = forms.IntegerField(required=False, max_value=5, min_value=1)
     products_author = forms.CharField(required=True, max_length=30)
     products_desc = forms.CharField(required=True, max_length=2000)
-    #products_imageLink = forms.FileField(null= True, allow_empty_file=True, required=False)
-    products_pubDatum = forms.DateField(required=False)
+    products_imageLink = forms.CharField(required=True, max_length=300)
+    products_pubDatum = forms.DateField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(ProductDetails, self).__init__(*args, **kwargs)
@@ -227,9 +227,18 @@ class ProductDetails(forms.Form):
         self.fields['products_rating'].label = "Score:"
         self.fields['products_author'].label = "Schrijver:"
         self.fields['products_desc'].label = "Beschrijving:"
-        #self.fields['products_imageLink'].label = "Foto:"
+        self.fields['products_imageLink'].label = "Foto:"
         self.fields['products_pubDatum'].label = "Uitgeefdatum:"
 
+    def CheckPrice(self):
+        Price = self.cleaned_data['products_prodPrice']
+        product_validator(Price)
+        return self.cleaned_data['products_prodPrice']
+
+    def CheckQuantity(self):
+        Quantity = self.cleaned_data['products_prodStock']
+        product_validator(Quantity)
+        return self.cleaned_data['products_prodStock']
 
 class CheckoutForm(forms.Form):
 

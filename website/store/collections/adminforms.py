@@ -66,16 +66,16 @@ class ProductsRegistrationForm(ModelForm):
     prodName = forms.CharField(required=True, label="Titel:")
     prodPrice = forms.DecimalField(required=True, label="Prijs:")
     prodStock = forms.IntegerField(required=True, label="Quantiteit:")
-    genre = forms.CharField(required=False, label='Genre:')
-    type = forms.CharField(required=False, label='Type:')
+    genre = forms.CharField(required=True, label='Genre:')
+    type = forms.CharField(required=True, label='Type:')
     publisher = forms.CharField(required=True, label='Uitgever:')
     totalPages = forms.IntegerField(required=True, label='Bladzijden:')
     language = forms.CharField(required=False, label='Taal:')
     rating = forms.IntegerField(required=False, label='Score:')
     author = forms.CharField(required=True, label='Schrijver:')
     desc = forms.CharField(required=True, label='Beschrijving:')
-    imageLink = forms.CharField(required=True, label='Foto link:')
-    pubDatum = forms.DateField(required=False, label='Uitgeefdatum (Y-M-D):')
+    imageLink = forms.CharField(required=False, label='Foto link:')
+    pubDatum = forms.DateField(required=True, label='Uitgeefdatum (Y-M-D):')
 
     class Meta:
         model = Products
