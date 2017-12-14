@@ -33,6 +33,7 @@ from .database.CartOps import setAmount
 
 # Create your views here.
 
+
 def index(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
@@ -47,10 +48,11 @@ def index(request):
 
     return render(request, 'index.html')
 
+
 def emailstyle(request):
     return render(request, 'emailstyle.html')
 
-	
+
 def contact(request):
     if request.user.is_authenticated:
         formClass = ContactForm(initial={'contact_name': str(request.user.first_name + " " + request.user.last_name), 'contact_email': request.user.email})
@@ -68,6 +70,7 @@ def contact(request):
                 return redirect('messagesend')
 
     return render(request, 'contact.html', {'contact_form':formClass, })
+
 
 def register(request):
     args = {}
@@ -98,12 +101,14 @@ def register(request):
     args['form'] = form
     return render(request, 'register.html', args)
 
+
 def faq(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
             return searchPost(request)
 
     return render(request, 'faq.html')
+
 
 def about(request):
     if request.method == 'POST':
@@ -112,12 +117,14 @@ def about(request):
 
     return render(request, 'about.html')
 
+
 def servicevoorwaarden (request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
             return searchPost(request)
 
     return render(request, 'servicevoorwaarden.html')
+
 
 def retourneren (request):
     if request.method == 'POST':
@@ -126,6 +133,7 @@ def retourneren (request):
 
     return render(request, 'retourneren.html')
 
+
 def privacy(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
@@ -133,12 +141,14 @@ def privacy(request):
 
     return render(request, 'privacy.html')
 
+
 def betaling(request):
     if request.method == 'POST':
         if 'searchtext' in request.POST:
             return searchPost(request)
 
     return render(request, 'betaling.html')
+
 
 def product(request, item):
     if request.method == 'POST':
@@ -187,6 +197,7 @@ def product(request, item):
         'prodDate' : prodDate,
     })
 
+
 def search(request, query, filter=""):
     if request.method == 'POST':
         print(request.POST)
@@ -222,7 +233,6 @@ def logoutview(request):
         return redirect('/')
 
 
-
 def loginview(request):
     args = {}
     if request.method == "POST":
@@ -244,11 +254,13 @@ def loginview(request):
     args['form'] = form
     return render(request, 'login.html', args)
 
+
 def registrationcomplete(request):
     if request.method == "POST":
         if 'searchtext' in request.POST:
             return searchPost(request)
     return render(request, 'accountconfirmed.html')
+
 
 def activate(request, uidb64, token):
     if request.method == 'POST':
@@ -268,11 +280,13 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
 
+
 def contactRequestHandeld(request):
     if request.method == "POST":
         if 'searchtext' in request.POST:
             return searchPost(request)
     return render(request, 'mailsend.html')
+
 
 
 def shoppingcart(request):
@@ -292,6 +306,7 @@ def shoppingcart(request):
 
     return render(request, 'shoppingcart.html')
 
+
 def wishlist(request):
     if not request.user.is_authenticated:
         return redirect('/')
@@ -306,6 +321,7 @@ def wishlist(request):
             addToCart(request, int(request.POST.get('addToCartButton')))
             return redirect('/winkelwagentje/')
     return render(request, 'wishlist.html')
+
 
 def processOrder(request):
     if not request.META.get('HTTP_REFERER') is None:
@@ -334,6 +350,7 @@ def processOrder(request):
                 return render(request, 'processorder.html', args)
     else:
         return redirect('/')
+
 
 def customerdetails(request):
     args = {}
@@ -365,6 +382,7 @@ def customerdetails(request):
         else:
             return redirect('/')
     return redirect('/')
+
 
 def checkout(request):
     args = {}
@@ -400,6 +418,7 @@ def account(request):
     else:
         return render(request, 'account.html')
 
+
 def accountedit(request):
     if not request.user.is_authenticated:
         return redirect('/')
@@ -423,7 +442,7 @@ def accountedit(request):
 
         return render(request, 'accountedit.html', {
             'account_form': account_form, 'accountinfo_form' : accountinfo_form,
-    })
+        })
 
 
 def changepassword(request):

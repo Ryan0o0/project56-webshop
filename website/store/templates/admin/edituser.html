@@ -7,24 +7,33 @@
     <div class="left commoncolor">
 
     </div>
-    <div class="middle">
-
+    <div class="middle" style="border: none; background-color: #ebe9e9;">
+		<div class="edit">
         {% userFound userid as usersFoundBool %}
+        {% isSameUser request userid as isSame %}
         {% if usersFoundBool %}
-            <p>Editten van gebruiker {{ userid }}:</p>
-
-            <form method="POST">
+            <p id="editp">Editten van gebruiker {{ userid }}:</p>
+            <form method="POST" id="form1">
                 {% csrf_token %}
-                <button type="submit" name="deleteuser" value='{{userid}}' class="remove">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Verwijder gebruiker
-                </button>
+                {{user_form.as_p}}
+                <input type="submit" id="editusersubmit" name="edituser">
             </form>
+            {% if not isSame %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="deleteuser" value='{{userid}}' class="remove">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Verwijder gebruiker
+                    </button>
+                </form>
+            {% else %}
+            {% endif %}
         {% else %}
             <div>Er is geen gebruiker gevonden met dit id.</div>
         {% endif %}
 
         </div>
+		</div>
     <div class="right commoncolor">
 
     </div>
