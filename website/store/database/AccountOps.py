@@ -30,8 +30,6 @@ def updateCustomerInfo(request):
     updateInfo.telephone = request.POST.get('telephone', '')
     updateInfo.save()
 
-
-
 def getOrderAmount(request):
     object = Orders.objects.filter(customerID=Customers(request.user.id)).count()
     return object

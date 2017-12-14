@@ -63,18 +63,18 @@ class AdminRegistrationForm(UserCreationForm):
         return user
 
 class ProductsRegistrationForm(ModelForm):
-    prodName = forms.CharField(required=True, label="Titel:")
-    prodPrice = forms.DecimalField(required=True, label="Prijs:")
-    prodStock = forms.IntegerField(required=True, label="Quantiteit:")
-    genre = forms.CharField(required=True, label='Genre:')
-    type = forms.CharField(required=True, label='Type:')
-    publisher = forms.CharField(required=True, label='Uitgever:')
-    totalPages = forms.IntegerField(required=True, label='Bladzijden:')
-    language = forms.CharField(required=False, label='Taal:')
-    rating = forms.IntegerField(required=False, label='Score:')
-    author = forms.CharField(required=True, label='Schrijver:')
+    prodName = forms.CharField(required=True, label="Titel:", max_length=200)
+    prodPrice = forms.DecimalField(required=True, label="Prijs:", min_value=1)
+    prodStock = forms.IntegerField(required=True, label="Quantiteit:", min_value=1)
+    genre = forms.CharField(required=True, label='Genre:', max_length=50)
+    type = forms.CharField(required=True, label='Type:', max_length=50)
+    publisher = forms.CharField(required=True, label='Uitgever:', max_length=50)
+    totalPages = forms.IntegerField(required=True, label='Bladzijden:', min_value=1)
+    language = forms.CharField(required=False, label='Taal:', max_length=25)
+    rating = forms.IntegerField(required=False, label='Score:', min_value=1, max_value=5)
+    author = forms.CharField(required=True, label='Schrijver:', max_length=50)
     desc = forms.CharField(required=True, label='Beschrijving:')
-    imageLink = forms.CharField(required=False, label='Foto link:')
+    imageLink = forms.CharField(required=False, label='Foto link:', max_length=300)
     pubDatum = forms.DateField(required=True, label='Uitgeefdatum (Y-M-D):')
 
     class Meta:
@@ -82,7 +82,6 @@ class ProductsRegistrationForm(ModelForm):
         fields = ("prodName", "prodPrice", "prodStock")
 
     def save(self, commit=True):
-        print("Hello!!!")
         products = super(ProductsRegistrationForm, self).save(commit=False)
         maxID = Products.objects.all().aggregate(Max('prodNum'))
         if maxID.get('prodNum__max') == None:
