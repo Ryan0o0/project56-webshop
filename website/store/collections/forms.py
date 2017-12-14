@@ -236,7 +236,6 @@ class PasswordForm(PasswordChangeForm):
         }
 
 class EditUserForm(forms.Form):
-
     name = forms.CharField(required=False, max_length=50)
     surname = forms.CharField(required=False, max_length=50)
     telephone = forms.CharField(required=False)
