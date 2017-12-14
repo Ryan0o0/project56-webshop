@@ -44,16 +44,16 @@ class ProductDetails(models.Model):
         verbose_name_plural = "Product details"
 
     prodNum = models.ForeignKey(Products, db_column='prodNum')
-    genre = models.CharField(max_length=15)
-    type = models.CharField(max_length=15, default="Comic")
-    publisher = models.CharField(max_length=30)
+    genre = models.CharField(max_length=50)
+    type = models.CharField(max_length=50, default="Comic")
+    publisher = models.CharField(max_length=50)
     totalPages = models.IntegerField()
     language = models.CharField(max_length=25, default="Engels")
     rating = models.IntegerField()
-    author = models.CharField(max_length=30)
-    desc = models.CharField(max_length=2000)
+    author = models.CharField(max_length=50)
+    desc = models.TextField()
     imageLink = models.CharField(max_length=300)
-    pubDatum = models.CharField(max_length=200, default="19-07-1999")
+    pubDatum = models.CharField(max_length=30, default="1 januari, 1990")
 
     def __str__(self):
         return (str(self.prodNum))
