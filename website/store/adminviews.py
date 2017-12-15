@@ -1,7 +1,14 @@
+import datetime
+
+from chartit import PivotChart
+from chartit import PivotDataPool
+from django.db.models import Sum, Avg
 from django.shortcuts import render, redirect
 from store.collections.adminforms import AdminRegistrationForm, ProductsRegistrationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from chartit import DataPool, Chart
+from .models import OrderDetails
 
 #Admin index - comicfire.com/admin/
 from django.views import View
@@ -90,3 +97,43 @@ def createproduct(request):
     else:
         form = ProductsRegistrationForm()
     return render(request, 'admin/createproduct.html', {'form' :  form})
+
+class ProductGraph(View):
+    def get(self, request, year, month):
+        ordersData = Orders.objects.filter(orderDate__year__icontains=int(year))
+        productBarData = PivotDataPool(
+            series=[{
+                'options': {
+                    'source': OrderDetails.objects.all().filter(orderNum__in=ordersData),
+                    'categories': ['productNum'],
+                    'legend_by': 'productNum',
+                    'top_n_per_cat': 5,
+                },
+                'terms': {
+                    'aSum': Sum('productNum')}
+            }]
+        )
+        productBar = PivotChart(
+            datasource=productBarData,
+            series_options=[{
+                'options': {
+                    'type': 'column',
+                    'stacking': True
+                },
+                'terms': ['aSum']
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Products per amount'
+                },
+                'xAxis': {
+                    'title': {
+                        'text': 'Product'
+                    }
+                }
+            }
+        )
+        print(productBar.datasource.cv_raw)
+        return render(request, 'admin/productdata.html', {
+            'graph' : productBar,
+        })
