@@ -1,13 +1,12 @@
 import datetime
-
-from chartit import PivotChart
-from chartit import PivotDataPool
 from django.db.models import Sum, Avg
 from django.shortcuts import render, redirect
+from graphos.renderers import gchart
+from graphos.sources.simple import SimpleDataSource
+
 from store.collections.adminforms import AdminRegistrationForm, ProductsRegistrationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from chartit import DataPool, Chart
 from .models import OrderDetails
 
 #Admin index - comicfire.com/admin/
@@ -98,42 +97,41 @@ def createproduct(request):
         form = ProductsRegistrationForm()
     return render(request, 'admin/createproduct.html', {'form' :  form})
 
-class ProductGraph(View):
+class ProductGraphSelection(View):
+    def get(self, request):
+
+        return render(request, 'admin/productdataselection.html', {})
+
+class ProductGraphMonth(View):
     def get(self, request, year, month):
-        ordersData = Orders.objects.filter(orderDate__year__icontains=int(year))
-        productBarData = PivotDataPool(
-            series=[{
-                'options': {
-                    'source': OrderDetails.objects.all().filter(orderNum__in=ordersData),
-                    'categories': ['productNum'],
-                    'legend_by': 'productNum',
-                    'top_n_per_cat': 5,
-                },
-                'terms': {
-                    'aSum': Sum('productNum')}
-            }]
-        )
-        productBar = PivotChart(
-            datasource=productBarData,
-            series_options=[{
-                'options': {
-                    'type': 'column',
-                    'stacking': True
-                },
-                'terms': ['aSum']
-            }],
-            chart_options={
-                'title': {
-                    'text': 'Products per amount'
-                },
-                'xAxis': {
-                    'title': {
-                        'text': 'Product'
-                    }
-                }
-            }
-        )
-        print(productBar.datasource.cv_raw)
-        return render(request, 'admin/productdata.html', {
-            'graph' : productBar,
+
+        if Orders.objects.filter(orderDate__year__icontains=int(year), orderDate__month=int(month)).exists():
+            ordersInPeriod = Orders.objects.filter(orderDate__year__icontains=int(year), orderDate__month=int(month))
+            orders = OrderDetails.objects.all().filter(orderNum__in=ordersInPeriod) \
+                .values('productNum') \
+                .annotate(amount=Sum('amount')) \
+                .order_by('-amount')[:10]
+
+            dataR = []
+
+            for e in orders:
+                dataR.append([str(e['productNum']), e['amount']])
+
+            data = [
+                ['Product', 'Aantal'],
+            ]
+
+            for e in dataR:
+                data.append(e)
+
+            data_source = SimpleDataSource(data)
+            chart = gchart.BarChart(data_source, options={'title': "Producten / Aantal verkocht"})
+
+            return render(request, 'admin/productdatamonth.html', {
+                'chart' : chart,
+                'year' : int(year),
+                'month' : int(month),
+            })
+        return render(request, 'admin/productdataselection.html', {
+            'warning' : "De combinatie van jaar en maand is niet geldig. Selecteer er één uit de onderstaande lijst."
         })
