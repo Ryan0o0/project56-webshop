@@ -20,10 +20,6 @@
             background-color: #dddddd;
         }
     </style>
-
-    <div class="left commoncolor">
-
-    </div>
 	{% if user.is_authenticated %}
 		{% if user.is_staff %}
 		<div class="middle">
@@ -46,8 +42,5 @@
 		$(location).attr('href', '/admin/');
 	</script>
 	{% endif %}
-    </div>
-    <div class="right commoncolor">
-
     </div>
 {% endblock %}

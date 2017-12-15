@@ -400,7 +400,7 @@
     lineWidth: 0.5,
     curvedLines: false,
     proximity: 100, // How close two dots need to be before they join
-    parallax: true,
+    parallax: false,
     parallaxMultiplier: 10, // The lower the number, the more extreme the parallax effect
     onInit: function() {},
     onDestroy: function() {}

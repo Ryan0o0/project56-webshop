@@ -162,7 +162,7 @@ a {
 	cursor: pointer;
 }
 
-.middle .edit form input[type=text], .middle .edit form p, .middle .edit label, .middle .edit input[type=email], .middle .edit input[type=password]{
+.middle .edit form input[type=text], .middle .edit form p, .middle .edit label, .middle .edit input[type=email], .middle .edit input[type=password],  .middle .edit input[type=number]{
 	display: block;
 	float: none;
 	text-align: center;
@@ -184,7 +184,7 @@ a {
 	border-right: 0.1vh solid #c7c5c5;
 }
 
-.middle input[type=text], .middle input[type=email], .middle input[type=password]{
+.middle input[type=text], .middle input[type=email], .middle input[type=password], .middle input[type=number]{
 	height: 5vh;
 	width: 80%;
 	float:left;
@@ -518,7 +518,7 @@ ul li{
 	float: left;
 	display: table;
 	height: 100%;
-	width: 25%;
+	width: 20%;
 	text-align: center;
 	vertical-align: middle;
 	/* padding-right: 10px; */
@@ -543,7 +543,7 @@ footer{
 	position: relative;
 	margin: 0;
 	padding: 0;
-	height: 0;
+	height: 7vh;
 }
 
 .footer{
@@ -563,7 +563,7 @@ footer{
 	vertical-align: middle;
 }
 
-input[type=text], input[type=password], input[type=email]{
+input[type=text], input[type=password], input[type=email], input[type=number]{
 	text-align: center;
 	display: inline-block;
 	position: relative;
