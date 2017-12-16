@@ -85,20 +85,20 @@ class EditUser(View):
 
 class EditProduct(View):
     def get(self, request, item):
-        ProductsData = Products.objects.get(prodNum=item)
-        ProductDetData = ProductDetails.objects.get(prodNum=Products(item))
-        Data = {'prodName': ProductsData.prodName, 'prodStock': ProductsData.prodStock, 'prodPrice': ProductsData.prodPrice,
-                'genre': ProductDetData.genre, 'type': ProductDetData.type, 'publisher': ProductDetData.publisher,
-                'totalPages': ProductDetData.totalPages, 'language': ProductDetData.language,  'rating': ProductDetData.rating,
-                'author': ProductDetData.author,  'desc': ProductDetData.desc, 'imageLink': ProductDetData.imageLink, 'pubDatum': ProductDetData.pubDatum }
-        product_form = EditProductForm(initial=Data)
+        # ProductsData = Products.objects.get(prodNum=item)
+        # ProductDetData = ProductDetails.objects.get(prodNum=Products(item))
+        # Data = {'prodName': ProductsData.prodName, 'prodStock': ProductsData.prodStock, 'prodPrice': ProductsData.prodPrice,
+        #         'genre': ProductDetData.genre, 'type': ProductDetData.type, 'publisher': ProductDetData.publisher,
+        #         'totalPages': ProductDetData.totalPages, 'language': ProductDetData.language,  'rating': ProductDetData.rating,
+        #         'author': ProductDetData.author,  'desc': ProductDetData.desc, 'imageLink': ProductDetData.imageLink, 'pubDatum': ProductDetData.pubDatum }
+        product_form = EditProductForm()
         return render(request, 'admin/editproduct.html', {
             'item': item,
             'product_form': product_form,
         })
 
     def post(self, request, item):
-        if 'edituser' in request.POST:
+        if 'editproduct' in request.POST:
             product_form = EditProductForm(request.POST)
             if product_form.is_valid():
                 editProduct(request, item)

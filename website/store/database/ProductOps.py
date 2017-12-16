@@ -1,7 +1,7 @@
 from ..models import Products, ProductDetails
 
 def editProduct(request, item):
-    updateProduct = Products.objects.get(customerID=item)
+    updateProduct = Products.objects.get(prodNum=item)
     updateProductDetails = ProductDetails.objects.get(prodNum=Products(item))
     updateProduct.prodName = request.POST.get('prodName', '')
     updateProduct.prodStock = request.POST.get('prodStock', '')

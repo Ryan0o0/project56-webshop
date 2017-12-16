@@ -1,9 +1,5 @@
 from django import template
-from django.db.models import QuerySet
-from ...collections.tools import *
-from django.contrib.auth.models import User
 from ...database.adminGetData import *
-from django.shortcuts import *
 
 register = template.Library()
 

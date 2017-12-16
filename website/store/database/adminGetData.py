@@ -45,7 +45,7 @@ def ifProductExists(query):
         try:
             query = str(query)
         except ValueError:
-            print("Something went really bad...")
+            print("Error")
     if isinstance(query, int):
         idExist = Products.objects.filter(prodNum=query).exists()
         if idExist == True:
