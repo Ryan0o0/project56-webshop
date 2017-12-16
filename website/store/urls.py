@@ -39,4 +39,5 @@ urlpatterns = [
     url(r'^admin/createuser$', adminviews.createuser, name="createuser"),
     url(r'^admin/edit/user/(?P<userid>\d+)/$', adminviews.EditUser.as_view(), name="edituser"),
     url(r'^createproduct/$', adminviews.createproduct, name="createproduct"),
+    url(r'^admin/edit/product/(?P<item>\d+)/$', adminviews.EditProduct.as_view(), name="editproduct")
 ]
