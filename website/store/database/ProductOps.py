@@ -17,3 +17,12 @@ def editProduct(request, item):
     updateProductDetails.pubDatum = request.POST.get('pubDatum', '')
     updateProduct.save()
     updateProductDetails.save()
+
+def checkIfProductExist(item):
+    return Products.objects.filter(prodNum=item).exists()
+
+def deleteProduct(request):
+    item = int(request.POST['deleteproduct'])
+    if checkIfProductExist(item):
+        Products.objects.filter(prodNum=item).delete()
+

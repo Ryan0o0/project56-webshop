@@ -2,16 +2,15 @@ from django.shortcuts import render, redirect
 from store.collections.adminforms import AdminRegistrationForm, ProductsRegistrationForm, EditProductForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-
 #Admin index - comicfire.com/admin/
 from django.views import View
-from store.models import Products, ProductDetails
+from .models import Products, ProductDetails
 from store.database.adminGetData import ifUserExists
 from django.contrib.auth import login, logout, update_session_auth_hash
 from .collections.tools import *
 from .collections.forms import *
 from .database.AccountOps import *
-from .database.ProductOps import editProduct
+from .database.ProductOps import editProduct, deleteProduct
 from .collections.posts import *
 from django.contrib.auth import authenticate
 
@@ -98,6 +97,11 @@ class EditProduct(View):
         })
 
     def post(self, request, item):
+        if 'deleteproduct' in request.POST:
+            deleteProduct(request)
+            return render(request, 'admin/productdeleted.html', {
+                'item': item,
+            })
         if 'editproduct' in request.POST:
             product_form = EditProductForm(request.POST)
             if product_form.is_valid():
