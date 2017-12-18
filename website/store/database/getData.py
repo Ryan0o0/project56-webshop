@@ -73,7 +73,6 @@ def getSearchResults(query, userAuth, filter=""):
         selected = "pricedesc"
     else:
         filter = ""
-
     #TODO: Hall of Shame Code right here
     #qrytxt = "SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter
     #object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter)
