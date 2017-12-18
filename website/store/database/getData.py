@@ -1,3 +1,5 @@
+from itertools import chain
+
 from ..models import Products, ProductDetails, Address, Customers
 import math
 from django.db.models import Q
@@ -81,11 +83,14 @@ def getSearchResults(query, userAuth, filter="", sidefilter=""):
     selected = filter
 
     print(filter)
+
     resultsProductName = Products.objects.filter(prodName__icontains=query)
-    results = ProductDetails.objects.filter(
+    resultsTitle = ProductDetails.objects.filter(Q(prodNum__in=resultsProductName))
+    resultsDetails = ProductDetails.objects.filter(
         Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(
             language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(
-            pubDatum__icontains=query) | Q(prodNum__in=resultsProductName))
+            pubDatum__icontains=query)).exclude(prodNum__in=resultsProductName)
+    results = resultsTitle | resultsDetails
 
     # languages
     languages = ['English', 'Dutch']
@@ -112,8 +117,12 @@ def getSearchResults(query, userAuth, filter="", sidefilter=""):
     if sidefilter != "items" and filter == "items":
         print("Only sidefilter, such as price or genre")
         if sidefilter in languages:
-            print("only languages as filter")
-            filter = ProductDetails.objects.filter(Q(prodNum__in=resultsProductName), genre=sidefilter)
+            print(sidefilter)
+            if sidefilter == "English":
+                results = results.filter(Q(language="English") | Q(language="en-us") | Q(language="Engels"))
+            elif sidefilter == "Dutch":
+                results = results.filter(Q(language="Dutch") | Q(language="Nederlands"))
+                print(results)
         elif sidefilter in types:
             print("only types as filter")
             filter = ProductDetails.objects.filter(Q(prodNum__in=resultsProductName), type=sidefilter)
@@ -121,8 +130,9 @@ def getSearchResults(query, userAuth, filter="", sidefilter=""):
             print("only publishers as filter")
             # TODO query voor publishers
         elif sidefilter in scores:
+            sidefilter = int(sidefilter)
             print("only scores as filter")
-            # TODO query voor scorelist
+            results = results.filter(rating=sidefilter)
     elif sidefilter != "items" and filter != "items":
         print("Both sidefilter and small filter, such as ascending and genre")
         if sidefilter in languages and filter == "asc":
@@ -147,7 +157,6 @@ def getSearchResults(query, userAuth, filter="", sidefilter=""):
         filter = resultsProductName.order_by(filterdict[filter])
     else:
         print("No filters at all")
-        filter = results
 
     txt = """<div class='sorton commoncolor' style='border-radius: 3px'>
          <p>Totale Resultaten: </p>
@@ -184,86 +193,21 @@ def getSearchResults(query, userAuth, filter="", sidefilter=""):
     """
 
     counter = 0
-    if filter == results:
-        # wanneer er helemaal geen filter is, aka url = "/items/items"
-        """
-        Hierbij is de filter de results:
-               results = ProductDetails.objects.filter(
-            Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(
-                language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(
-                pubDatum__icontains=query) | Q(prodNum__in=resultsProductName))
-        """
-        print("Geen filters")
-        for e in filter:
-            if counter == 0:
-                txt += "<ul class='list'>"
-            txt = txt + "<li><div class='productwrap'><a href='/product/" + str(
-                e.prodNum.prodNum) + "'><img src='" + e.imageLink + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + e.author + "</p><p class='name'>" + getProdName(
-                e.prodNum.prodNum) + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(
-                getProdPrice(e.prodNum.prodNum)) + "</p><button name='addToCartItemBoxButton' value='" + str(
-                e.prodNum) + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
-            if userAuth:
-                txt = txt + "<button name='moveToWishListButton' value='" + str(
-                    e.prodNum.prodNum) + "' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
-            txt = txt + "<p class='stock'>Voorraad: " + str(getProdStock(e.prodNum.prodNum)) + "</p></div></li>"
-            if counter == 2:
-                txt += "</ul>"
-                counter = 0
-            else:
-                counter = counter + 1
-    elif sidefilter != "items":
-        # wanneer er wel een sidefilter is, of (een sidefilter en een small filter)
-        """
-        Hierbij is de filter gelijk aan:
-            filter = resultsProductName.order_by(filterdict[filter])
-        """
-        print(sidefilter)
-        print("minstens wel een sidefilter")
-        for e in filter:
-            print("this is prodNum test: ", e)
-        for e in filter:
-            if counter == 0:
-                txt += "<ul class='list'>"
-            txt = txt + "<li><div class='productwrap'><a href='/product/" + str(
-                e.prodNum) + "'><img src='" + getProdImage(
-                e.prodNum) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + getProdAuthor(
-                e.prodNum) + "</p><p class='name'>" + getProdName(
-                e.prodNum) + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(
-                getProdPrice(e.prodNum)) + "</p><button name='addToCartItemBoxButton' value='" + "e.prodNum" + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
-            if userAuth:
-                txt = txt + "<button name='moveToWishListButton' value='" + str(
-                    e.prodNum) + "' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
-            txt = txt + "<p class='stock'>Voorraad: " + str(getProdStock(e.prodNum)) + "</p></div></li>"
-            if counter == 2:
-                txt += "</ul>"
-                counter = 0
-            else:
-                counter = counter + 1
-    else:
-        # wanneer er alleen de small filter is, bvb "/asc/items"
-        """
-        Hierbij is de filter gelijk aan:
-            filter = resultsProductName.order_by(filterdict[filter])
-        """
-        print("Alleen een small filter")
-        for e in filter:
-            if counter == 0:
-                txt += "<ul class='list'>"
-            txt = txt + "<li><div class='productwrap'><a href='/product/" + str(
-                e.prodNum) + "'><img src='" + getProdImage(
-                e.prodNum) + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + getProdAuthor(
-                e.prodNum) + "</p><p class='name'>" + e.prodName + "</p><p><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i><i class='fa fa-star' aria-hidden='true'></i></p><p class='price'>€ " + str(
-                e.prodPrice) + "</p><button name='addToCartItemBoxButton' value='" + str(
-                e.prodNum) + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
-            if userAuth:
-                txt = txt + "<button name='moveToWishListButton' value='" + str(
-                    e.prodNum) + "' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
-            txt = txt + "<p class='stock'>Voorraad: " + str(e.prodStock) + "</p></div></li>"
-            if counter == 2:
-                txt += "</ul>"
-                counter = 0
-            else:
-                counter = counter + 1
+    for e in results:
+        if counter == 0:
+            txt += "<ul class='list'>"
+        txt = txt + "<li><div class='productwrap'><a href='/product/" + str(e.prodNum.prodNum) + "'><img src='" + e.imageLink + "' id='zoom_05' data-zoom-image='https://i.pinimg.com/736x/86/ff/e2/86ffe2b49daf0feed78a1c336753696d--black-panther-comic-digital-comics.jpg'></a><p class='author'>" + e.author + "</p><p class='name'>" + getProdName(e.prodNum.prodNum) + "</p><p></p>"
+        for i in range(0, e.rating):
+            txt = txt + "<i class='fa fa-star' aria-hidden='true'></i>"
+        txt = txt + "<p class='price'>€ " + str(e.prodNum.prodPrice) + "</p><button name='addToCartItemBoxButton' value='" + str(e.prodNum.prodNum) + "'class='addtocart'><i class='fa fa-plus' aria-hidden='true'></i><i class='fa fa-shopping-cart' aria-hidden='true'></i></button>"
+        if userAuth:
+            txt = txt + "<button name='moveToWishListButton' value='" + str(e.prodNum.prodNum) + "' class='wishlist'><i class='fa fa-heart' aria-hidden='true'></i></button>"
+        txt = txt + "<p class='stock'>Voorraad: " + str(e.prodNum.prodStock) + "</p></div></li>"
+        if counter == 2:
+            txt += "</ul>"
+            counter = 0
+        else:
+            counter = counter + 1
     return txt
 
 
