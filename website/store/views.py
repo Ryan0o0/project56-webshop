@@ -188,7 +188,8 @@ def product(request, item):
         'prodDate' : prodDate,
     })
 
-def search(request, query, filter=""):
+def search(request, query, filter="", sidefilter=""):
+    sidefilters = ['language', 'publisher', 'type', 'pmin', 'pmax', 'score']
     if request.method == 'POST':
         print(request.POST)
         if 'addToCartItemBoxButton' in request.POST:
@@ -202,13 +203,17 @@ def search(request, query, filter=""):
             return searchPost(request)
         elif 'searchtext' in request.POST:
             return searchPost(request)
+        elif "sidefilter" in request.POST:
+            print("Found sidefilters")
+            return searchPost(request)			
 
     # filt = "{}".format(request.POST.get('filter'))
     # print(filt)
     thequery = query
     thefilter = filter
+    thesidefilter = sidefilter
     return render(request, 'searchresults.html', {
-        'query' : thequery, 'filt' : thefilter,
+        'query' : thequery, 'filt' : thefilter, 'sidefilt' : thesidefilter,
     })
 
 
