@@ -1,5 +1,5 @@
 from ..models import Products, ProductDetails, Address, Customers
-import math
+from itertools import chain
 from django.db.models import Q
 
 def getProdNum(prNum):
@@ -78,8 +78,14 @@ def getSearchResults(query, userAuth, filter=""):
     #qrytxt = "SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter
     #object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter)
 
-    resultsProductName = Products.objects.filter(prodName__icontains=query).order_by("prodPrice")
-    results = ProductDetails.objects.filter(Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(pubDatum__icontains=query) | Q(prodNum__in=resultsProductName))
+
+    #Om te zorgen dat zoekresultaten boven met Title contains Query boven de andere zoekresultaten komen
+    #doen we resultsTitle en resultsDetails, daarna voegen we ze samen
+    resultsProductName = Products.objects.filter(prodName__icontains=query)
+    resultsTitle = ProductDetails.objects.filter(Q(prodNum__in=resultsProductName))
+    resultsDetails = ProductDetails.objects.filter(Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(pubDatum__icontains=query)).exclude(prodNum__in=resultsProductName)
+
+    results = list(chain(resultsTitle, resultsDetails))
 
     txt = """<div class='sorton commoncolor' style='border-radius: 3px'>
          <p>Totale Resultaten: </p>
