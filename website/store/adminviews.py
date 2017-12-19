@@ -51,6 +51,19 @@ def searchusersresults(request):
         'query' : getUserPar,
     })
 
+#Wat hierboven staat maar dan voor producten
+def searchproducts(request):
+    if request.method == 'GET':
+        if 'query' in request.GET:
+            return searchproductresults(request)
+    return render(request, 'admin/searchproducts.html')
+
+def searchproductresults(request):
+    getProductPar = request.GET['query']
+    return render(request, 'admin/searchproducts.html', {
+        'query' : getProductPar,
+    })
+
 def createuser(request):
     if request.method == 'POST':
         form = AdminRegistrationForm(request.POST)

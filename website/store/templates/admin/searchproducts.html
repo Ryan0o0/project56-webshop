@@ -23,9 +23,9 @@
 	{% if user.is_authenticated %}
 		{% if user.is_staff %}
 		<div class="middle">
-      {% userFound query as usersFoundBool %}
-      {% if usersFoundBool %}
-      {% autoescape off %}{% displayResults query %}{% endautoescape %}
+      {% productFound query as productsFoundBool %}
+      {% if productsFoundBool %}
+      {% autoescape off %}{% displayProducts query %}{% endautoescape %}
       {% else %}
       <div>Oeps, niets gevonden!</div>
       {% endif %}
