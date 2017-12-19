@@ -41,6 +41,12 @@ def language_validator(language):
     if language != "Engels" or language != "Nederlands" or language != "EN-US":
         raise ValidationError(_('Taal is ongeldig'))
 
-
-
-
+def string_validator(genre):
+    output = ""
+    i = 0
+    while (i < genre.length):
+      if (not(genre[i].isDigit())):
+        output += genre[i]
+    if output == "":
+      return "Not Provided"
+    return output

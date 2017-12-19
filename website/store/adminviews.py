@@ -12,10 +12,9 @@ from django.contrib.auth.models import User
 from .models import OrderDetails
 #Admin index - comicfire.com/admin/
 from django.views import View
-
 from store.collections.forms import EditUserForm, LogginginForm
 from .models import ProductDetails, Products
-from store.database.adminGetData import ifUserExists
+from store.database.adminGetData import ifUserExists, ifProductExists
 from django.contrib.auth import login, logout, update_session_auth_hash
 from .collections.tools import *
 from .database.AccountOps import *
@@ -52,6 +51,19 @@ def searchusersresults(request):
     getUserPar = request.GET['query']
     return render(request, 'admin/searchuser.html', {
         'query' : getUserPar,
+    })
+
+#Wat hierboven staat maar dan voor producten
+def searchproducts(request):
+    if request.method == 'GET':
+        if 'query' in request.GET:
+            return searchproductresults(request)
+    return render(request, 'admin/searchproducts.html')
+
+def searchproductresults(request):
+    getProductPar = request.GET['query']
+    return render(request, 'admin/searchproducts.html', {
+        'query' : getProductPar,
     })
 
 def createuser(request):
@@ -114,6 +126,7 @@ class EditProduct(View):
             })
         if 'editproduct' in request.POST:
             product_form = EditProductForm(request.POST)
+            print(product_form)
             if product_form.is_valid():
                 editProduct(request, item)
                 return redirect('/admin/')
