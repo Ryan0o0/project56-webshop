@@ -200,7 +200,7 @@ def search(request, query, filter=""):
             filters['score'] = request.GET.getlist('score')
             args['scores'] = request.GET.getlist('score')
         if 'type' in request.GET:
-            filters['type'] = request.GET.getlist('type')
+            filters['type'] = request.GET.getlist('type') #TODO: CONTINU HERE
             args['types'] = request.GET.getlist('type')
         if 'publisher' in request.GET:
             filters['publisher'] = request.GET['publisher']
