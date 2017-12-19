@@ -71,7 +71,7 @@ def getProdImage(prNum):
     return object.imageLink
 
 
-def getSearchResults(query, userAuth, filter="", sidefilter=""):
+def getSearchResults(query, userAuth, filteritems, filter="", sidefilter=""):
     # Structuur url: localhost:8000/search/Hulk/{smallfilter bvb 'asc'}/{sidefilter aka 'Dutch'}/
     # Voorbeeld beide filters url: localhost:8000/search/Hulk/priceasc/marvel/
 
@@ -82,81 +82,36 @@ def getSearchResults(query, userAuth, filter="", sidefilter=""):
 
     selected = filter
 
-    print(filter)
-
     resultsProductName = Products.objects.filter(prodName__icontains=query)
-    resultsTitle = ProductDetails.objects.filter(Q(prodNum__in=resultsProductName))
-    resultsDetails = ProductDetails.objects.filter(
-        Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(
-            language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(
-            pubDatum__icontains=query)).exclude(prodNum__in=resultsProductName)
-    results = resultsTitle | resultsDetails
+    results = ProductDetails.objects.filter(Q(genre__icontains=query) | Q(type__icontains=query) | Q(publisher__icontains=query) | Q(language__icontains=query) | Q(author__icontains=query) | Q(desc__icontains=query) | Q(pubDatum__icontains=query) | Q(prodNum__in=resultsProductName))
 
-    # languages
-    languages = ['English', 'Dutch']
+    if 'language' in filteritems and results.exists():
+        languages = []
+        for language in filteritems['language']:
+            if language == 'English':
+                languages.append(language)
+                languages.append('Engels')
+                languages.append('en-us')
+            elif language == 'Dutch':
+                languages.append(languages)
+                languages.append('nl-nl')
+                languages.append('Nederlands')
+        results = results.filter(language__in=languages)
+    if 'type' in filteritems and results.exists():
+        results = results.filter(type__icontains=filteritems['type'])
+    if 'publisher' in filteritems and results.exists():
+        results = results.filter(publisher__icontains=filteritems['publisher'])
+    if 'score' in filteritems and results.exists():
+        scores = []
+        for score in filteritems['score']:
+            scores.append(score)
+        results = results.filter(rating__in=scores)
+    if 'pmax' in filteritems and 'pmin' in filteritems and results.exists():
+        results = results.filter(prodNum__prodPrice__lte=filteritems['pmax'], prodNum__prodPrice__gte=filteritems['pmin'])
 
-    # types
-    types = ['manga', 'comic', 'shortstory']
-
-    # publishers
-    publishers = ['marvel', 'dc']
-
-    # scorelist
-    scores = ['1', '2', '3', '4', '5']
-
-    # dict for filters
-    filterdict = {
-        "asc" : "prodName",
-        "desc" : "-prodName",
-        "priceasc" : "prodPrice",
-        "pricedesc" : "-prodPrice",
-        "items" : "prodName"
-    }
-
-    # check welke filters er zijn meegegeven
-    if sidefilter != "items" and filter == "items":
-        print("Only sidefilter, such as price or genre")
-        if sidefilter in languages:
-            print(sidefilter)
-            if sidefilter == "English":
-                results = results.filter(Q(language="English") | Q(language="en-us") | Q(language="Engels"))
-            elif sidefilter == "Dutch":
-                results = results.filter(Q(language="Dutch") | Q(language="Nederlands"))
-                print(results)
-        elif sidefilter in types:
-            print("only types as filter")
-            filter = ProductDetails.objects.filter(Q(prodNum__in=resultsProductName), type=sidefilter)
-        elif sidefilter in publishers:
-            print("only publishers as filter")
-            # TODO query voor publishers
-        elif sidefilter in scores:
-            sidefilter = int(sidefilter)
-            print("only scores as filter")
-            results = results.filter(rating=sidefilter)
-    elif sidefilter != "items" and filter != "items":
-        print("Both sidefilter and small filter, such as ascending and genre")
-        if sidefilter in languages and filter == "asc":
-            print("asc and languages")
-            # TODO query voor sidefilter en filter
-            # filter = resultsProductName.order_by(filterdict[filter])
-        elif sidefilter in types and filter == "desc":
-            print("desc and types")
-            # TODO query voor sidefilter en filter
-            # filter = resultsProductName.order_by(filterdict[filter])
-        elif sidefilter in publishers and filter == "priceasc":
-            print("priceasc and types")
-            # TODO query voor sidefilter en filter
-            # filter = resultsProductName.order_by(filterdict[filter])
-        elif sidefilter in scores and filter == "pricedesc":
-            print("scores and types")
-            # TODO query voor sidefilter en filter
-            # filter = resultsProductName.order_by(filterdict[filter])
-    elif sidefilter == "items" and filter != "items":
-        print("Only small filter, such as descending or ascending")
-        print(filterdict[filter])
-        filter = resultsProductName.order_by(filterdict[filter])
-    else:
-        print("No filters at all")
+    #Does not work, will fix later...
+    if filter == 'asc':
+        results.order_by('prodNum__prodName')
 
     txt = """<div class='sorton commoncolor' style='border-radius: 3px'>
          <p>Totale Resultaten: </p>
@@ -183,14 +138,6 @@ def getSearchResults(query, userAuth, filter="", sidefilter=""):
     # TODO: Hall of Shame Code right here
     # qrytxt = "SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter
     # object = ProductDetails.objects.raw("SELECT * FROM store_products INNER JOIN store_productdetails on store_products.\"prodNum\" = store_productdetails.\"prodNum\" WHERE \"prodName\" like '%%" + query + "%%' " + filter)
-
-
-    # TODO: sortering fixen, e.prodNum en e.prodNum.prodNum problemen
-
-    """
-    Hieronder wordt het html loop gesorteerd op basis van de filter. De ene filter kun je wel 'e.prodNum doen,
-    maar bij de ander niet D:
-    """
 
     counter = 0
     for e in results:
