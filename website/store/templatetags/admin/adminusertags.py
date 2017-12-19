@@ -100,6 +100,12 @@ def isSameUser(request, id):
     return False
 
 @register.simple_tag()
+def isSameProduct(request, id):
+    if request.user.id == int(id):
+        return True
+    return False
+
+@register.simple_tag()
 def getMonth(month):
     if month == 1:
         return "januari"

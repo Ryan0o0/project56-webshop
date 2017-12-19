@@ -13,7 +13,7 @@ from .models import OrderDetails
 #Admin index - comicfire.com/admin/
 from django.views import View
 from .models import Products, ProductDetails
-from store.database.adminGetData import ifUserExists
+from store.database.adminGetData import ifUserExists, ifProductExists
 from django.contrib.auth import login, logout, update_session_auth_hash
 from .collections.tools import *
 from .collections.forms import *
@@ -105,13 +105,13 @@ class EditUser(View):
 
 class EditProduct(View):
     def get(self, request, item):
-        # ProductsData = Products.objects.get(prodNum=item)
-        # ProductDetData = ProductDetails.objects.get(prodNum=Products(item))
-        # Data = {'prodName': ProductsData.prodName, 'prodStock': ProductsData.prodStock, 'prodPrice': ProductsData.prodPrice,
-        #         'genre': ProductDetData.genre, 'type': ProductDetData.type, 'publisher': ProductDetData.publisher,
-        #         'totalPages': ProductDetData.totalPages, 'language': ProductDetData.language,  'rating': ProductDetData.rating,
-        #         'author': ProductDetData.author,  'desc': ProductDetData.desc, 'imageLink': ProductDetData.imageLink, 'pubDatum': ProductDetData.pubDatum }
-        product_form = EditProductForm()
+        ProductsData = Products.objects.get(prodNum=item)
+        ProductDetData = ProductDetails.objects.get(prodNum=Products(item))
+        Data = {'prodName': ProductsData.prodName, 'prodStock': ProductsData.prodStock, 'prodPrice': ProductsData.prodPrice,
+                'genre': ProductDetData.genre, 'type': ProductDetData.type, 'publisher': ProductDetData.publisher,
+                'totalPages': ProductDetData.totalPages, 'language': ProductDetData.language,  'rating': ProductDetData.rating,
+                'author': ProductDetData.author,  'desc': ProductDetData.desc, 'imageLink': ProductDetData.imageLink, 'pubDatum': ProductDetData.pubDatum }
+        product_form = EditProductForm(initial=Data)
         return render(request, 'admin/editproduct.html', {
             'item': item,
             'product_form': product_form,
@@ -125,6 +125,7 @@ class EditProduct(View):
             })
         if 'editproduct' in request.POST:
             product_form = EditProductForm(request.POST)
+            print(product_form)
             if product_form.is_valid():
                 editProduct(request, item)
                 return redirect('/admin/')
