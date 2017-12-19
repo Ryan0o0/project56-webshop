@@ -38,3 +38,16 @@ def getUsers(query):
         id = Customers.objects.filter(customerID=query)
         return id
 
+def ifProductExists(query):
+    try:
+        query = int(query)
+    except ValueError:
+        try:
+            query = str(query)
+        except ValueError:
+            print("Error")
+    if isinstance(query, int):
+        idExist = Products.objects.filter(prodNum=query).exists()
+        if idExist == True:
+            return True
+        return False
