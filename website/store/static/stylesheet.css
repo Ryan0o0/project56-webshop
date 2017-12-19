@@ -2265,6 +2265,8 @@ button{
 	margin: 0 auto;
 	width: 80%;
 	position: relative;
+    font: 18px Helvetica, Arial, sans-serif;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
 }
 
 .about {
