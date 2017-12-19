@@ -83,6 +83,15 @@ class ProductsRegistrationForm(ModelForm):
         model = Products
         fields = ("prodName", "prodPrice", "prodStock")
 
+    def clean_prodName(self):
+        pass
+
+    def clean_language(self):
+        LanguageIn = self.cleaned_data['language']
+        language_validator(LanguageIn)
+        return self.cleaned_data['language']
+
+
     def save(self, commit=True):
         products = super(ProductsRegistrationForm, self).save(commit=False)
         maxID = Products.objects.all().aggregate(Max('prodNum'))

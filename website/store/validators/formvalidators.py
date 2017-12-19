@@ -37,6 +37,10 @@ def product_validator(number):
     if number <= 0:
         raise ValidationError(_('Waarde kan niet lager dan 0 zijn!'))
 
+def language_validator(language):
+    if language != "Engels" or language != "Nederlands" or language != "EN-US":
+        raise ValidationError(_('Taal is ongeldig'))
+
 def string_validator(genre):
     output = ""
     i = 0
