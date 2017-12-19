@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.db.models import Max
+from ..validators.formvalidators import *
 
 from store.models import Customers, Address, Products, ProductDetails
 
@@ -80,6 +81,15 @@ class ProductsRegistrationForm(ModelForm):
     class Meta:
         model = Products
         fields = ("prodName", "prodPrice", "prodStock")
+
+    def clean_prodName(self):
+        pass
+
+    def clean_language(self):
+        LanguageIn = self.cleaned_data['language']
+        language_validator(LanguageIn)
+        return self.cleaned_data['language']
+
 
     def save(self, commit=True):
         products = super(ProductsRegistrationForm, self).save(commit=False)
