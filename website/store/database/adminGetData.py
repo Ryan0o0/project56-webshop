@@ -72,3 +72,4 @@ def getProducts(query):
     if isinstance(query, int):
       id = Products.objects.filter(prodNum=query)
       return id
+
