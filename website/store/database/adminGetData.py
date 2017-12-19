@@ -39,15 +39,37 @@ def getUsers(query):
         return id
 
 def ifProductExists(query):
+  try:
+    query = int(query)
+  except ValueError:
     try:
-        query = int(query)
+      query = str(query)
     except ValueError:
-        try:
-            query = str(query)
-        except ValueError:
-            print("Error")
+      return False
+  if isinstance(query, str):
+    prodExist = Products.objects.filter(Q(prodName__icontains=query)).exists()
+    if prodExist == True:
+      return True
+    return False
+  if isinstance(query, int):
+    idExist = Products.objects.filter(prodNum=query).exists()
+    if idExist == True:
+      return True
+    return False
+
+def getProducts(query):
+    try:
+      query = int(query)
+    except ValueError:
+      try:
+        query = str(query)
+      except ValueError:
+        print("Something went really bad...")
+    if isinstance(query, str):
+      products = Products.objects.filter(Q(prodName__icontains=query))
+      return products
+
     if isinstance(query, int):
-        idExist = Products.objects.filter(prodNum=query).exists()
-        if idExist == True:
-            return True
-        return False
+      id = Products.objects.filter(prodNum=query)
+      return id
+
