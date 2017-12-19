@@ -1,7 +1,13 @@
+import datetime
+from django.db.models import Sum, Avg
 from django.shortcuts import render, redirect
+from graphos.renderers import gchart
+from graphos.sources.simple import SimpleDataSource
+
 from store.collections.adminforms import AdminRegistrationForm, ProductsRegistrationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from .models import OrderDetails
 
 #Admin index - comicfire.com/admin/
 from django.views import View
@@ -103,3 +109,42 @@ def createproduct(request):
     else:
         form = ProductsRegistrationForm()
     return render(request, 'admin/createproduct.html', {'form' :  form})
+
+class ProductGraphSelection(View):
+    def get(self, request):
+
+        return render(request, 'admin/productdataselection.html', {})
+
+class ProductGraphMonth(View):
+    def get(self, request, year, month):
+
+        if Orders.objects.filter(orderDate__year__icontains=int(year), orderDate__month=int(month)).exists():
+            ordersInPeriod = Orders.objects.filter(orderDate__year__icontains=int(year), orderDate__month=int(month))
+            orders = OrderDetails.objects.all().filter(orderNum__in=ordersInPeriod) \
+                .values('productNum') \
+                .annotate(amount=Sum('amount')) \
+                .order_by('-amount')[:10]
+
+            dataR = []
+
+            for e in orders:
+                dataR.append([str(e['productNum']), e['amount']])
+
+            data = [
+                ['Product', 'Aantal'],
+            ]
+
+            for e in dataR:
+                data.append(e)
+
+            data_source = SimpleDataSource(data)
+            chart = gchart.BarChart(data_source, options={'title': "Producten / Aantal verkocht"})
+
+            return render(request, 'admin/productdatamonth.html', {
+                'chart' : chart,
+                'year' : int(year),
+                'month' : int(month),
+            })
+        return render(request, 'admin/productdataselection.html', {
+            'warning' : "De combinatie van jaar en maand is niet geldig. Selecteer er één uit de onderstaande lijst."
+        })

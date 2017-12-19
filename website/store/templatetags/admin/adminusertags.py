@@ -98,3 +98,30 @@ def isSameUser(request, id):
     if request.user.id == int(id):
         return True
     return False
+
+@register.simple_tag()
+def getMonth(month):
+    if month == 1:
+        return "januari"
+    elif month == 2:
+        return "februari"
+    elif month == 3:
+        return "maart"
+    elif month == 4:
+        return "april"
+    elif month == 5:
+        return "mei"
+    elif month == 6:
+        return "juni"
+    elif month == 7:
+        return "juli"
+    elif month == 8:
+        return "augustus"
+    elif month == 9:
+        return "september"
+    elif month == 10:
+        return "oktober"
+    elif month == 11:
+        return "november"
+    else:
+        return "december"
